@@ -7,13 +7,8 @@ import (
 )
 
 func SetupAuthenAPI(r *gin.Engine) {
-	authenAPI := r.Group("/api")
+	g := r.Group("/api")
 	{
-		authenAPI.POST("/login", controller.Login)
-
-		// func(ctx *gin.Context) {
-		// 	controller.Login(ctx)
-		// })
-
+		g.POST("/login", controller.Login)
 	}
 }

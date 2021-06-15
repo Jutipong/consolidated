@@ -8,7 +8,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDB() {
-	dsn := "sqlserver://sa:p@ssw0rd@localhost?database=consolidated"
+	dsn := "sqlserver://sa:p@ssw0rd@localhost?database=Consolidated"
 	db, err := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
 	if err != nil {
 		//fmt.Println("statuse: ", err)

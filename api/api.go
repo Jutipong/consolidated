@@ -8,6 +8,7 @@ func Setup() *gin.Engine {
 	router := gin.Default()
 
 	SetupAuthenAPI(router)
+	SetupUserAPI(router)
 	// SetupProductAPI(router)
 	// SetupTransactionAPI(router)
 

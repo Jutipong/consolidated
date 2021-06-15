@@ -7,6 +7,7 @@ import (
 	// "os"
 
 	"consolidated/api"
+	"consolidated/config"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 	//Initial
 	// router := gin.Default()
 
-	// config.ConnectDB()
+	config.ConnectDB()
 	// config.DB.Table("Customer").AutoMigrate(&entity.Customer{})
 
 	//Set up router
