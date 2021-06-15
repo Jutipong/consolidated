@@ -8,7 +8,7 @@ import (
 func main() {
 
 	//## Initial
-	config.ConnectDB()
+	config.SetupDatabase()
 	// config.DB.Table("Customer").AutoMigrate(&entity.Customer{})
 
 	//## Set up router

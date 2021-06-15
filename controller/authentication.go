@@ -3,6 +3,7 @@ package controller
 import (
 	"consolidated/helper"
 	"consolidated/model"
+	"consolidated/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func Login(ctx *gin.Context) {
 			"username or password is not authenticated",
 			helper.GetInvalidMessage(err))
 	} else {
-		helper.RespondJSON(ctx, http.StatusOK, "login ok", nil)
+		token := service.JwtSign(login)
+		helper.RespondJSON(ctx, http.StatusOK, "login ok", gin.H{"token": token})
 	}
 }

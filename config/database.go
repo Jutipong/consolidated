@@ -7,7 +7,7 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDB() {
+func SetupDatabase() {
 	dsn := "sqlserver://sa:p@ssw0rd@localhost?database=Consolidated"
 	db, err := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
 	if err != nil {
