@@ -1,27 +1,20 @@
 package main
 
 import (
-	// "init/config"
-	// "init/entity"
-	// "init/routers"
-	// "os"
-
-	"consolidated/api"
 	"consolidated/config"
+	"consolidated/router"
 )
 
 func main() {
 
-	//Initial
-	// router := gin.Default()
-
+	//## Initial
 	config.ConnectDB()
 	// config.DB.Table("Customer").AutoMigrate(&entity.Customer{})
 
-	//Set up router
-	router := api.Setup()
+	//## Set up router
+	router := router.Setup()
 
-	//Set startup port
+	//## Set port
 	port := "8080"
 	router.Run(":" + port)
 }

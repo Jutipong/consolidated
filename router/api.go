@@ -1,4 +1,4 @@
-package api
+package router
 
 import (
 	"github.com/gin-gonic/gin"
@@ -9,8 +9,6 @@ func Setup() *gin.Engine {
 
 	SetupAuthenAPI(router)
 	SetupUserAPI(router)
-	// SetupProductAPI(router)
-	// SetupTransactionAPI(router)
 
 	return router
 }
