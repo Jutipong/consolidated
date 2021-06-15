@@ -2,10 +2,10 @@ package service
 
 import (
 	"consolidated/config"
+	"consolidated/helper"
 	"consolidated/model"
 	"fmt"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -37,8 +37,15 @@ func JwtSign(payload model.Login) string {
 }
 
 func JwtVerify(c *gin.Context) {
-	tokenString := strings.Split(c.Request.Header["Authorization"][0], " ")[1]
-	fmt.Println(tokenString)
+
+	const BEARER_SCHEMA = "Bearer "
+	authHeader := c.GetHeader("Authorization")
+	if len(authHeader) == 0 {
+		helper.RespondJSON(c, http.StatusUnauthorized, "authorization is empty", nil)
+		c.Abort()
+	}
+
+	tokenString := authHeader[len(BEARER_SCHEMA):]
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
@@ -58,45 +65,7 @@ func JwtVerify(c *gin.Context) {
 
 		c.Next()
 	} else {
-		c.JSON(http.StatusOK, gin.H{"result": "nok", "message": "invalid token", "error": err})
+		helper.RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
 	}
 }
-
-// func JwtVerify() gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		var tokenString string
-
-// 		const BEARER_SCHEMA = "Bearer "
-// 		authHeader := c.GetHeader("Authorization")
-// 		if authHeader == "" {
-// 			log.Println("token is empty")
-// 			c.AbortWithStatus(http.StatusUnauthorized)
-// 			return
-// 		}
-
-// 		tokenString = authHeader[len(BEARER_SCHEMA):]
-// 		token, err := validateToken(tokenString)
-// 		if token.Valid {
-// 			claims := token.Claims.(jwt.MapClaims)
-// 			log.Println("Claims[Name]: ", claims["name"])
-// 			log.Println("Claims[Admin]: ", claims["admin"])
-// 			log.Println("Claims[Issuer]: ", claims["iss"])
-// 			log.Println("Claims[IssuedAt]: ", claims["iat"])
-// 			log.Println("Claims[ExpiresAt]: ", claims["exp"])
-// 		} else {
-// 			log.Println(err)
-// 			c.AbortWithStatus(http.StatusUnauthorized)
-// 		}
-// 	}
-// }
-
-// func validateToken(tokenString string) (*jwt.Token, error) {
-// 	return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-// 		// Signing method validation
-// 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-// 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
-// 		}
-// 		return []byte(getSecretKey()), nil
-// 	})
-// }
