@@ -13,12 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Employee struct {
-	Name   string `json:"empname"`
-	Number int    `json:"empid"`
-}
-
-var secretKey = config.GetsecretKey()
+var _secretKey = config.GetSecretKey()
 
 func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
@@ -27,14 +22,6 @@ func JwtGenerate(payload model.Login) string {
 	// atClaims["id"] = payload.ID
 	// atClaims["username"] = payload.Username
 	// atClaims["level"] = payload.Level
-
-	// emp := &Employee{Name: "Rocky", Number: 5454}
-	// e, err := json.Marshal(emp)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// fmt.Println(string(e))
-
 	userRequest := &model.UserRequest{
 		EmpCode:     "C0001",
 		User:        "Jutipong Subin",
@@ -52,9 +39,8 @@ func JwtGenerate(payload model.Login) string {
 	// Payload end
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	token, _ := at.SignedString([]byte(secretKey))
+	token, _ := at.SignedString([]byte(_secretKey))
 	return token
-
 }
 
 func JwtVerify(c *gin.Context) {
@@ -71,7 +57,7 @@ func JwtVerify(c *gin.Context) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(secretKey), nil
+		return []byte(_secretKey), nil
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
