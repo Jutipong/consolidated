@@ -17,7 +17,7 @@ func Login(ctx *gin.Context) {
 			"username or password is not authenticated",
 			helper.GetInvalidMessage(err))
 	} else {
-		token := service.JwtSign(login)
+		token := service.JwtGenerate(login)
 		helper.RespondJSON(ctx, http.StatusOK, "login ok", gin.H{"token": token})
 	}
 }

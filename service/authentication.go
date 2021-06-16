@@ -20,7 +20,7 @@ import (
 
 var secretKey = config.GetsecretKey()
 
-func JwtSign(payload model.Login) string {
+func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
 
 	// Payload begin
@@ -54,15 +54,12 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		fmt.Println(claims)
-
 		staffID := fmt.Sprintf("%v", claims["id"])
 		username := fmt.Sprintf("%v", claims["jwt_username"])
 		level := fmt.Sprintf("%v", claims["jwt_level"])
 		c.Set("jwt_staff_id", staffID)
 		c.Set("jwt_username", username)
 		c.Set("jwt_level", level)
-
 		c.Next()
 	} else {
 		helper.RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
