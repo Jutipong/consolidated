@@ -6,12 +6,11 @@ import (
 )
 
 func init() {
-	//## Get config
-	if err := config.LoadConfig("./config"); err != nil {
-		// log.Println(fmt.Errorf("invalid application configuration: %s", err))
+	//## Config
+	if err := config.SetupConfg("./config"); err != nil {
 		panic("fail get config: config.yaml")
 	} else {
-		//## Initial
+		//## Database
 		config.SetupDatabase()
 	}
 }
