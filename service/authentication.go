@@ -4,6 +4,7 @@ import (
 	"consolidated/config"
 	"consolidated/helper"
 	"consolidated/model"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -12,11 +13,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// type jwtCustomClaims struct {
-// 	Name  string `json:"name"`
-// 	Admin bool   `json:"admin"`
-// 	jwt.StandardClaims
-// }
+type Employee struct {
+	Name   string `json:"empname"`
+	Number int    `json:"empid"`
+}
 
 var secretKey = config.GetsecretKey()
 
@@ -25,9 +25,30 @@ func JwtGenerate(payload model.Login) string {
 
 	// Payload begin
 	// atClaims["id"] = payload.ID
-	atClaims["username"] = payload.Username
+	// atClaims["username"] = payload.Username
 	// atClaims["level"] = payload.Level
-	atClaims["exp"] = time.Now().Add(time.Minute * 5).Unix()
+
+	// emp := &Employee{Name: "Rocky", Number: 5454}
+	// e, err := json.Marshal(emp)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// fmt.Println(string(e))
+
+	userRequest := &model.UserRequest{
+		EmpCode:     "C0001",
+		User:        "Jutipong Subin",
+		Permissions: "Admin",
+	}
+
+	b, err := json.Marshal(userRequest)
+	if err != nil {
+		fmt.Println(err)
+		return fmt.Sprintf("generate token err: %s", err.Error())
+	}
+
+	atClaims["UserRequest"] = string(b)
+	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 	// Payload end
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
@@ -54,12 +75,14 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		staffID := fmt.Sprintf("%v", claims["id"])
-		username := fmt.Sprintf("%v", claims["jwt_username"])
-		level := fmt.Sprintf("%v", claims["jwt_level"])
-		c.Set("jwt_staff_id", staffID)
-		c.Set("jwt_username", username)
-		c.Set("jwt_level", level)
+		// staffID := fmt.Sprintf("%v", claims["id"])
+		// username := fmt.Sprintf("%v", claims["jwt_username"])
+		// level := fmt.Sprintf("%v", claims["jwt_level"])
+		// c.Set("jwt_staff_id", staffID)
+		// c.Set("jwt_username", username)
+		// c.Set("jwt_level", level)
+		// UserRequest := fmt.Sprintf("%v", claims["UserRequest"])
+		c.Set("UserRequest", claims["UserRequest"])
 		c.Next()
 	} else {
 		helper.RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)

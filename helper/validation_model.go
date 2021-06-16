@@ -114,7 +114,7 @@ func Descriptive(verr validator.ValidationErrors) []ValidationError {
 	return errs
 }
 
-func GetInvalidMessage(err error) []ValidationError {
+func GetErrShouldBind(err error) []ValidationError {
 	errs := []ValidationError{}
 	if err != nil {
 		var valid validator.ValidationErrors

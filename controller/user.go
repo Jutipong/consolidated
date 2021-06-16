@@ -4,10 +4,8 @@ import (
 	"consolidated/entity"
 	"consolidated/helper"
 	"consolidated/service"
-	"errors"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 )
 
 func FindID(c *gin.Context) {
@@ -36,11 +34,7 @@ func AddNewCustomer(c *gin.Context) {
 	err := c.ShouldBind(&user)
 	c.BindJSON(&user)
 	if err != nil {
-		var verr validator.ValidationErrors
-		if errors.As(err, &verr) {
-			helper.RespondJSON(c, 404, "errors", helper.Descriptive(verr))
-			return
-		}
+		helper.RespondJSON(c, 404, "errors", helper.GetErrShouldBind(err))
 	}
 	err = service.AddNewCustomer(&user)
 	if err != nil {
