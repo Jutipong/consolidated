@@ -5,11 +5,18 @@ import (
 	"consolidated/router"
 )
 
-func main() {
+func init() {
+	//## Get config
+	if err := config.LoadConfig("./config"); err != nil {
+		// log.Println(fmt.Errorf("invalid application configuration: %s", err))
+		panic("fail get config: config.yaml")
+	} else {
+		//## Initial
+		config.SetupDatabase()
+	}
+}
 
-	//## Initial
-	config.SetupDatabase()
-	// config.DB.Table("Customer").AutoMigrate(&entity.Customer{})
+func main() {
 
 	//## Set up router
 	router := router.Setup()

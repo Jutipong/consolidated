@@ -8,6 +8,7 @@ require (
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/google/uuid v1.2.0
+	github.com/spf13/viper v1.8.0
 	gorm.io/driver/sqlserver v1.0.7
 	gorm.io/gorm v1.21.10 // indirect
 )

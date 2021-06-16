@@ -1,0 +1,10 @@
+Server:
+  Env: "development"
+  RunMode: "debug"
+  SecretKey: "85jf89gwh[45985jrnw0tui45039469372876@#$%^&*()sdfsf"
+Databaseconfig:
+  Server: "localhost"
+  Port: 1433
+  User: "sa"
+  Pass: "p@ssw0rd"
+  DatabaseName: "Consolidated"

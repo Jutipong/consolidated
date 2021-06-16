@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var _secretKey = config.GetSecretKey()
+// var _secretKey = config.Config.Server.SecretKey
 
 func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
@@ -39,7 +39,7 @@ func JwtGenerate(payload model.Login) string {
 	// Payload end
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	token, _ := at.SignedString([]byte(_secretKey))
+	token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
 	return token
 }
 
@@ -50,6 +50,7 @@ func JwtVerify(c *gin.Context) {
 	if len(authHeader) == 0 {
 		helper.RespondJSON(c, http.StatusUnauthorized, "authorization is empty", nil)
 		c.Abort()
+		return
 	}
 
 	tokenString := authHeader[len(BEARER_SCHEMA):]
@@ -57,7 +58,7 @@ func JwtVerify(c *gin.Context) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(_secretKey), nil
+		return []byte(config.Config.Server.SecretKey), nil
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
