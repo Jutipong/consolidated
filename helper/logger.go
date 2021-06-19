@@ -40,6 +40,7 @@ func SetupLogger() {
 	log.SetOutput(writer)
 }
 
+//## Info
 //## Any
 func LogInfo(objs interface{}) {
 	log.Info(objs)
@@ -69,8 +70,64 @@ func LogInfoResponse(c *gin.Context, objs interface{}) {
 	log.Info(string(b))
 }
 
+//## Warn
+//## Any
+func LogWarn(objs interface{}) {
+	log.Warn(objs)
+}
+
+//## Request
+func LogWarnReqquest(c *gin.Context, objs interface{}) {
+	cu := GetUserRequest(c)
+	b, _ := json.Marshal(
+		model.LoggerTrasection{
+			Type:         "Request",
+			TransationId: cu.TransationId,
+			Data:         objs,
+		})
+	log.Warn(string(b))
+}
+
+//## Response
+func LogWarnResponse(c *gin.Context, objs interface{}) {
+	cu := GetUserRequest(c)
+	b, _ := json.Marshal(
+		model.LoggerTrasection{
+			Type:         "Response",
+			TransationId: cu.TransationId,
+			Data:         objs,
+		})
+	log.Warn(string(b))
+}
+
+//## Error
+//## Any
 func LogError(objs interface{}) {
 	log.Error(objs)
+}
+
+//## Request
+func LogErrorReqquest(c *gin.Context, objs interface{}) {
+	cu := GetUserRequest(c)
+	b, _ := json.Marshal(
+		model.LoggerTrasection{
+			Type:         "Request",
+			TransationId: cu.TransationId,
+			Data:         objs,
+		})
+	log.Error(string(b))
+}
+
+//## Response
+func LogErrorResponse(c *gin.Context, objs interface{}) {
+	cu := GetUserRequest(c)
+	b, _ := json.Marshal(
+		model.LoggerTrasection{
+			Type:         "Response",
+			TransationId: cu.TransationId,
+			Data:         objs,
+		})
+	log.Error(string(b))
 }
 
 // func main() {

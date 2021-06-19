@@ -12,7 +12,7 @@ func init() {
 		panic("fail get config: config.yaml")
 	} else {
 		//## Database
-		// config.SetupDatabase()
+		config.SetupDatabase()
 		//## Logger
 		helper.SetupLogger()
 	}

@@ -10,6 +10,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func JwtGenerate(payload model.Login) string {
@@ -20,8 +21,9 @@ func JwtGenerate(payload model.Login) string {
 	// atClaims["username"] = payload.Username
 	// atClaims["level"] = payload.Level
 	userRequest := &model.UserRequest{
-		EmpCode:     "C0001",
-		User:        "Jutipong Subin",
+		SystemId:    "S0001",
+		EmpCode:     "E0001",
+		User:        "U0001",
 		Permissions: "Admin",
 	}
 
@@ -45,7 +47,7 @@ func JwtVerify(c *gin.Context) {
 	const BEARER_SCHEMA = "Bearer "
 	authHeader := c.GetHeader("Authorization")
 	if len(authHeader) == 0 {
-		RespondJSON(c, http.StatusUnauthorized, "authorization is empty", nil)
+		RespondJSON(c, http.StatusBadRequest, "authorization is empty", nil)
 		c.Abort()
 		return
 	}
@@ -59,18 +61,32 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		// staffID := fmt.Sprintf("%v", claims["id"])
-		// username := fmt.Sprintf("%v", claims["jwt_username"])
-		// level := fmt.Sprintf("%v", claims["jwt_level"])
-		// c.Set("jwt_staff_id", staffID)
-		// c.Set("jwt_username", username)
-		// c.Set("jwt_level", level)
-		// UserRequest := fmt.Sprintf("%v", claims["UserRequest"])
-		c.Set("UserRequest", claims["UserRequest"])
-		c.Next()
+		//## Encode json
+		jsonData := fmt.Sprint(claims["UserRequest"])
+
+		if jsonData == "" {
+			RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
+			c.Abort()
+			return
+		} else {
+			var uc model.UserRequest
+			json.Unmarshal([]byte(string(jsonData)), &uc)
+
+			//## Add TransationId
+			uc.TransationId = uuid.New().String()
+
+			//## obj to json
+			b, _ := json.Marshal(uc)
+
+			//## set to gin
+			c.Set("UserRequest", string(b))
+			c.Next()
+		}
+
 	} else {
 		RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
+		return
 	}
 }
 

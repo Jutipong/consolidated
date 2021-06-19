@@ -8,15 +8,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Login(ctx *gin.Context) {
+func Login(c *gin.Context) {
 	var login model.Login
-	err := ctx.ShouldBind(&login)
+	err := c.ShouldBind(&login)
 	if err != nil {
-		helper.RespondJSON(ctx, http.StatusUnauthorized,
+		helper.RespondJSON(c, http.StatusUnauthorized,
 			"username or password is not authenticated",
 			helper.GetErrShouldBind(err))
 	} else {
 		token := helper.JwtGenerate(login)
-		helper.RespondJSON(ctx, http.StatusOK, "login ok", gin.H{"token": token})
+		c.JSON(http.StatusOK, gin.H{"token": token})
+		// helper.RespondJSON(c, http.StatusOK, "login ok", gin.H{"token": token})
 	}
 }

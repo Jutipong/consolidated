@@ -16,6 +16,7 @@ type ResponseData struct {
 func RespondJSON(c *gin.Context, status int, message string, payload interface{}) {
 	var res ResponseData
 
+	//## Initial data
 	res.Status = status
 	if res.Status == http.StatusOK {
 		res.Message = "Success"
@@ -24,13 +25,25 @@ func RespondJSON(c *gin.Context, status int, message string, payload interface{}
 	}
 	res.Data = payload
 
-	LogInfoResponse(c, res)
+	//## Logger response
+	switch status {
+	case http.StatusOK:
+		LogInfoResponse(c, res)
+	case http.StatusBadRequest:
+		LogWarnResponse(c, res)
+	case http.StatusUnauthorized:
+		LogWarnResponse(c, res)
+	default:
+		LogErrorResponse(c, res)
+	}
+
+	//## Next
 	c.JSON(http.StatusOK, res)
 }
 
 func LoggerRequest(c *gin.Context) {
 	var res ResponseData
-	fmt.Println("req: ",res)
+	fmt.Println("req: ", res)
 	LogInfoReqquest(c, res)
 	c.Next()
 }

@@ -6,8 +6,9 @@ type Login struct {
 }
 
 type UserRequest struct {
+	SystemId     string
 	EmpCode      string
 	User         string
 	Permissions  string
-	TransationId string
+	TransationId string `gorm:"type:uuid;"`
 }
