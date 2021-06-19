@@ -4,6 +4,7 @@ package model
 type ServerConfiguration struct {
 	Env       string
 	RunMode   string
+	Port      string
 	SecretKey string
 }
 
