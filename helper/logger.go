@@ -1,9 +1,12 @@
 package helper
 
 import (
+	"consolidated/model"
+	"encoding/json"
 	"fmt"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	log "github.com/sirupsen/logrus"
 )
@@ -37,8 +40,33 @@ func SetupLogger() {
 	log.SetOutput(writer)
 }
 
+//## Any
 func LogInfo(objs interface{}) {
 	log.Info(objs)
+}
+
+//## Request
+func LogInfoReqquest(c *gin.Context, objs interface{}) {
+	cu := GetUserRequest(c)
+	b, _ := json.Marshal(
+		model.LoggerTrasection{
+			Type:         "Request",
+			TransationId: cu.TransationId,
+			Data:         objs,
+		})
+	log.Info(string(b))
+}
+
+//## Response
+func LogInfoResponse(c *gin.Context, objs interface{}) {
+	cu := GetUserRequest(c)
+	b, _ := json.Marshal(
+		model.LoggerTrasection{
+			Type:         "Response",
+			TransationId: cu.TransationId,
+			Data:         objs,
+		})
+	log.Info(string(b))
 }
 
 func LogError(objs interface{}) {

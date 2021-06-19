@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,7 @@ type ResponseData struct {
 	Data    interface{}
 }
 
-func RespondJSON(ctx *gin.Context, status int, message string, payload interface{}) {
+func RespondJSON(c *gin.Context, status int, message string, payload interface{}) {
 	var res ResponseData
 
 	res.Status = status
@@ -23,5 +24,13 @@ func RespondJSON(ctx *gin.Context, status int, message string, payload interface
 	}
 	res.Data = payload
 
-	ctx.JSON(http.StatusOK, res)
+	LogInfoResponse(c, res)
+	c.JSON(http.StatusOK, res)
+}
+
+func LoggerRequest(c *gin.Context) {
+	var res ResponseData
+	fmt.Println("req: ",res)
+	LogInfoReqquest(c, res)
+	c.Next()
 }

@@ -6,7 +6,8 @@ type Login struct {
 }
 
 type UserRequest struct {
-	EmpCode     string
-	User        string
-	Permissions string
+	EmpCode      string
+	User         string
+	Permissions  string
+	TransationId string
 }
