@@ -2,8 +2,10 @@ package controller
 
 import (
 	"consolidated/entity"
+	"consolidated/enum"
 	"consolidated/helper"
 	"consolidated/service"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,48 +13,48 @@ import (
 func FindID(c *gin.Context) {
 	id := c.Params.ByName("id")
 	user := entity.User{}
+
 	err := service.FindID(&user, id)
-	if err != nil {
-		helper.RespondJSON(c, 404, err.Error(), user)
+	if err == nil {
+		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, 200, "success", user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
 	}
 }
 
 func FindAll(c *gin.Context) {
 	user := []entity.User{}
+
 	err := service.FindAll(&user)
-	if err != nil {
-		helper.RespondJSON(c, 404, err.Error(), user)
+	if err == nil {
+		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, 200, "success", user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
 	}
 }
 
 func AddNewCustomer(c *gin.Context) {
 	var user entity.User
+
 	err := c.ShouldBind(&user)
-	c.BindJSON(&user)
 	if err != nil {
-		helper.RespondJSON(c, 404, "errors", helper.GetErrShouldBind(err))
+		helper.RespondJSON(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
 	}
+
+	c.BindJSON(&user)
 	err = service.AddNewCustomer(&user)
-	if err != nil {
-		helper.RespondJSON(c, 404, err.Error(), user)
+	if err == nil {
+		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, 200, "success", user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
 	}
 }
 
 func PutOneCustomer(c *gin.Context) {
 	var user entity.User
 	id := c.Params.ByName("id")
-	err := service.FindID(&user, id)
-	if err != nil {
-		helper.RespondJSON(c, 404, err.Error(), user)
-	}
 	c.BindJSON(&user)
-	err = service.PutOneCustomer(&user, id)
+	err := service.PutOneCustomer(&user, id)
 	if err != nil {
 		helper.RespondJSON(c, 404, err.Error(), user)
 	} else {
