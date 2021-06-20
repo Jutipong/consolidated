@@ -18,6 +18,5 @@ func Login(c *gin.Context) {
 	} else {
 		token := helper.JwtGenerate(login)
 		c.JSON(http.StatusOK, gin.H{"token": token})
-		// helper.RespondJSON(c, http.StatusOK, "login ok", gin.H{"token": token})
 	}
 }

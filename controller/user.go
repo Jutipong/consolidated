@@ -54,21 +54,23 @@ func PutOneCustomer(c *gin.Context) {
 	var user entity.User
 	id := c.Params.ByName("id")
 	c.BindJSON(&user)
+
 	err := service.PutOneCustomer(&user, id)
-	if err != nil {
-		helper.RespondJSON(c, 404, err.Error(), user)
+	if err == nil {
+		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, 200, "success", user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
 	}
 }
 
 func DeleteCustomer(c *gin.Context) {
 	var user entity.User
 	id := c.Params.ByName("id")
+
 	err := service.DeleteCustomer(&user, id)
-	if err != nil {
-		helper.RespondJSON(c, 404, err.Error(), user)
+	if err == nil {
+		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, 200, "success", user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
 	}
 }

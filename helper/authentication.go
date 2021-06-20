@@ -43,7 +43,6 @@ func JwtGenerate(payload model.Login) string {
 }
 
 func JwtVerify(c *gin.Context) {
-
 	const BEARER_SCHEMA = "Bearer "
 	authHeader := c.GetHeader("Authorization")
 	if len(authHeader) == 0 {
