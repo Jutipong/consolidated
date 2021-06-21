@@ -1,6 +1,9 @@
 package helper
 
 import (
+	"consolidated/enum"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,21 +13,43 @@ type ResponseData struct {
 	Data    interface{}
 }
 
-func RespondJSON(w *gin.Context, status int, message string, payload interface{}) {
+func RespondJSON(c *gin.Context, status int, message string, payload interface{}) {
 	var res ResponseData
+
+	//##Initial data
 	res.Status = status
-	if res.Status == 200 {
-		res.Message = "success"
-
-	} else {
-		res.Message = message
-	}
-
-	//res.Message= IfThenElse(status == 200, "success", message)
-	// fmt.Println(aa)
-	//helpers.IfThenElse(status == 200, "success", "fail")
-	//res.Meta = utils.ResponseMessage(status)
 	res.Data = payload
 
-	w.JSON(200, res)
+	if res.Status == http.StatusOK {
+		res.Message = enum.Success
+	} else {
+		if len(message) == 0 {
+			res.Message = enum.Error
+		} else {
+			res.Message = message
+		}
+	}
+
+	//##Log File
+	LoggerResponse(c, res)
+	//## Next
+	c.JSON(http.StatusOK, res)
+}
+
+//##LogFile Request
+func LoggerRequest(c *gin.Context, payload interface{}) {
+	LogInfoReqquest(c, payload)
+	c.Next()
+}
+
+//##LogFile Response
+func LoggerResponse(c *gin.Context, payload ResponseData) {
+	switch payload.Status {
+	case http.StatusOK:
+		LogInfoResponse(c, payload)
+	case http.StatusBadRequest, http.StatusUnauthorized:
+		LogWarnResponse(c, payload)
+	default:
+		LogErrorResponse(c, payload)
+	}
 }

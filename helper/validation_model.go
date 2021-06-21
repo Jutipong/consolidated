@@ -96,8 +96,6 @@ type ValidationError struct {
 	Reason string `json:"reason"`
 }
 
-//var Validate = validator.New()
-
 func Descriptive(verr validator.ValidationErrors) []ValidationError {
 	errs := []ValidationError{}
 	for _, f := range verr {
@@ -114,7 +112,7 @@ func Descriptive(verr validator.ValidationErrors) []ValidationError {
 	return errs
 }
 
-func GetInvalidMessage(err error) []ValidationError {
+func GetErrShouldBind(err error) []ValidationError {
 	errs := []ValidationError{}
 	if err != nil {
 		var valid validator.ValidationErrors

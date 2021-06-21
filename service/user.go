@@ -1,37 +1,41 @@
 package service
 
 import (
-	"consolidated/config"
 	"consolidated/entity"
+	"consolidated/repository"
 )
 
-func FindAll(c *[]entity.User) (err error) {
-	if err = config.DB.Table("User").Find(&c).Error; err != nil {
+func FindAll(u *[]entity.User) (err error) {
+	if err = repository.FindAll(u); err != nil {
 		return err
 	}
 	return nil
 }
 
-func FindID(c *entity.User, id string) (err error) {
-	if err = config.DB.Table("User").Where("id = ?", id).First(c).Error; err != nil {
+func FindID(u *entity.User, id string) (err error) {
+	if err = repository.FindID(u, id); err != nil {
 		return err
 	}
 	return nil
 }
 
-func AddNewCustomer(c *entity.User) (err error) {
-	if err = config.DB.Table("User").Create(c).Error; err != nil {
+func AddNewCustomer(u *entity.User) (err error) {
+	if err = repository.AddNewCustomer(u); err != nil {
 		return err
 	}
 	return nil
 }
 
-func PutOneCustomer(c *entity.User, id string) (err error) {
-	config.DB.Table("User").Where("id = ?", id).Save(c)
+func PutOneCustomer(u *entity.User, id string) (err error) {
+	if err = repository.PutOneCustomer(u, id); err != nil {
+		return err
+	}
 	return nil
 }
 
-func DeleteCustomer(c *entity.User, id string) (err error) {
-	config.DB.Table("User").Where("id = ?", id).Delete(c)
+func DeleteCustomer(u *entity.User, id string) (err error) {
+	if err = repository.DeleteCustomer(u, id); err != nil {
+		return err
+	}
 	return nil
 }

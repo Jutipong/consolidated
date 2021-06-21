@@ -2,19 +2,27 @@ package main
 
 import (
 	"consolidated/config"
+	"consolidated/helper"
 	"consolidated/router"
 )
 
-func main() {
+func init() {
+	//## Config
+	if err := config.SetupConfg("./config"); err != nil {
+		panic("fail get config: config.yaml")
+	} else {
+		//## Database
+		config.SetupDatabase()
+		//## Logger
+		helper.SetupLogger()
+	}
+}
 
-	//## Initial
-	config.ConnectDB()
-	// config.DB.Table("Customer").AutoMigrate(&entity.Customer{})
+func main() {
 
 	//## Set up router
 	router := router.Setup()
 
 	//## Set port
-	port := "8080"
-	router.Run(":" + port)
+	router.Run(":" + config.Config.Server.Port)
 }
