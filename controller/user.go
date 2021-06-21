@@ -10,43 +10,49 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func FindAll(c *gin.Context) {
+	//## Logger request
+	helper.LoggerRequest(c, nil)
+
+	user := []entity.User{}
+	err := service.FindAll(&user)
+	if err == nil {
+		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+	} else {
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+	}
+}
+
 func FindID(c *gin.Context) {
 	id := c.Params.ByName("id")
+	//## Logger request
+	helper.LoggerRequest(c, id)
+
 	user := entity.User{}
 
 	err := service.FindID(&user, id)
 	if err == nil {
 		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
-	}
-}
-
-func FindAll(c *gin.Context) {
-	user := []entity.User{}
-
-	err := service.FindAll(&user)
-	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
-	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
 func AddNewCustomer(c *gin.Context) {
 	var user entity.User
-
 	err := c.ShouldBind(&user)
 	if err != nil {
 		helper.RespondJSON(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
 	}
 
-	c.BindJSON(&user)
+	//## Logger request
+	helper.LoggerRequest(c, user)
+
 	err = service.AddNewCustomer(&user)
 	if err == nil {
 		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -55,11 +61,14 @@ func PutOneCustomer(c *gin.Context) {
 	id := c.Params.ByName("id")
 	c.BindJSON(&user)
 
+	//## Logger request
+	helper.LoggerRequest(c, user)
+
 	err := service.PutOneCustomer(&user, id)
 	if err == nil {
 		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -67,10 +76,13 @@ func DeleteCustomer(c *gin.Context) {
 	var user entity.User
 	id := c.Params.ByName("id")
 
+	//## Logger request
+	helper.LoggerRequest(c, id)
+
 	err := service.DeleteCustomer(&user, id)
 	if err == nil {
 		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), user)
+		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }

@@ -11,12 +11,12 @@ import (
 //## helper.LoggerRequest =>  ใช้สำหรับเขียน logger request
 //## controller.xxxxx	  =>  เรียก function Logic....
 func SetupUserAPI(r *gin.Engine) {
-	g := r.Group("/api")
+	g := r.Group("/api/user")
 	{
-		g.GET("", helper.JwtVerify, helper.LoggerRequest, controller.FindAll)
-		g.GET("/:id", helper.JwtVerify, helper.LoggerRequest, controller.FindAll)
-		g.POST("", helper.JwtVerify, helper.LoggerRequest, controller.AddNewCustomer)
-		g.PUT("", helper.JwtVerify, helper.LoggerRequest, controller.PutOneCustomer)
-		g.DELETE("", helper.JwtVerify, helper.LoggerRequest, controller.DeleteCustomer)
+		g.GET("", helper.JwtVerify, controller.FindAll)
+		g.GET("/:id", helper.JwtVerify, controller.FindID)
+		g.POST("", helper.JwtVerify, controller.AddNewCustomer)
+		g.PUT("", helper.JwtVerify, controller.PutOneCustomer)
+		g.DELETE("", helper.JwtVerify, controller.DeleteCustomer)
 	}
 }

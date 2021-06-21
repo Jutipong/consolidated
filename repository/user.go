@@ -15,11 +15,9 @@ func FindAll(u *[]entity.User) (err error) {
 }
 
 func FindID(u *entity.User, id string) (err error) {
-	rows, err := config.DB.Table("User").Where("id = ?", id).First(u).Rows()
-	if err != nil {
+	if err := config.DB.Table("User").Where("Id = ?", id).First(u).Error; err != nil {
 		return err
 	}
-	defer rows.Close()
 	return nil
 }
 

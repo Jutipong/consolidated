@@ -26,7 +26,7 @@ func SetupLogger() {
 	// path := "./logs/"
 	//## Config file
 	writer, _ := rotatelogs.New(
-		config.Config.LoggerFile.RootPath+"%Y%m%d.log",
+		config.Config.LoggerFile.RootPath +"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB
 		rotatelogs.WithMaxAge(-1),
 		// rotatelogs.WithRotationCount(7),
