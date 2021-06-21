@@ -2,6 +2,7 @@ package helper
 
 import (
 	"consolidated/config"
+	"consolidated/enum"
 	"consolidated/model"
 	"encoding/json"
 	"fmt"
@@ -36,7 +37,7 @@ func JwtGenerate(payload model.Login) string {
 		return msg
 	}
 
-	atClaims["UserRequest"] = string(b)
+	atClaims[enum.UserRequest] = string(b)
 	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
@@ -62,7 +63,7 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		jsonData := fmt.Sprint(claims["UserRequest"])
+		jsonData := fmt.Sprint(claims[enum.UserRequest])
 
 		//## Encode json
 		if jsonData == "" {
@@ -80,7 +81,7 @@ func JwtVerify(c *gin.Context) {
 			b, _ := json.Marshal(uc)
 
 			//## set json to gin context
-			c.Set("UserRequest", string(b))
+			c.Set(enum.UserRequest, string(b))
 			c.Next()
 		}
 
@@ -92,7 +93,7 @@ func JwtVerify(c *gin.Context) {
 }
 
 func GetUserRequest(ctx *gin.Context) model.UserRequest {
-	jsonData := ctx.GetString("UserRequest")
+	jsonData := ctx.GetString(enum.UserRequest)
 	var userRequest model.UserRequest
 	json.Unmarshal([]byte(jsonData), &userRequest)
 	return userRequest
