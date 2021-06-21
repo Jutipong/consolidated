@@ -13,15 +13,15 @@ import (
 	"github.com/google/uuid"
 )
 
-//## No generate logger
+//## No logger
 func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
 
-	// Payload begin
 	// atClaims["id"] = payload.ID
 	// atClaims["username"] = payload.Username
 	// atClaims["level"] = payload.Level
-	userRequest := &model.UserRequest{
+	// userRequest := &model.UserRequest{
+	userRequest := model.UserRequest{
 		SystemId:    "S0001",
 		EmpCode:     "E0001",
 		User:        "U0001",
@@ -38,7 +38,6 @@ func JwtGenerate(payload model.Login) string {
 
 	atClaims["UserRequest"] = string(b)
 	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
-	// Payload end
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
@@ -63,9 +62,9 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		//## Encode json
 		jsonData := fmt.Sprint(claims["UserRequest"])
 
+		//## Encode json
 		if jsonData == "" {
 			RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
 			c.Abort()
@@ -77,10 +76,10 @@ func JwtVerify(c *gin.Context) {
 			//## Add TransationId
 			uc.TransationId = uuid.New().String()
 
-			//## obj to json
+			//## payload to json
 			b, _ := json.Marshal(uc)
 
-			//## set to gin
+			//## set json to gin context
 			c.Set("UserRequest", string(b))
 			c.Next()
 		}

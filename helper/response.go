@@ -16,7 +16,7 @@ type ResponseData struct {
 func RespondJSON(c *gin.Context, status int, message string, payload interface{}) {
 	var res ResponseData
 
-	//## Initial data
+	//##Initial data
 	res.Status = status
 	res.Data = payload
 
@@ -30,19 +30,19 @@ func RespondJSON(c *gin.Context, status int, message string, payload interface{}
 		}
 	}
 
-	//##Logger
+	//##Log File
 	LoggerResponse(c, res)
 	//## Next
 	c.JSON(http.StatusOK, res)
 }
 
-//##Logger Request
+//##LogFile Request
 func LoggerRequest(c *gin.Context, payload interface{}) {
 	LogInfoReqquest(c, payload)
 	c.Next()
 }
 
-//##Logger response
+//##LogFile Response
 func LoggerResponse(c *gin.Context, payload ResponseData) {
 	switch payload.Status {
 	case http.StatusOK:

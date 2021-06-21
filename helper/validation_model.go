@@ -96,8 +96,6 @@ type ValidationError struct {
 	Reason string `json:"reason"`
 }
 
-//var Validate = validator.New()
-
 func Descriptive(verr validator.ValidationErrors) []ValidationError {
 	errs := []ValidationError{}
 	for _, f := range verr {
