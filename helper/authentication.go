@@ -46,8 +46,8 @@ func JwtGenerate(payload model.Login) string {
 }
 
 func JwtVerify(c *gin.Context) {
-	const BEARER_SCHEMA = "Bearer "
-	authHeader := c.GetHeader("Authorization")
+	const BEARER_SCHEMA = enum.Bearer
+	authHeader := c.GetHeader(enum.Authorization)
 	if len(authHeader) == 0 {
 		RespondJSON(c, http.StatusBadRequest, "authorization is empty", nil)
 		c.Abort()

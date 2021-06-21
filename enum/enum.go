@@ -9,5 +9,7 @@ const (
 
 //## Jwt key
 const (
-	UserRequest = "UserRequest"
+	Authorization = "Authorization"
+	Bearer        = "Bearer "
+	UserRequest   = "UserRequest"
 )
