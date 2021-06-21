@@ -3,6 +3,7 @@ package repository
 import (
 	"consolidated/config"
 	"consolidated/entity"
+	"strings"
 )
 
 func FindAll(u *[]entity.User) (err error) {
@@ -15,7 +16,7 @@ func FindAll(u *[]entity.User) (err error) {
 }
 
 func FindID(u *entity.User, id string) (err error) {
-	if err := config.DB.Table("User").Where("Id = ?", id).First(u).Error; err != nil {
+	if err := config.DB.Table("User").Where("Id = ?", strings.ToUpper(id)).First(u).Error; err != nil {
 		return err
 	}
 	return nil
