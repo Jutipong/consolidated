@@ -80,7 +80,7 @@ func JwtVerify(c *gin.Context) {
 			//## payload to json
 			b, _ := json.Marshal(uc)
 
-			//## set json to gin context
+			//## Set json to gin context
 			c.Set(enum.UserRequest, string(b))
 			c.Next()
 		}

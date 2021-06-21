@@ -1,6 +1,6 @@
 package model
 
-//##Server
+//## Server
 type ServerConfiguration struct {
 	Env       string
 	RunMode   string
@@ -8,7 +8,7 @@ type ServerConfiguration struct {
 	SecretKey string
 }
 
-//##Database
+//## Database
 type DatabaseConfiguration struct {
 	Server       string
 	Port         int
@@ -17,7 +17,7 @@ type DatabaseConfiguration struct {
 	DatabaseName string
 }
 
-//##Logger File
+//## Logger File
 type LoggerFile struct {
 	RootPath string
 }
