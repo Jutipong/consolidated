@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//## No generate logger
 func Login(c *gin.Context) {
 	var login model.Login
 	err := c.ShouldBind(&login)

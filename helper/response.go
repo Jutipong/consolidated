@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -25,25 +26,37 @@ func RespondJSON(c *gin.Context, status int, message string, payload interface{}
 	}
 	res.Data = payload
 
-	//## Logger response
-	switch status {
-	case http.StatusOK:
-		LogInfoResponse(c, res)
-	case http.StatusBadRequest:
-		LogWarnResponse(c, res)
-	case http.StatusUnauthorized:
-		LogWarnResponse(c, res)
-	default:
-		LogErrorResponse(c, res)
-	}
+	//##Logger
+	LoggerResponse(c, res)
 
 	//## Next
 	c.JSON(http.StatusOK, res)
 }
 
+//##Logger Request
 func LoggerRequest(c *gin.Context) {
-	var res ResponseData
-	fmt.Println("req: ", res)
-	LogInfoReqquest(c, res)
+	req, err := ioutil.ReadAll(c.Request.Body)
+	if err == nil {
+		LogInfoReqquest(c, req)
+	} else {
+		fmt.Println("Request *error: ", err.Error())
+	}
 	c.Next()
+}
+
+//##Logger response
+func LoggerResponse(c *gin.Context, payload ResponseData) {
+
+	// fmt.Println(res)
+
+	switch res.Status {
+	case http.StatusOK:
+		LogInfoResponse(c, payload)
+	case http.StatusBadRequest:
+		LogWarnResponse(c, payload)
+	case http.StatusUnauthorized:
+		LogWarnResponse(c, payload)
+	default:
+		LogErrorResponse(c, payload)
+	}
 }

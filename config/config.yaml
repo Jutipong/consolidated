@@ -9,3 +9,5 @@ Databaseconfig:
   User: "sa"
   Pass: "p@ssw0rd"
   DatabaseName: "Consolidated"
+LoggerFile:
+  RootPath: "./logs/"

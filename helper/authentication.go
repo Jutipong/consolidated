@@ -13,6 +13,7 @@ import (
 	"github.com/google/uuid"
 )
 
+//## No generate logger
 func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
 
@@ -30,7 +31,9 @@ func JwtGenerate(payload model.Login) string {
 	b, err := json.Marshal(userRequest)
 	if err != nil {
 		fmt.Println(err)
-		return fmt.Sprintf("generate token err: %s", err.Error())
+		msg := fmt.Sprintf("generate token err: %s", err.Error())
+		fmt.Println(msg)
+		return msg
 	}
 
 	atClaims["UserRequest"] = string(b)

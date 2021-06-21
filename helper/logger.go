@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"consolidated/config"
 	"consolidated/model"
 	"encoding/json"
 	"fmt"
@@ -22,10 +23,10 @@ func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
 }
 
 func SetupLogger() {
-	path := "./logs/"
+	// path := "./logs/"
 	//## Config file
 	writer, _ := rotatelogs.New(
-		path+"%Y%m%d.log",
+		config.Config.LoggerFile.RootPath+"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB
 		rotatelogs.WithMaxAge(-1),
 		// rotatelogs.WithRotationCount(7),
@@ -42,102 +43,102 @@ func SetupLogger() {
 
 //## Info
 //## Any
-func LogInfo(objs interface{}) {
-	log.Info(objs)
+func LogInfo(payload interface{}) {
+	b, _ := json.Marshal(payload)
+	fmt.Println(string(b))
+	log.Info(string(b))
 }
 
 //## Request
-func LogInfoReqquest(c *gin.Context, objs interface{}) {
+func LogInfoReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
 	b, _ := json.Marshal(
 		model.LoggerTrasection{
 			Type:         "Request",
 			TransationId: cu.TransationId,
-			Data:         objs,
+			Data:         payload,
 		})
+	fmt.Println(string(b))
 	log.Info(string(b))
 }
 
 //## Response
-func LogInfoResponse(c *gin.Context, objs interface{}) {
+func LogInfoResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
 	b, _ := json.Marshal(
 		model.LoggerTrasection{
 			Type:         "Response",
 			TransationId: cu.TransationId,
-			Data:         objs,
+			Data:         payload,
 		})
+	fmt.Println(string(b))
 	log.Info(string(b))
 }
 
 //## Warn
 //## Any
-func LogWarn(objs interface{}) {
-	log.Warn(objs)
+func LogWarn(payload interface{}) {
+	b, _ := json.Marshal(payload)
+	fmt.Println(string(b))
+	log.Warn(string(b))
 }
 
 //## Request
-func LogWarnReqquest(c *gin.Context, objs interface{}) {
+func LogWarnReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
 	b, _ := json.Marshal(
 		model.LoggerTrasection{
 			Type:         "Request",
 			TransationId: cu.TransationId,
-			Data:         objs,
+			Data:         payload,
 		})
+	fmt.Println(string(b))
 	log.Warn(string(b))
 }
 
 //## Response
-func LogWarnResponse(c *gin.Context, objs interface{}) {
+func LogWarnResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
 	b, _ := json.Marshal(
 		model.LoggerTrasection{
 			Type:         "Response",
 			TransationId: cu.TransationId,
-			Data:         objs,
+			Data:         payload,
 		})
+	fmt.Println(string(b))
 	log.Warn(string(b))
 }
 
 //## Error
 //## Any
-func LogError(objs interface{}) {
-	log.Error(objs)
+func LogError(payload interface{}) {
+	b, _ := json.Marshal(payload)
+	fmt.Println(string(b))
+	log.Error(string(b))
 }
 
 //## Request
-func LogErrorReqquest(c *gin.Context, objs interface{}) {
+func LogErrorReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
 	b, _ := json.Marshal(
 		model.LoggerTrasection{
 			Type:         "Request",
 			TransationId: cu.TransationId,
-			Data:         objs,
+			Data:         payload,
 		})
+	fmt.Println(string(b))
 	log.Error(string(b))
 }
 
 //## Response
-func LogErrorResponse(c *gin.Context, objs interface{}) {
+func LogErrorResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
 	b, _ := json.Marshal(
 		model.LoggerTrasection{
 			Type:         "Response",
 			TransationId: cu.TransationId,
-			Data:         objs,
+			Data:         payload,
 		})
+	fmt.Println(string(b))
 	log.Error(string(b))
 }
-
-// func main() {
-// 	i := 0
-// 	for {
-// 		i = i + 1
-// 		log.Info(fmt.Sprint("Count: ", i))
-// 		// time.Sleep(time.Duration(1) * time.Second)
-// 		log.Error(fmt.Sprint("Count: ", i+2))
-// 		log.Warning(fmt.Sprint("Count: ", i+5))
-// 		time.Sleep(time.Duration(1) * time.Second)
-// 	}
-// }

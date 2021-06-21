@@ -16,3 +16,7 @@ type DatabaseConfiguration struct {
 	Pass         string
 	DatabaseName string
 }
+
+type LoggerFile struct {
+	RootPath string
+}

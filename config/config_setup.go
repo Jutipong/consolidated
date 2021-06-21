@@ -13,6 +13,7 @@ var Config appConfig
 type appConfig struct {
 	Server         model.ServerConfiguration
 	Databaseconfig model.DatabaseConfiguration
+	LoggerFile     model.LoggerFile
 }
 
 // LoadConfig loads config from files
