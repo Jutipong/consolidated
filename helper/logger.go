@@ -23,10 +23,9 @@ func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
 }
 
 func SetupLogger() {
-	// path := "./logs/"
 	//## Config file
 	writer, _ := rotatelogs.New(
-		config.Config.LoggerFile.RootPath +"%Y%m%d.log",
+		config.Config.LoggerFile.RootPath+"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB
 		rotatelogs.WithMaxAge(-1),
 		// rotatelogs.WithRotationCount(7),
@@ -52,12 +51,11 @@ func LogInfo(payload interface{}) {
 //## Request
 func LogInfoReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(
-		model.LoggerTrasection{
-			Type:         "Request",
-			TransationId: cu.TransationId,
-			Data:         payload,
-		})
+	b, _ := json.Marshal(model.LoggerTrasection{
+		Type:         "Request",
+		TransationId: cu.TransationId,
+		Data:         payload,
+	})
 	fmt.Println(string(b))
 	log.Info(string(b))
 }
@@ -65,12 +63,11 @@ func LogInfoReqquest(c *gin.Context, payload interface{}) {
 //## Response
 func LogInfoResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(
-		model.LoggerTrasection{
-			Type:         "Response",
-			TransationId: cu.TransationId,
-			Data:         payload,
-		})
+	b, _ := json.Marshal(model.LoggerTrasection{
+		Type:         "Response",
+		TransationId: cu.TransationId,
+		Data:         payload,
+	})
 	fmt.Println(string(b))
 	log.Info(string(b))
 }
@@ -86,12 +83,11 @@ func LogWarn(payload interface{}) {
 //## Request
 func LogWarnReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(
-		model.LoggerTrasection{
-			Type:         "Request",
-			TransationId: cu.TransationId,
-			Data:         payload,
-		})
+	b, _ := json.Marshal(model.LoggerTrasection{
+		Type:         "Request",
+		TransationId: cu.TransationId,
+		Data:         payload,
+	})
 	fmt.Println(string(b))
 	log.Warn(string(b))
 }
@@ -99,12 +95,11 @@ func LogWarnReqquest(c *gin.Context, payload interface{}) {
 //## Response
 func LogWarnResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(
-		model.LoggerTrasection{
-			Type:         "Response",
-			TransationId: cu.TransationId,
-			Data:         payload,
-		})
+	b, _ := json.Marshal(model.LoggerTrasection{
+		Type:         "Response",
+		TransationId: cu.TransationId,
+		Data:         payload,
+	})
 	fmt.Println(string(b))
 	log.Warn(string(b))
 }
@@ -120,12 +115,11 @@ func LogError(payload interface{}) {
 //## Request
 func LogErrorReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(
-		model.LoggerTrasection{
-			Type:         "Request",
-			TransationId: cu.TransationId,
-			Data:         payload,
-		})
+	b, _ := json.Marshal(model.LoggerTrasection{
+		Type:         "Request",
+		TransationId: cu.TransationId,
+		Data:         payload,
+	})
 	fmt.Println(string(b))
 	log.Error(string(b))
 }
@@ -133,12 +127,11 @@ func LogErrorReqquest(c *gin.Context, payload interface{}) {
 //## Response
 func LogErrorResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(
-		model.LoggerTrasection{
-			Type:         "Response",
-			TransationId: cu.TransationId,
-			Data:         payload,
-		})
+	b, _ := json.Marshal(model.LoggerTrasection{
+		Type:         "Response",
+		TransationId: cu.TransationId,
+		Data:         payload,
+	})
 	fmt.Println(string(b))
 	log.Error(string(b))
 }
