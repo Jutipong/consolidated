@@ -49,7 +49,7 @@ func LoggerResponse(c *gin.Context, payload ResponseData) {
 
 	// fmt.Println(res)
 
-	switch res.Status {
+	switch payload.Status {
 	case http.StatusOK:
 		LogInfoResponse(c, payload)
 	case http.StatusBadRequest:
