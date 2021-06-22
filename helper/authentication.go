@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//## No logger
+//## No Logger File
 func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
 

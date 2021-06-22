@@ -10,7 +10,7 @@ import (
 
 type AuthenticatedController struct{}
 
-//## No generate logger
+//## No Get Logger File
 func (auth *AuthenticatedController) Login(c *gin.Context) {
 	var login model.Login
 	err := c.ShouldBind(&login)

@@ -37,7 +37,7 @@ func GinBodyLogMiddleware() gin.HandlerFunc {
 		method := c.Request.Method
 		httpStatus := c.Writer.Status()
 
-		//## Request data
+		//## Request Data
 		//## request := string(bodyBytes) default
 		//==============================================
 		var request string
@@ -53,7 +53,7 @@ func GinBodyLogMiddleware() gin.HandlerFunc {
 		//==============================================
 		response := blw.body.String()
 
-		//## String format
+		//## String Format
 		strLog := fmt.Sprintf("RequestURI:%v | Method:%v | Request:%v | Status:%v | Response:%v",
 			requestURI, method, request, httpStatus, response)
 

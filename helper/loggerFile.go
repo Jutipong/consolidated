@@ -23,7 +23,7 @@ func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
 }
 
 func SetupLogger() string {
-	//## Config file
+	//## Config File
 	writer, err := rotatelogs.New(
 		config.Config.LoggerFile.RootPath+"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB

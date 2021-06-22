@@ -7,28 +7,22 @@ import (
 )
 
 func main() {
-
-	//## Set up router
-	router := router.Setup()
-
-	//## Set port
-	router.Run(":" + config.Config.Server.Port)
-}
-
-func init() {
-	//## Config
+	//## 1.Config
 	if err := config.SetupConfg("./config"); err != nil {
 		panic("fail get config: config.yaml")
-	} else {
-		//## Logger
-		if err := helper.SetupLogger(); err != "" {
-			helper.LogError(err)
-			panic(err)
-		}
-		//## Database
-		if err := config.SetupDatabase(); err != "" {
-			helper.LogError(err)
-			panic(err)
-		}
 	}
+	//## 2.Logger File
+	if err := helper.SetupLogger(); err != "" {
+		helper.LogError(err)
+		panic(err)
+	}
+	//## 3.Database
+	if err := config.SetupDatabase(); err != "" {
+		helper.LogError(err)
+		panic(err)
+	}
+	//## 4.Router
+	router := router.Setup()
+	//## 5.Start Server
+	router.Run(":" + config.Config.Server.Port)
 }

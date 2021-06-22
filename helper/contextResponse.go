@@ -16,7 +16,7 @@ type ResponseData struct {
 func JsonResult(c *gin.Context, status int, message string, payload interface{}) {
 	var res ResponseData
 
-	//## Initial data
+	//## Initial Data
 	res.Status = status
 	res.Data = payload
 
