@@ -9,14 +9,15 @@ import (
 
 var DB *gorm.DB
 
-func SetupDatabase() {
+func SetupDatabase() string {
 	configDb := getConfigDb()
 	db, err := gorm.Open(sqlserver.Open(configDb), &gorm.Config{})
 	if err != nil {
-		panic(fmt.Sprintf("fail to connect to database: %s", configDb))
+		return fmt.Sprintf("fail to connect to database config: %s error: %v", configDb, err.Error())
 	}
 	DB = db
 	// defer DB.Close()
+	return ""
 }
 
 func getConfigDb() string {

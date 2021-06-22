@@ -6,18 +6,6 @@ import (
 	"consolidated/router"
 )
 
-func init() {
-	//## Config
-	if err := config.SetupConfg("./config"); err != nil {
-		panic("fail get config: config.yaml")
-	} else {
-		//## Database
-		config.SetupDatabase()
-		//## Logger
-		helper.SetupLogger()
-	}
-}
-
 func main() {
 
 	//## Set up router
@@ -25,4 +13,22 @@ func main() {
 
 	//## Set port
 	router.Run(":" + config.Config.Server.Port)
+}
+
+func init() {
+	//## Config
+	if err := config.SetupConfg("./config"); err != nil {
+		panic("fail get config: config.yaml")
+	} else {
+		//## Logger
+		if err := helper.SetupLogger(); err != "" {
+			helper.LogError(err)
+			panic(err)
+		}
+		//## Database
+		if err := config.SetupDatabase(); err != "" {
+			helper.LogError(err)
+			panic(err)
+		}
+	}
 }
