@@ -10,7 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func FindAll(c *gin.Context) {
+type UserController struct{}
+
+func (u *UserController) FindAll(c *gin.Context) {
 	//## Logger request
 	helper.LoggerRequest(c, nil)
 
@@ -23,7 +25,7 @@ func FindAll(c *gin.Context) {
 	}
 }
 
-func FindID(c *gin.Context) {
+func (u *UserController) FindID(c *gin.Context) {
 	id := c.Params.ByName("id")
 	//## Logger request
 	helper.LoggerRequest(c, id)
@@ -38,7 +40,7 @@ func FindID(c *gin.Context) {
 	}
 }
 
-func AddNewCustomer(c *gin.Context) {
+func (u *UserController) AddNewCustomer(c *gin.Context) {
 	var user repository.User
 	err := c.ShouldBind(&user)
 	if err != nil {
@@ -56,7 +58,7 @@ func AddNewCustomer(c *gin.Context) {
 	}
 }
 
-func PutOneCustomer(c *gin.Context) {
+func (u *UserController) PutOneCustomer(c *gin.Context) {
 	var user repository.User
 	id := c.Params.ByName("id")
 	c.BindJSON(&user)
@@ -72,7 +74,7 @@ func PutOneCustomer(c *gin.Context) {
 	}
 }
 
-func DeleteCustomer(c *gin.Context) {
+func (u *UserController) DeleteCustomer(c *gin.Context) {
 	var user repository.User
 	id := c.Params.ByName("id")
 

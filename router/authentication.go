@@ -12,6 +12,7 @@ import (
 func SetupAuthenAPI(r *gin.Engine) {
 	g := r.Group("/api")
 	{
-		g.POST("/login", controller.Login)
+		auth:=controller.AuthenticatedController{}
+		g.POST("/login", auth.Login)
 	}
 }
