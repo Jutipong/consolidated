@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,47 +24,51 @@ func (w bodyLogWriter) Write(b []byte) (int, error) {
 
 func GinBodyLogMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var bodyBytes []byte
-		if c.Request.Body != nil {
-			bodyBytes, _ = ioutil.ReadAll(c.Request.Body)
-		}
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
-		blw := &bodyLogWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
-		c.Writer = blw
+		if !strings.Contains(c.Request.RequestURI, "login") {
+			var bodyBytes []byte
+			if c.Request.Body != nil {
+				bodyBytes, _ = ioutil.ReadAll(c.Request.Body)
+			}
+			c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes))
+			blw := &bodyLogWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
+			c.Writer = blw
 
-		c.Next()
+			c.Next()
 
-		requestURI := c.Request.RequestURI
-		method := c.Request.Method
-		httpStatus := c.Writer.Status()
+			requestURI := c.Request.RequestURI
+			method := c.Request.Method
+			httpStatus := c.Writer.Status()
 
-		//## Request Data
-		//## request := string(bodyBytes) default
-		//==============================================
-		var request string
-		var req interface{}
-		json.Unmarshal([]byte(string(string(bodyBytes))), &req)
-		if req != nil {
-			if b, err := json.Marshal(req); err == nil {
-				request = string(b)
+			//## Request Data
+			//## request := string(bodyBytes) default
+			//==============================================
+			var request string
+			var req interface{}
+			json.Unmarshal([]byte(string(string(bodyBytes))), &req)
+			if req != nil {
+				if b, err := json.Marshal(req); err == nil {
+					request = string(b)
+				}
+			}
+
+			//## Response Data
+			//==============================================
+			response := blw.body.String()
+
+
+			//## String Format
+			strLog := fmt.Sprintf("RequestURI:%v | Method:%v | Request:%v | Status:%v | Response:%v",
+				requestURI, method, request, httpStatus, response)
+
+			switch c.Writer.Status() {
+			case http.StatusOK:
+				helper.LogInfo(strLog)
+			case http.StatusBadRequest, http.StatusUnauthorized:
+				helper.LogWarn(strLog)
+			default:
+				helper.LogError(strLog)
 			}
 		}
-
-		//## Response Data
-		//==============================================
-		response := blw.body.String()
-
-		//## String Format
-		strLog := fmt.Sprintf("RequestURI:%v | Method:%v | Request:%v | Status:%v | Response:%v",
-			requestURI, method, request, httpStatus, response)
-
-		switch c.Writer.Status() {
-		case http.StatusOK:
-			helper.LogInfo(strLog)
-		case http.StatusBadRequest, http.StatusUnauthorized:
-			helper.LogWarn(strLog)
-		default:
-			helper.LogError(strLog)
-		}
+		c.Next()
 	}
 }
