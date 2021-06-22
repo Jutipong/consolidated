@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"consolidated/entity"
 	"consolidated/enum"
 	"consolidated/helper"
+	"consolidated/repository"
 	"consolidated/service"
 	"net/http"
 
@@ -14,7 +14,7 @@ func FindAll(c *gin.Context) {
 	//## Logger request
 	helper.LoggerRequest(c, nil)
 
-	user := []entity.User{}
+	user := []repository.User{}
 	err := service.FindAll(&user)
 	if err == nil {
 		helper.JsonResult(c, http.StatusOK, enum.Success, user)
@@ -28,7 +28,7 @@ func FindID(c *gin.Context) {
 	//## Logger request
 	helper.LoggerRequest(c, id)
 
-	user := entity.User{}
+	user := repository.User{}
 
 	err := service.FindID(&user, id)
 	if err == nil {
@@ -39,7 +39,7 @@ func FindID(c *gin.Context) {
 }
 
 func AddNewCustomer(c *gin.Context) {
-	var user entity.User
+	var user repository.User
 	err := c.ShouldBind(&user)
 	if err != nil {
 		helper.JsonResult(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
@@ -57,7 +57,7 @@ func AddNewCustomer(c *gin.Context) {
 }
 
 func PutOneCustomer(c *gin.Context) {
-	var user entity.User
+	var user repository.User
 	id := c.Params.ByName("id")
 	c.BindJSON(&user)
 
@@ -73,7 +73,7 @@ func PutOneCustomer(c *gin.Context) {
 }
 
 func DeleteCustomer(c *gin.Context) {
-	var user entity.User
+	var user repository.User
 	id := c.Params.ByName("id")
 
 	//## Logger request
