@@ -3,6 +3,7 @@ package middleware
 import (
 	"bytes"
 	"consolidated/helper"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -37,10 +38,22 @@ func GinBodyLogMiddleware() gin.HandlerFunc {
 		httpStatus := c.Writer.Status()
 
 		//## Request data
-		request := string(bodyBytes)
+		//## request := string(bodyBytes) default
+		//==============================================
+		var request string
+		var req interface{}
+		json.Unmarshal([]byte(string(string(bodyBytes))), &req)
+		if req != nil {
+			if b, err := json.Marshal(req); err == nil {
+				request = string(b)
+			}
+		}
+
 		//## Response Data
+		//==============================================
 		response := blw.body.String()
 
+		//## String format
 		strLog := fmt.Sprintf("RequestURI:%v | Method:%v | Request:%v | Status:%v | Response:%v",
 			requestURI, method, request, httpStatus, response)
 
