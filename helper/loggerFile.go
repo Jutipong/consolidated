@@ -46,9 +46,10 @@ func SetupLogger() {
 
 //## Any
 func LogInfo(payload interface{}) {
-	b, _ := json.Marshal(payload)
-	fmt.Println(string(b))
-	log.Info(string(b))
+	// b, _ := json.Marshal(payload)
+	// fmt.Println(string(b))
+	// log.Info(string(b))
+	log.Info(payload)
 }
 
 //## Request
@@ -74,7 +75,6 @@ func LogInfoResponse(c *gin.Context, payload interface{}) {
 	fmt.Println(string(b))
 	log.Info(string(b))
 }
-
 
 //## ==================================================
 //## ====================== Warn ======================
@@ -110,7 +110,6 @@ func LogWarnResponse(c *gin.Context, payload interface{}) {
 	fmt.Println(string(b))
 	log.Warn(string(b))
 }
-
 
 //## ===================================================
 //## ====================== Error ======================

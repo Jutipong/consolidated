@@ -30,26 +30,6 @@ func JsonResult(c *gin.Context, status int, message string, payload interface{})
 		}
 	}
 
-	//## Log File
-	LoggerResponse(c, res)
 	//## Next
 	c.JSON(http.StatusOK, res)
-}
-
-//## LogFile Request
-func LoggerRequest(c *gin.Context, payload interface{}) {
-	LogInfoReqquest(c, payload)
-	c.Next()
-}
-
-//## LogFile Response
-func LoggerResponse(c *gin.Context, payload ResponseData) {
-	switch payload.Status {
-	case http.StatusOK:
-		LogInfoResponse(c, payload)
-	case http.StatusBadRequest, http.StatusUnauthorized:
-		LogWarnResponse(c, payload)
-	default:
-		LogErrorResponse(c, payload)
-	}
 }
