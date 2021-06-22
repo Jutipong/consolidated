@@ -13,7 +13,7 @@ type ResponseData struct {
 	Data    interface{}
 }
 
-func RespondJSON(c *gin.Context, status int, message string, payload interface{}) {
+func JsonResult(c *gin.Context, status int, message string, payload interface{}) {
 	var res ResponseData
 
 	//## Initial data

@@ -13,7 +13,7 @@ func Login(c *gin.Context) {
 	var login model.Login
 	err := c.ShouldBind(&login)
 	if err != nil {
-		helper.RespondJSON(c, http.StatusUnauthorized,
+		helper.JsonResult(c, http.StatusUnauthorized,
 			"username or password is not authenticated",
 			helper.GetErrShouldBind(err))
 	} else {

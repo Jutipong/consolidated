@@ -17,9 +17,9 @@ func FindAll(c *gin.Context) {
 	user := []entity.User{}
 	err := service.FindAll(&user)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -32,9 +32,9 @@ func FindID(c *gin.Context) {
 
 	err := service.FindID(&user, id)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -42,7 +42,7 @@ func AddNewCustomer(c *gin.Context) {
 	var user entity.User
 	err := c.ShouldBind(&user)
 	if err != nil {
-		helper.RespondJSON(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
+		helper.JsonResult(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
 	}
 
 	//## Logger request
@@ -50,9 +50,9 @@ func AddNewCustomer(c *gin.Context) {
 
 	err = service.AddNewCustomer(&user)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -66,9 +66,9 @@ func PutOneCustomer(c *gin.Context) {
 
 	err := service.PutOneCustomer(&user, id)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -81,8 +81,8 @@ func DeleteCustomer(c *gin.Context) {
 
 	err := service.DeleteCustomer(&user, id)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }

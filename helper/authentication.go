@@ -49,7 +49,7 @@ func JwtVerify(c *gin.Context) {
 	const BEARER_SCHEMA = enum.Bearer
 	authHeader := c.GetHeader(enum.Authorization)
 	if len(authHeader) == 0 {
-		RespondJSON(c, http.StatusBadRequest, "authorization is empty", nil)
+		JsonResult(c, http.StatusBadRequest, "authorization is empty", nil)
 		c.Abort()
 		return
 	}
@@ -67,7 +67,7 @@ func JwtVerify(c *gin.Context) {
 
 		//## Encode json
 		if jsonData == "" {
-			RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
+			JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
 			c.Abort()
 			return
 		} else {
@@ -86,7 +86,7 @@ func JwtVerify(c *gin.Context) {
 		}
 
 	} else {
-		RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
+		JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
 		return
 	}
