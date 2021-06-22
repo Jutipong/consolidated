@@ -11,10 +11,9 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
-//## No logger
+//## No Logger File
 func JwtGenerate(payload model.Login) string {
 	atClaims := jwt.MapClaims{}
 
@@ -49,7 +48,7 @@ func JwtVerify(c *gin.Context) {
 	const BEARER_SCHEMA = enum.Bearer
 	authHeader := c.GetHeader(enum.Authorization)
 	if len(authHeader) == 0 {
-		RespondJSON(c, http.StatusBadRequest, "authorization is empty", nil)
+		JsonResult(c, http.StatusBadRequest, "authorization is empty", nil)
 		c.Abort()
 		return
 	}
@@ -63,30 +62,32 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		jsonData := fmt.Sprint(claims[enum.UserRequest])
+		c.Set(enum.UserRequest, fmt.Sprint(claims[enum.UserRequest]))
+		c.Next()
 
-		//## Encode json
-		if jsonData == "" {
-			RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
-			c.Abort()
-			return
-		} else {
-			var uc model.UserRequest
-			json.Unmarshal([]byte(string(jsonData)), &uc)
+		// jsonData := fmt.Sprint(claims[enum.UserRequest])
+		// //## Encode json
+		// if jsonData == "" {
+		// 	JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
+		// 	c.Abort()
+		// 	return
+		// } else {
+		// 	var uc model.UserRequest
+		// 	json.Unmarshal([]byte(string(jsonData)), &uc)
 
-			//## Add TransationId
-			uc.TransationId = uuid.New().String()
+		// 	//## Add TransationId
+		// 	uc.TransationId = uuid.New().String()
 
-			//## payload to json
-			b, _ := json.Marshal(uc)
+		// 	//## payload to json
+		// 	b, _ := json.Marshal(uc)
 
-			//## set json to gin context
-			c.Set(enum.UserRequest, string(b))
-			c.Next()
-		}
+		// 	//## Set json to gin context
+		// 	c.Set(enum.UserRequest, string(b))
+		// 	c.Next()
+		// }
 
 	} else {
-		RespondJSON(c, http.StatusUnauthorized, err.Error(), nil)
+		JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
 		return
 	}

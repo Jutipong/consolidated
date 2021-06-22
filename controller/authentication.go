@@ -8,12 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//## No generate logger
-func Login(c *gin.Context) {
+type AuthenticatedController struct{}
+
+//## No Get Logger File
+func (auth *AuthenticatedController) Login(c *gin.Context) {
 	var login model.Login
 	err := c.ShouldBind(&login)
 	if err != nil {
-		helper.RespondJSON(c, http.StatusUnauthorized,
+		helper.JsonResult(c, http.StatusUnauthorized,
 			"username or password is not authenticated",
 			helper.GetErrShouldBind(err))
 	} else {

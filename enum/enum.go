@@ -7,7 +7,7 @@ const (
 	Fail    = "Fail"
 )
 
-//## Jwt key
+//## Jwt Key
 const (
 	Authorization = "Authorization"
 	Bearer        = "Bearer "

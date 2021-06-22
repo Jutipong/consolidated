@@ -22,9 +22,9 @@ func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
 	return []byte(fmt.Sprintf("%s %s %s\n", f.LevelDesc[entry.Level], timestamp, entry.Message)), nil
 }
 
-func SetupLogger() {
-	//## Config file
-	writer, _ := rotatelogs.New(
+func SetupLogger() string {
+	//## Config File
+	writer, err := rotatelogs.New(
 		config.Config.LoggerFile.RootPath+"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB
 		rotatelogs.WithMaxAge(-1),
@@ -32,12 +32,18 @@ func SetupLogger() {
 		rotatelogs.WithRotationTime(time.Duration(time.Now().Local().Day())),
 	)
 
+	if err != nil {
+		return fmt.Sprintf("LoggerFile Setup fail: %v", err.Error())
+	}
+
 	//## Format Logger
 	plainFormatter := new(PlainFormatter)
 	plainFormatter.TimestampFormat = "[2006-01-02 15:04:05]"
 	plainFormatter.LevelDesc = []string{"PANC", "FATL", "ERROR", "WARN", "INFO", "DEBUG"}
 	log.SetFormatter(plainFormatter)
 	log.SetOutput(writer)
+
+	return ""
 }
 
 //## ==================================================
@@ -46,9 +52,10 @@ func SetupLogger() {
 
 //## Any
 func LogInfo(payload interface{}) {
-	b, _ := json.Marshal(payload)
-	fmt.Println(string(b))
-	log.Info(string(b))
+	// b, _ := json.Marshal(payload)
+	// fmt.Println(string(b))
+	// log.Info(string(b))
+	log.Info(payload)
 }
 
 //## Request
@@ -74,7 +81,6 @@ func LogInfoResponse(c *gin.Context, payload interface{}) {
 	fmt.Println(string(b))
 	log.Info(string(b))
 }
-
 
 //## ==================================================
 //## ====================== Warn ======================
@@ -110,7 +116,6 @@ func LogWarnResponse(c *gin.Context, payload interface{}) {
 	fmt.Println(string(b))
 	log.Warn(string(b))
 }
-
 
 //## ===================================================
 //## ====================== Error ======================

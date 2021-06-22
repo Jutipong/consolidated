@@ -1,88 +1,74 @@
 package controller
 
 import (
-	"consolidated/entity"
 	"consolidated/enum"
 	"consolidated/helper"
+	"consolidated/repository"
 	"consolidated/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func FindAll(c *gin.Context) {
-	//## Logger request
-	helper.LoggerRequest(c, nil)
+type UserController struct{}
 
-	user := []entity.User{}
+func (u *UserController) FindAll(c *gin.Context) {
+	user := []repository.User{}
 	err := service.FindAll(&user)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
-func FindID(c *gin.Context) {
+func (u *UserController) FindID(c *gin.Context) {
+	user := repository.User{}
 	id := c.Params.ByName("id")
-	//## Logger request
-	helper.LoggerRequest(c, id)
-
-	user := entity.User{}
 
 	err := service.FindID(&user, id)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
-func AddNewCustomer(c *gin.Context) {
-	var user entity.User
+func (u *UserController) AddNewCustomer(c *gin.Context) {
+	var user repository.User
 	err := c.ShouldBind(&user)
 	if err != nil {
-		helper.RespondJSON(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
+		helper.JsonResult(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
 	}
-
-	//## Logger request
-	helper.LoggerRequest(c, user)
 
 	err = service.AddNewCustomer(&user)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
-func PutOneCustomer(c *gin.Context) {
-	var user entity.User
+func (u *UserController) PutOneCustomer(c *gin.Context) {
+	var user repository.User
 	id := c.Params.ByName("id")
 	c.BindJSON(&user)
 
-	//## Logger request
-	helper.LoggerRequest(c, user)
-
 	err := service.PutOneCustomer(&user, id)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
-func DeleteCustomer(c *gin.Context) {
-	var user entity.User
+func (u *UserController) DeleteCustomer(c *gin.Context) {
+	var user repository.User
 	id := c.Params.ByName("id")
-
-	//## Logger request
-	helper.LoggerRequest(c, id)
-
 	err := service.DeleteCustomer(&user, id)
 	if err == nil {
-		helper.RespondJSON(c, http.StatusOK, enum.Success, user)
+		helper.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.RespondJSON(c, http.StatusInternalServerError, err.Error(), nil)
+		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
