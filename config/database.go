@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"time"
 
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
@@ -16,6 +17,10 @@ func SetupDatabase() string {
 		return fmt.Sprintf("fail to connect to database config: %s error: %v", configDb, err.Error())
 	}
 	DB = db
+
+	//Auto Migrate
+	// db.Table("User").AutoMigrate(&User{})
+
 	// defer DB.Close()
 	return ""
 }
