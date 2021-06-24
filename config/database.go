@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"time"
 
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
