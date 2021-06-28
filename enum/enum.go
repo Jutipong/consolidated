@@ -2,14 +2,14 @@ package enum
 
 //## Http
 const (
-	Success = "Success"
-	Error   = "Error"
-	Fail    = "Fail"
+	Success string = "Success"
+	Error   string = "Error"
+	Fail    string = "Fail"
 )
 
 //## Jwt Key
 const (
-	Authorization = "Authorization"
-	Bearer        = "Bearer "
-	UserRequest   = "UserRequest"
+	Authorization string = "Authorization"
+	Bearer        string = "Bearer "
+	UserRequest   string = "UserRequest"
 )
