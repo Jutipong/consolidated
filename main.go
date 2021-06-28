@@ -6,7 +6,7 @@ import (
 	"consolidated/router"
 )
 
-func main() {
+func init() {
 	//## 1.Config
 	if err := config.SetupConfg("./config"); err != nil {
 		panic("fail get config: config.yaml")
@@ -21,6 +21,9 @@ func main() {
 		helper.LogError(err)
 		panic(err)
 	}
+}
+
+func main() {
 	//## 4.Router
 	router := router.Setup()
 	//## 5.Start Server
