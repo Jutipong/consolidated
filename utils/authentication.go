@@ -1,9 +1,9 @@
-package helper
+package utils
 
 import (
 	"consolidated/config"
 	"consolidated/enum"
-	"consolidated/model"
+	repo "consolidated/features/authentication/repository"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -14,14 +14,14 @@ import (
 )
 
 //## No Logger File
-func JwtGenerate(payload model.Login) string {
+func JwtGenerate(payload repo.Auth) string {
 	atClaims := jwt.MapClaims{}
 
 	// atClaims["id"] = payload.ID
 	// atClaims["username"] = payload.Username
 	// atClaims["level"] = payload.Level
 	// userRequest := &model.UserRequest{
-	userRequest := model.UserRequest{
+	userRequest := repo.UserRequest{
 		SystemId:    "S0001",
 		EmpCode:     "E0001",
 		User:        "U0001",
@@ -93,9 +93,9 @@ func JwtVerify(c *gin.Context) {
 	}
 }
 
-func GetUserRequest(ctx *gin.Context) model.UserRequest {
+func GetUserRequest(ctx *gin.Context) repo.UserRequest {
 	jsonData := ctx.GetString(enum.UserRequest)
-	var userRequest model.UserRequest
+	var userRequest repo.UserRequest
 	json.Unmarshal([]byte(jsonData), &userRequest)
 	return userRequest
 }

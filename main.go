@@ -2,8 +2,8 @@ package main
 
 import (
 	"consolidated/config"
-	"consolidated/helper"
 	"consolidated/router"
+	"consolidated/utils"
 )
 
 func init() {
@@ -12,13 +12,13 @@ func init() {
 		panic("fail get config: config.yaml")
 	}
 	//## 2.Logger File
-	if err := helper.SetupLogger(); err != "" {
-		helper.LogError(err)
+	if err := utils.SetupLogger(); err != "" {
+		utils.LogError(err)
 		panic(err)
 	}
 	//## 3.Database
 	if err := config.SetupDatabase(); err != "" {
-		helper.LogError(err)
+		utils.LogError(err)
 		panic(err)
 	}
 }

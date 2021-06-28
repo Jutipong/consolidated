@@ -1,8 +1,7 @@
-package helper
+package utils
 
 import (
 	"consolidated/config"
-	"consolidated/model"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -11,6 +10,12 @@ import (
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	log "github.com/sirupsen/logrus"
 )
+
+type LoggerTrasection struct {
+	Type         string
+	TransationId string
+	Data         interface{}
+}
 
 type PlainFormatter struct {
 	TimestampFormat string
@@ -61,7 +66,7 @@ func LogInfo(payload interface{}) {
 //## Request
 func LogInfoReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(model.LoggerTrasection{
+	b, _ := json.Marshal(LoggerTrasection{
 		Type:         "Request",
 		TransationId: cu.TransationId,
 		Data:         payload,
@@ -73,7 +78,7 @@ func LogInfoReqquest(c *gin.Context, payload interface{}) {
 //## Response
 func LogInfoResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(model.LoggerTrasection{
+	b, _ := json.Marshal(LoggerTrasection{
 		Type:         "Response",
 		TransationId: cu.TransationId,
 		Data:         payload,
@@ -96,7 +101,7 @@ func LogWarn(payload interface{}) {
 //## Request
 func LogWarnReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(model.LoggerTrasection{
+	b, _ := json.Marshal(LoggerTrasection{
 		Type:         "Request",
 		TransationId: cu.TransationId,
 		Data:         payload,
@@ -108,7 +113,7 @@ func LogWarnReqquest(c *gin.Context, payload interface{}) {
 //## Response
 func LogWarnResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(model.LoggerTrasection{
+	b, _ := json.Marshal(LoggerTrasection{
 		Type:         "Response",
 		TransationId: cu.TransationId,
 		Data:         payload,
@@ -131,7 +136,7 @@ func LogError(payload interface{}) {
 //## Request
 func LogErrorReqquest(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(model.LoggerTrasection{
+	b, _ := json.Marshal(LoggerTrasection{
 		Type:         "Request",
 		TransationId: cu.TransationId,
 		Data:         payload,
@@ -143,7 +148,7 @@ func LogErrorReqquest(c *gin.Context, payload interface{}) {
 //## Response
 func LogErrorResponse(c *gin.Context, payload interface{}) {
 	cu := GetUserRequest(c)
-	b, _ := json.Marshal(model.LoggerTrasection{
+	b, _ := json.Marshal(LoggerTrasection{
 		Type:         "Response",
 		TransationId: cu.TransationId,
 		Data:         payload,

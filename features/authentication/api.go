@@ -1,12 +1,14 @@
-package router
+package authentication
 
 import (
-	"consolidated/controller"
+	"consolidated/features/authentication/controller"
 
 	"github.com/gin-gonic/gin"
 )
 
-func SetupAuthenAPI(r *gin.Engine) {
+type AuthAPI struct{}
+
+func (a *AuthAPI) Setup(r *gin.Engine) {
 	g := r.Group("/api")
 	{
 		auth := controller.AuthenticatedController{}
