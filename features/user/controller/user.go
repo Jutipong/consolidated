@@ -38,7 +38,7 @@ func (u *UserController) AddNewCustomer(c *gin.Context) {
 	var user repository.User
 	err := c.ShouldBind(&user)
 	if err != nil {
-		utils.JsonResult(c, http.StatusBadRequest, enum.Success, utils.GetErrShouldBind(err))
+		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())
 	}
 
 	err = service.AddNewCustomer(&user)

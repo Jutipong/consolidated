@@ -11,7 +11,6 @@ type AuthAPI struct{}
 func (a *AuthAPI) Setup(r *gin.Engine) {
 	g := r.Group("/api")
 	{
-		auth := controller.AuthenticatedController{}
-		g.POST("/login", auth.Login)
+		g.POST("/login", controller.Login)
 	}
 }
