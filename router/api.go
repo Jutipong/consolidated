@@ -1,7 +1,7 @@
 package router
 
 import (
-	auth "consolidated/features/authentication"
+	"consolidated/features/auth"
 	"consolidated/features/user"
 	"consolidated/middleware"
 

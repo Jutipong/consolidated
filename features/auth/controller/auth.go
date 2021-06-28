@@ -1,7 +1,7 @@
 package controller
 
 import (
-	repo "consolidated/features/authentication/repository"
+	repo "consolidated/features/auth/repository"
 	"consolidated/utils"
 	"encoding/base64"
 	"errors"

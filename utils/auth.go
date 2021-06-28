@@ -3,7 +3,7 @@ package utils
 import (
 	"consolidated/config"
 	"consolidated/enum"
-	repo "consolidated/features/authentication/repository"
+	repo "consolidated/features/auth/repository"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -64,27 +64,6 @@ func JwtVerify(c *gin.Context) {
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		c.Set(enum.UserRequest, fmt.Sprint(claims[enum.UserRequest]))
 		c.Next()
-
-		// jsonData := fmt.Sprint(claims[enum.UserRequest])
-		// //## Encode json
-		// if jsonData == "" {
-		// 	JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
-		// 	c.Abort()
-		// 	return
-		// } else {
-		// 	var uc model.UserRequest
-		// 	json.Unmarshal([]byte(string(jsonData)), &uc)
-
-		// 	//## Add TransationId
-		// 	uc.TransationId = uuid.New().String()
-
-		// 	//## payload to json
-		// 	b, _ := json.Marshal(uc)
-
-		// 	//## Set json to gin context
-		// 	c.Set(enum.UserRequest, string(b))
-		// 	c.Next()
-		// }
 
 	} else {
 		JsonResult(c, http.StatusUnauthorized, err.Error(), nil)

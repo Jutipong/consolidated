@@ -1,7 +1,7 @@
-package authentication
+package auth
 
 import (
-	"consolidated/features/authentication/controller"
+	"consolidated/features/auth/controller"
 
 	"github.com/gin-gonic/gin"
 )
