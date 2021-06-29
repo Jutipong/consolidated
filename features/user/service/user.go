@@ -1,8 +1,6 @@
 package service
 
-import (
-	"consolidated/repository"
-)
+import "consolidated/features/user/repository"
 
 func FindAll(u *[]repository.User) (err error) {
 	if err = repository.FindAll(u); err != nil {

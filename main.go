@@ -2,8 +2,10 @@ package main
 
 import (
 	"consolidated/config"
-	"consolidated/helper"
 	"consolidated/router"
+	"consolidated/utils"
+
+	"github.com/gookit/validate"
 )
 
 func init() {
@@ -12,20 +14,25 @@ func init() {
 		panic("fail get config: config.yaml")
 	}
 	//## 2.Logger File
-	if err := helper.SetupLogger(); err != "" {
-		helper.LogError(err)
+	if err := utils.SetupLogger(); err != "" {
+		utils.LogError(err)
 		panic(err)
 	}
 	//## 3.Database
 	if err := config.SetupDatabase(); err != "" {
-		helper.LogError(err)
+		utils.LogError(err)
 		panic(err)
 	}
+	//## 4.Setup validate
+	validate.Config(func(opt *validate.GlobalOption) {
+		opt.StopOnError = false
+		// opt.SkipOnEmpty = false
+	})
 }
 
 func main() {
-	//## 4.Router
+	//## 5.Router
 	router := router.Setup()
-	//## 5.Start Server
+	//## 6.Start Server
 	router.Run(":" + config.Config.Server.Port)
 }
