@@ -4,6 +4,8 @@ import (
 	"consolidated/config"
 	"consolidated/router"
 	"consolidated/utils"
+
+	"github.com/gookit/validate"
 )
 
 func init() {
@@ -21,6 +23,11 @@ func init() {
 		utils.LogError(err)
 		panic(err)
 	}
+	//# Setup validate
+	validate.Config(func(opt *validate.GlobalOption) {
+		opt.StopOnError = false
+		// opt.SkipOnEmpty = false
+	})
 }
 
 func main() {
