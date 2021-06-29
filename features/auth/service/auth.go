@@ -28,6 +28,11 @@ func BasicAuth(c *gin.Context) (userAuth repo.Auth, errs interface{}) {
 	userAuth.Username = pair[0]
 	userAuth.Password = pair[1]
 
+	// str := utils.SerializeObject(userAuth)
+	// fmt.Println(str)
+	// obj := utils.DeserializeObject(str, repo.Auth)
+	// fmt.Println(obj)
+
 	v := validate.Struct(userAuth)
 	if !v.Validate() {
 		errs = utils.GetValidateError(v)
