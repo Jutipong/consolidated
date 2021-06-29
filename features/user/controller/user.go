@@ -2,9 +2,9 @@ package controller
 
 import (
 	"consolidated/enum"
-	"consolidated/helper"
-	"consolidated/repository"
-	"consolidated/service"
+	"consolidated/features/user/repository"
+	"consolidated/features/user/service"
+	"consolidated/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,9 +16,9 @@ func (u *UserController) FindAll(c *gin.Context) {
 	user := []repository.User{}
 	err := service.FindAll(&user)
 	if err == nil {
-		helper.JsonResult(c, http.StatusOK, enum.Success, user)
+		utils.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
+		utils.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -28,9 +28,9 @@ func (u *UserController) FindID(c *gin.Context) {
 
 	err := service.FindID(&user, id)
 	if err == nil {
-		helper.JsonResult(c, http.StatusOK, enum.Success, user)
+		utils.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
+		utils.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -38,14 +38,14 @@ func (u *UserController) AddNewCustomer(c *gin.Context) {
 	var user repository.User
 	err := c.ShouldBind(&user)
 	if err != nil {
-		helper.JsonResult(c, http.StatusBadRequest, enum.Success, helper.GetErrShouldBind(err))
+		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())
 	}
 
 	err = service.AddNewCustomer(&user)
 	if err == nil {
-		helper.JsonResult(c, http.StatusOK, enum.Success, user)
+		utils.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
+		utils.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -56,9 +56,9 @@ func (u *UserController) PutOneCustomer(c *gin.Context) {
 
 	err := service.PutOneCustomer(&user, id)
 	if err == nil {
-		helper.JsonResult(c, http.StatusOK, enum.Success, user)
+		utils.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
+		utils.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }
 
@@ -67,8 +67,8 @@ func (u *UserController) DeleteCustomer(c *gin.Context) {
 	id := c.Params.ByName("id")
 	err := service.DeleteCustomer(&user, id)
 	if err == nil {
-		helper.JsonResult(c, http.StatusOK, enum.Success, user)
+		utils.JsonResult(c, http.StatusOK, enum.Success, user)
 	} else {
-		helper.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
+		utils.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
 	}
 }

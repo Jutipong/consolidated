@@ -1,9 +1,9 @@
-package helper
+package utils
 
 import (
 	"consolidated/config"
 	"consolidated/enum"
-	"consolidated/model"
+	repo "consolidated/features/auth/repository"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -14,14 +14,14 @@ import (
 )
 
 //## No Logger File
-func JwtGenerate(payload model.Login) string {
+func JwtGenerate(payload repo.Auth) string {
 	atClaims := jwt.MapClaims{}
 
 	// atClaims["id"] = payload.ID
 	// atClaims["username"] = payload.Username
 	// atClaims["level"] = payload.Level
 	// userRequest := &model.UserRequest{
-	userRequest := model.UserRequest{
+	userRequest := repo.UserRequest{
 		SystemId:    "S0001",
 		EmpCode:     "E0001",
 		User:        "U0001",
@@ -65,27 +65,6 @@ func JwtVerify(c *gin.Context) {
 		c.Set(enum.UserRequest, fmt.Sprint(claims[enum.UserRequest]))
 		c.Next()
 
-		// jsonData := fmt.Sprint(claims[enum.UserRequest])
-		// //## Encode json
-		// if jsonData == "" {
-		// 	JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
-		// 	c.Abort()
-		// 	return
-		// } else {
-		// 	var uc model.UserRequest
-		// 	json.Unmarshal([]byte(string(jsonData)), &uc)
-
-		// 	//## Add TransationId
-		// 	uc.TransationId = uuid.New().String()
-
-		// 	//## payload to json
-		// 	b, _ := json.Marshal(uc)
-
-		// 	//## Set json to gin context
-		// 	c.Set(enum.UserRequest, string(b))
-		// 	c.Next()
-		// }
-
 	} else {
 		JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
@@ -93,9 +72,9 @@ func JwtVerify(c *gin.Context) {
 	}
 }
 
-func GetUserRequest(ctx *gin.Context) model.UserRequest {
+func GetUserRequest(ctx *gin.Context) repo.UserRequest {
 	jsonData := ctx.GetString(enum.UserRequest)
-	var userRequest model.UserRequest
+	var userRequest repo.UserRequest
 	json.Unmarshal([]byte(jsonData), &userRequest)
 	return userRequest
 }

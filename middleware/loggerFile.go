@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"bytes"
-	"consolidated/helper"
+	"consolidated/utils"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -55,18 +55,17 @@ func GinBodyLogMiddleware() gin.HandlerFunc {
 			//==============================================
 			response := blw.body.String()
 
-
 			//## String Format
 			strLog := fmt.Sprintf("RequestURI:%v | Method:%v | Request:%v | Status:%v | Response:%v",
 				requestURI, method, request, httpStatus, response)
 
 			switch c.Writer.Status() {
 			case http.StatusOK:
-				helper.LogInfo(strLog)
+				utils.LogInfo(strLog)
 			case http.StatusBadRequest, http.StatusUnauthorized:
-				helper.LogWarn(strLog)
+				utils.LogWarn(strLog)
 			default:
-				helper.LogError(strLog)
+				utils.LogError(strLog)
 			}
 		}
 		c.Next()

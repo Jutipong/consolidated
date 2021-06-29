@@ -1,8 +1,8 @@
-package model
+package repository
 
-type Login struct {
-	Username string `form:"Username" binding:"required"`
-	Password string `form:"Password" binding:"required"`
+type Auth struct {
+	Username string `validate:"required"`
+	Password string `validate:"required"`
 }
 
 type UserRequest struct {
