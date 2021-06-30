@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"consolidated/base"
+	"consolidated/config"
 	"fmt"
 
 	"github.com/gookit/validate"
@@ -15,7 +15,7 @@ type Rule struct {
 }
 
 func ValidateByRule(payload interface{}, ruleId float32, value int, fields []string) (string, string, interface{}) {
-	_rule := base.GetRule(ruleId)
+	_rule := config.GetRule(ruleId)
 	var errMsg []interface{}
 
 	for _, field := range fields {
@@ -39,7 +39,7 @@ func ValidateByRule(payload interface{}, ruleId float32, value int, fields []str
 }
 
 func ValidField(payload interface{}, field string, rules []Rule) (errs interface{}) {
-	validationRule := base.MasterRule()
+	validationRule := config.MasterRule()
 
 	for _, rule := range rules {
 		v := validate.New(payload)

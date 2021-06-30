@@ -1,4 +1,4 @@
-package base
+package config
 
 var validationRule = map[float32]map[string]string{}
 
@@ -12,7 +12,6 @@ func GetRule(id float32) map[string]string {
 
 func InitMasterRule() {
 	var key float32
-	// validationRule := map[float32]map[string]string{}
 
 	//## 1 => required
 	key = 1
