@@ -1,6 +1,7 @@
 package main
 
 import (
+	"consolidated/base"
 	"consolidated/config"
 	"consolidated/router"
 	"consolidated/utils"
@@ -30,7 +31,7 @@ func init() {
 	})
 
 	//## 5.Initial Master Validate Rule
-	utils.InitValidationRule()
+	base.InitMasterRule()
 }
 
 func main() {
