@@ -13,6 +13,6 @@ func (u *InwardFeeAPI) Setup(r *gin.Engine) {
 	g := r.Group("/api/v1/inwardfee")
 	{
 		_user := controller.UserController{}
-		g.POST("", utils.JwtVerify, _user.FindById)
+		g.POST("", utils.JwtVerify, _user.InwardFee)
 	}
 }
