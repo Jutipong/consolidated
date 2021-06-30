@@ -20,10 +20,10 @@ func init() {
 		panic(err)
 	}
 	//## 3.Database
-	if err := config.SetupDatabase(); err != "" {
-		utils.LogError(err)
-		panic(err)
-	}
+	// if err := config.SetupDatabase(); err != "" {
+	// 	utils.LogError(err)
+	// 	panic(err)
+	// }
 	//## 4.Setup validate
 	validate.Config(func(opt *validate.GlobalOption) {
 		opt.StopOnError = false

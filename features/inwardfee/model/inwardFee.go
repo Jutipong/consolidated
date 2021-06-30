@@ -1,4 +1,4 @@
-package inwardfree
+package model
 
 //## Request Model
 type Request struct {
