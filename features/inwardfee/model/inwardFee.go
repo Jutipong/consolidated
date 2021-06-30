@@ -1,6 +1,8 @@
 package model
 
-import "consolidated/utils"
+import (
+	"consolidated/utils"
+)
 
 //## Request Model
 type Request struct {
@@ -11,16 +13,16 @@ type Request struct {
 	// reqDetail reqDetail
 }
 
-func (h *Request) Validate() interface{} {
-	res := validateHeader(h)
-	return res
+func (h *Request) Validate() (string, string, interface{}) {
+	statusCode, message, res := validateHeader(h)
+	return statusCode, message, res
 }
 
-func validateHeader(h *Request) interface{} {
+func validateHeader(h *Request) (string, string, interface{}) {
 	// var req Request
 
-	// //## RefId
-	// errs := utils.ValidField(req, "RefId", []utils.Rule{
+	// // //## RefId
+	// errs := utils.ValidField(h, "RefId", []utils.Rule{
 	// 	{Id: 1, Value: 0},
 	// 	{Id: 2, Value: 15},
 	// })
@@ -28,17 +30,25 @@ func validateHeader(h *Request) interface{} {
 	// 	return errs
 	// }
 
-	//## TransDate
-	errs := utils.ValidField(h, "TransDate", []utils.Rule{
-		{Id: 1, Value: 0},
-		{Id: 2, Value: 8},
-		{Id: 5.1},
-	})
+	// //## TransDate
+	// errs = utils.ValidField(h, "TransDate", []utils.Rule{
+	// 	{Id: 1, Value: 0},
+	// 	{Id: 2, Value: 8},
+	// 	{Id: 5.1},
+	// })
+	// if errs != nil {
+	// 	return errs
+	// }
+
+	//## Validate Rule 1
+	statusCode, message, errs := utils.ValidateByRule(h, 1, 0, []string{"RefId", "TransDate"})
 	if errs != nil {
-		return errs
+		return statusCode, message, errs
 	}
 
-	return nil
+	// ValidateByRule
+
+	return statusCode, message, nil
 }
 
 // type reqHeader struct {

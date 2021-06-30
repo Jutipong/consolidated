@@ -23,9 +23,9 @@ func (u *UserController) InwardFee(c *gin.Context) {
 	}
 
 	//## Validate
-	errs := req.Validate()
+	statusCode, message, errs := req.Validate()
 	if errs != nil {
-		utils.JsonResult(c, http.StatusBadRequest, enum.Success, errs)
+		utils.JsonResponse(c, statusCode, message, errs)
 	}
 
 	// req := []model.Request{}

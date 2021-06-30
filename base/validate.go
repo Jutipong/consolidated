@@ -6,6 +6,10 @@ func MasterRule() map[float32]map[string]string {
 	return validationRule
 }
 
+func GetRule(id float32) map[string]string {
+	return validationRule[id]
+}
+
 func InitMasterRule() {
 	var key float32
 	// validationRule := map[float32]map[string]string{}

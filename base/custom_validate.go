@@ -7,6 +7,8 @@ import (
 )
 
 func SetupCustomValidate() {
+	_validationRule := MasterRule()
+
 	validate.Config(func(opt *validate.GlobalOption) {
 		opt.StopOnError = false
 		// opt.SkipOnEmpty = false
@@ -22,6 +24,11 @@ func SetupCustomValidate() {
 		}
 	})
 	validate.AddGlobalMessages(map[string]string{
-		"YYYYMMDD": "Date pattern นะจ๊ะ",
+		"YYYYMMDD": _validationRule[5.1]["Message"],
+	})
+
+	//
+	validate.AddGlobalMessages(map[string]string{
+		"required": _validationRule[1]["Message"],
 	})
 }

@@ -14,6 +14,30 @@ type Rule struct {
 	Value int
 }
 
+func ValidateByRule(payload interface{}, ruleId float32, value int, fields []string) (string, string, interface{}) {
+	_rule := base.GetRule(ruleId)
+	var errMsg []interface{}
+
+	for _, field := range fields {
+		var strRules string
+		v := validate.New(payload)
+
+		switch _rule["Type"] {
+		case "":
+			strRules = fmt.Sprintf("%v|", _rule["Rule"])
+		case "number":
+			strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], value)
+		}
+		v.StringRule(field, strRules)
+		if !v.Validate() {
+			for _, er := range GetFieldNameError(v) {
+				errMsg = append(errMsg, er)
+			}
+		}
+	}
+	return _rule["ErrorCode"], _rule["Message"], errMsg
+}
+
 func ValidField(payload interface{}, field string, rules []Rule) (errs interface{}) {
 	validationRule := base.MasterRule()
 
@@ -41,31 +65,31 @@ func ValidField(payload interface{}, field string, rules []Rule) (errs interface
 	return errs
 }
 
-func ValidFields(payload interface{}, field string, rules []Rule) (errs interface{}) {
-	var strRules string
-	v := validate.New(payload)
-	validationRule := base.MasterRule()
+// func ValidFields(payload interface{}, field string, rules []Rule) (errs interface{}) {
+// 	var strRules string
+// 	v := validate.New(payload)
+// 	validationRule := base.MasterRule()
 
-	for _, rule := range rules {
-		if len(rule.Base) > 0 {
-			strRules = fmt.Sprintf("%v", rule.Base)
-		}
+// 	for _, rule := range rules {
+// 		if len(rule.Base) > 0 {
+// 			strRules = fmt.Sprintf("%v", rule.Base)
+// 		}
 
-		_v := validationRule[rule.Id]
-		switch _v["Type"] {
-		case "":
-			strRules += fmt.Sprintf("%v|", validationRule[rule.Id]["Rule"])
-		case "number":
-			strRules += fmt.Sprintf("%v:%v|", validationRule[rule.Id]["Rule"], rule.Value)
-		}
-	}
+// 		_v := validationRule[rule.Id]
+// 		switch _v["Type"] {
+// 		case "":
+// 			strRules += fmt.Sprintf("%v|", validationRule[rule.Id]["Rule"])
+// 		case "number":
+// 			strRules += fmt.Sprintf("%v:%v|", validationRule[rule.Id]["Rule"], rule.Value)
+// 		}
+// 	}
 
-	v.StringRule(field, strRules)
-	if !v.Validate() {
-		errs = GetValidateError(v)
-	}
-	return errs
-}
+// 	v.StringRule(field, strRules)
+// 	if !v.Validate() {
+// 		errs = GetValidateError(v)
+// 	}
+// 	return errs
+// }
 
 //## Custom Validate
 
@@ -90,6 +114,15 @@ func GetValidateError(v *validate.Validation) interface{} {
 			err.Description = append(err.Description, errMessage)
 		}
 		errs = append(errs, err)
+	}
+	return errs
+}
+
+func GetFieldNameError(v *validate.Validation) []string {
+	errs := []string{}
+
+	for fieldName := range v.Errors {
+		errs = append(errs, fieldName)
 	}
 	return errs
 }

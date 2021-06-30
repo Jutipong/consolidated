@@ -7,28 +7,56 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ResponseData struct {
-	Status  int
-	Message string
-	Data    interface{}
+type ResultData struct {
+	ResponseCode int         `json:"responseCode"`
+	ResponseDesc string      `json:"responseDesc"`
+	Data         interface{} `json:"channelID"`
 }
 
 func JsonResult(c *gin.Context, status int, message string, payload interface{}) {
+	var res ResultData
+
+	//## Initial Data
+	res.ResponseCode = status
+	res.Data = payload
+
+	if res.ResponseCode == http.StatusOK {
+		res.ResponseDesc = enum.Success
+	} else {
+		if len(message) == 0 {
+			res.ResponseDesc = enum.Error
+		} else {
+			res.ResponseDesc = message
+		}
+	}
+
+	//## Next
+	c.JSON(http.StatusOK, res)
+}
+
+type ResponseData struct {
+	ResponseCode string      `json:"responseCode"`
+	ResponseDesc string      `json:"responseDesc"`
+	Data         interface{} `json:"channelID"`
+}
+
+func JsonResponse(c *gin.Context, statusCode string, message string, payload interface{}) {
 	var res ResponseData
 
 	//## Initial Data
-	res.Status = status
+	res.ResponseCode = statusCode
+	res.ResponseDesc = message
 	res.Data = payload
 
-	if res.Status == http.StatusOK {
-		res.Message = enum.Success
-	} else {
-		if len(message) == 0 {
-			res.Message = enum.Error
-		} else {
-			res.Message = message
-		}
-	}
+	// if res.ResponseCode == http.StatusOK {
+	// 	res.ResponseDesc = enum.Success
+	// } else {
+	// 	if len(message) == 0 {
+	// 		res.ResponseDesc = enum.Error
+	// 	} else {
+	// 		res.ResponseDesc = message
+	// 	}
+	// }
 
 	//## Next
 	c.JSON(http.StatusOK, res)
