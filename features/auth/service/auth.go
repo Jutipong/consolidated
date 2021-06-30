@@ -27,21 +27,21 @@ func BasicAuth(c *gin.Context) (userAuth repo.Auth, errs interface{}) {
 	userAuth.Username = pair[0]
 	userAuth.Password = pair[1]
 
-	rules := []utils.Rule{
+	//## Validate
+	errs = utils.ValidField(userAuth, "Username", []utils.Rule{
 		{Id: 1},
-	}
-	errs = utils.ValidField(userAuth, "Username", rules)
+	})
 	if errs != nil {
 		return userAuth, errs
 	}
 
-	rules = []utils.Rule{
+	errs = utils.ValidField(userAuth, "Password", []utils.Rule{
 		{Id: 1},
-	}
-	errs = utils.ValidField(userAuth, "Password", rules)
+	})
 	if errs != nil {
 		return userAuth, errs
 	}
+	//## End Validate
 
 	return userAuth, nil
 }
