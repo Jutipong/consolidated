@@ -40,6 +40,12 @@ func ValidField(payload interface{}, field string, rules []Rule) (errs interface
 	return errs
 }
 
+//## Custom Validate
+
+
+//## YYYYMMDD
+
+
 //## GetValidateError
 type ErrosMsg struct {
 	Field       string

@@ -54,7 +54,7 @@ func InitMasterRule() {
 	descript = map[string]string{}
 	descript["Message"] = "Character set: 0 1 2 3 4 5 6 7 8 9 ."
 	descript["ErrorCode"] = "V003"
-	descript["Rule"] = "numberx" //custom
+	descript["Rule"] = "number" //custom
 	validationRule[key] = descript
 
 	//## 4 => Field length
@@ -73,7 +73,7 @@ func InitMasterRule() {
 	descript = map[string]string{}
 	descript["Message"] = "format: YYYYMMDD"
 	descript["ErrorCode"] = "V005"
-	descript["Rule"] = "yyyymmmdd" //custom
+	descript["Rule"] = "YYYYMMDD" //custom
 	validationRule[key] = descript
 
 	//## 5.2 => Field length

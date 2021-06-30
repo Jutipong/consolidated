@@ -5,8 +5,6 @@ import (
 	"consolidated/config"
 	"consolidated/router"
 	"consolidated/utils"
-
-	"github.com/gookit/validate"
 )
 
 func init() {
@@ -25,18 +23,16 @@ func init() {
 	// 	panic(err)
 	// }
 	//## 4.Setup validate
-	validate.Config(func(opt *validate.GlobalOption) {
-		opt.StopOnError = false
-		// opt.SkipOnEmpty = false
-	})
 
 	//## 5.Initial Master Validate Rule
 	base.InitMasterRule()
+	//## 6. Setup Custom Validation
+	base.SetupCustomValidate()
 }
 
 func main() {
-	//## 6.Router
+	//## 7.Router
 	router := router.Setup()
-	//## 7.Start Server
+	//## 8.Start Server
 	router.Run(":" + config.Config.Server.Port)
 }

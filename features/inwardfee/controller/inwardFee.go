@@ -3,6 +3,7 @@ package controller
 import (
 	"consolidated/enum"
 	"consolidated/features/inwardfee/model"
+
 	// "consolidated/features/inwardfee/service"
 	"consolidated/utils"
 	"net/http"
@@ -19,6 +20,12 @@ func (u *UserController) InwardFee(c *gin.Context) {
 	err := c.ShouldBind(&req)
 	if err != nil {
 		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())
+	}
+
+	//## Validate
+	errs := req.Validate()
+	if errs != nil {
+		utils.JsonResult(c, http.StatusBadRequest, enum.Success, errs)
 	}
 
 	// req := []model.Request{}
