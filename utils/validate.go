@@ -15,6 +15,33 @@ type Rule struct {
 }
 
 func ValidField(payload interface{}, field string, rules []Rule) (errs interface{}) {
+	validationRule := base.MasterRule()
+
+	for _, rule := range rules {
+		v := validate.New(payload)
+		var strRules string
+		if len(rule.Base) > 0 {
+			strRules = fmt.Sprintf("%v", rule.Base)
+		}
+
+		_v := validationRule[rule.Id]
+		switch _v["Type"] {
+		case "":
+			strRules += fmt.Sprintf("%v|", validationRule[rule.Id]["Rule"])
+		case "number":
+			strRules += fmt.Sprintf("%v:%v|", validationRule[rule.Id]["Rule"], rule.Value)
+		}
+
+		v.StringRule(field, strRules)
+		if !v.Validate() {
+			errs = GetValidateError(v)
+			return errs
+		}
+	}
+	return errs
+}
+
+func ValidFields(payload interface{}, field string, rules []Rule) (errs interface{}) {
 	var strRules string
 	v := validate.New(payload)
 	validationRule := base.MasterRule()
@@ -42,9 +69,7 @@ func ValidField(payload interface{}, field string, rules []Rule) (errs interface
 
 //## Custom Validate
 
-
 //## YYYYMMDD
-
 
 //## GetValidateError
 type ErrosMsg struct {

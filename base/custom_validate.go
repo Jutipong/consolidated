@@ -14,7 +14,7 @@ func SetupCustomValidate() {
 
 	//## Tag => YYYYMMDD
 	validate.AddValidator("YYYYMMDD", func(strDate string) bool {
-		_, err := time.Parse("2006-01-02", strDate)
+		_, err := time.Parse("20060102", strDate)
 		if err == nil {
 			return true
 		} else {
