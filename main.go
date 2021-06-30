@@ -28,11 +28,14 @@ func init() {
 		opt.StopOnError = false
 		// opt.SkipOnEmpty = false
 	})
+
+	//## 5.Initial Master Validate Rule
+	utils.InitValidationRule()
 }
 
 func main() {
-	//## 5.Router
+	//## 6.Router
 	router := router.Setup()
-	//## 6.Start Server
+	//## 7.Start Server
 	router.Run(":" + config.Config.Server.Port)
 }

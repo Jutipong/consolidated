@@ -1,8 +1,12 @@
 package repository
 
+// type Auth struct {
+// 	Username string `validate:"required"`
+// 	Password string `validate:"required"`
+// }
 type Auth struct {
-	Username string `validate:"required"`
-	Password string `validate:"required"`
+	Username string
+	Password string
 }
 
 type UserRequest struct {

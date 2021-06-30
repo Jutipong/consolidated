@@ -1,41 +1,28 @@
-package utils
+package enum
 
 import (
+	"consolidated/utils"
+	"encoding/json"
 	"fmt"
 
 	"github.com/gookit/validate"
 )
 
+type Rule struct {
+	Id   float32
+	Base string
+	// Rule  string = "Rule"
+	// Type  string
+	Value int
+}
+
 var validationRule = map[float32]map[string]string{}
 
-//## Helper
-type ErrosMsg struct {
-	Field       string
-	Description []string
-}
-
-func GetValidateError(v *validate.Validation) interface{} {
-	errs := []ErrosMsg{}
-
-	for fieldName, validations := range v.Errors {
-		err := ErrosMsg{
-			Field:       fieldName,
-			Description: make([]string, 0),
-		}
-
-		for _, errMessage := range validations {
-			err.Description = append(err.Description, errMessage)
-		}
-		errs = append(errs, err)
-	}
-	return errs
-}
-
-func ValidRule(payload interface{}, field string, rules []Rule) (errs interface{}) {
+func ValidRule(payload interface{}, field string, rules []Rule) (errs error) {
 	var strRules string
 	v := validate.New(payload)
-
 	for _, rule := range rules {
+
 		if len(rule.Base) > 0 {
 			strRules = fmt.Sprintf("%v", rule.Base)
 		}
@@ -50,19 +37,33 @@ func ValidRule(payload interface{}, field string, rules []Rule) (errs interface{
 	}
 
 	v.StringRule(field, strRules)
+
 	if !v.Validate() {
-		errs = GetValidateError(v)
+		errs = utils.GetValidateError(v)
 	}
+
 	return errs
 }
 
-//## Master Config
-type Rule struct {
-	Id   float32
-	Base string
-	// Rule  string = "Rule"
-	// Type  string
-	Value int
+func SetValidateRule(v *validate.Validation, field string, rules []Rule) {
+	var strRules string
+
+	for _, rule := range rules {
+
+		if len(rule.Base) > 0 {
+			strRules = fmt.Sprintf("%v", rule.Base)
+		}
+
+		_v := validationRule[rule.Id]
+		switch _v["Type"] {
+		case "":
+			strRules += fmt.Sprintf("%v|", validationRule[rule.Id]["Rule"])
+		case "number":
+			strRules += fmt.Sprintf("%v:%v|", validationRule[rule.Id]["Rule"], rule.Value)
+		}
+	}
+
+	v.StringRule(field, strRules)
 }
 
 func InitValidationRule() {
@@ -155,4 +156,71 @@ func InitValidationRule() {
 
 	// b, _ := json.Marshal(validationRule[key])
 	// fmt.Println(string(b))
+}
+
+//Test make
+type ErrorData struct {
+	ErrorCode    string
+	ErrorMessage string
+	Rules        map[int]ValidateRule
+}
+
+type ValidateRule struct {
+	RuleID          int
+	RuleDescription string
+}
+
+func TestMpa() {
+	//Initial errorData
+	errorData := map[string]ErrorData{}
+
+	//V001
+	err := ErrorData{
+		ErrorCode:    "V001",
+		ErrorMessage: "Mandatory field",
+		Rules: map[int]ValidateRule{
+			1: {1, "Mandatory field"},
+		},
+	}
+	errorData["V001"] = err
+
+	//V002
+	err = ErrorData{
+		ErrorCode:    "V002",
+		ErrorMessage: "Field length",
+		Rules: map[int]ValidateRule{
+			2: {2, "Field length"},
+		},
+	}
+	errorData["V002"] = err
+
+	//V003
+	err = ErrorData{
+		ErrorCode:    "V003",
+		ErrorMessage: "Char set",
+		Rules: map[int]ValidateRule{
+			1: {1, "Char set 1"},
+			2: {2, "Char set 2"},
+			3: {3, "Char set 3"},
+		},
+	}
+	errorData["V003"] = err
+
+	//Display
+	b, _ := json.Marshal(errorData)
+	fmt.Println("JSON Data:")
+	fmt.Println(string(b))
+	fmt.Println()
+
+	fmt.Println("Select Value:")
+	errorCode := "V003"
+	ruleID := 1
+	v := errorData[errorCode].Rules[ruleID]
+	vb, _ := json.Marshal(v)
+	fmt.Println(string(vb))
+
+	//JSON Data: {"V001":{"ErrorCode":"V001","ErrorMessage":"Mandatory field","Rules":{"1":{"RuleID":1,"RuleDescription":"Mandatory field"}}},"V002":{"ErrorCode":"V002","ErrorMessage":"Field length","Rules":{"2":{"RuleID":2,"RuleDescription":"Field length"}}},"V003":{"ErrorCode":"V003","ErrorMessage":"Char set","Rules":{"1":{"RuleID":1,"RuleDescription":"Char set 1"},"2":{"RuleID":2,"RuleDescription":"Char set 2"},"3":{"RuleID":3,"RuleDescription":"Char set 3"}}}}
+
+	// Select Value: {"RuleID":1,"RuleDescription":"Char set 1"}
+
 }

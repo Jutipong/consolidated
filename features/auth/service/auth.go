@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/gookit/validate"
 )
 
 func BasicAuth(c *gin.Context) (userAuth repo.Auth, errs interface{}) {
@@ -28,14 +27,19 @@ func BasicAuth(c *gin.Context) (userAuth repo.Auth, errs interface{}) {
 	userAuth.Username = pair[0]
 	userAuth.Password = pair[1]
 
-	// str := utils.SerializeObject(userAuth)
-	// fmt.Println(str)
-	// obj := utils.DeserializeObject(str, repo.Auth)
-	// fmt.Println(obj)
+	rules := []utils.Rule{
+		{Id: 1},
+	}
+	errs = utils.ValidRule(userAuth, "Username", rules)
+	if errs != nil {
+		return userAuth, errs
+	}
 
-	v := validate.Struct(userAuth)
-	if !v.Validate() {
-		errs = utils.GetValidateError(v)
+	rules = []utils.Rule{
+		{Id: 1},
+	}
+	errs = utils.ValidRule(userAuth, "Password", rules)
+	if errs != nil {
 		return userAuth, errs
 	}
 
