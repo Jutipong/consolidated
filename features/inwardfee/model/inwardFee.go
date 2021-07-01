@@ -10,7 +10,7 @@ type Request struct {
 	RefId     string    `json:"refId"`
 	TransDate string    `json:"transDate"`
 	TransTime string    `json:"transTime"`
-	ReqDetail ReqDetail `json:"reqDetail"`
+	Detail    ReqDetail `json:"reqDetail"`
 }
 
 type ReqDetail struct {
@@ -27,82 +27,72 @@ func (h *Request) Validate() (float32, []string) {
 	ruleId, errs := validateHeader(h)
 	if len(errs) != 0 {
 		return ruleId, errs
+	} else {
+		return ruleId, errs
 	}
-	// ruleId, errs = validateDetail(&h.ReqDetail)
-	return ruleId, errs
 }
 
 func validateHeader(h *Request) (float32, []string) {
 	var ruleId float32 = 0
 
 	//## Validate Rule 1
-
-	rule := []utils.Rules{
+	ruleId = 1
+	rule := []utils.ValidateRules{
+		//config validate header
 		{
-			RuleId: 1,
-			FieldRules: []utils.FieldRule{
-				{Obj: h, Name: []string{"RefId", "TransDate"}},
-				{Obj: h.ReqDetail, Name: []string{"AccountNo"}},
+			Obj: h,
+			RuleFields: []utils.RuleField{
+				{FieldName: "RefId"},
+				{FieldName: "TransDate"},
+				{FieldName: "TransTime"},
+			},
+		},
+		//config validate detail
+		{
+			Obj: h.Detail,
+			RuleFields: []utils.RuleField{
+				{FieldName: "AccountNo"},
 			},
 		},
 	}
-
-	// {Obj: h, FieldName: []string{"RefId", "TransDate"}},
-	// {Obj: h.ReqDetail, FieldName: []string{"AccountNo"}},
-
-	ruleId = 1
 	errs := utils.ValidateByRule(h, ruleId, rule)
 	if errs != nil {
 		return ruleId, errs
 	}
 
+	// //## Validate Rule 1
 	// ruleId = 1
-	// errs := utils.ValidateByRule(h, ruleId, []utils.ValidateRule{
-	// 	{FieldName: "RefId"},
-	// 	{FieldName: "TransDate"},
-	// })
+	// rule := []utils.Rules{
+	// 	{
+	// 		RuleId: ruleId,
+	// 		FieldRules: []utils.ValidateRules{
+	// 			{Obj: h, Name: []string{"RefId", "TransDate", "transTime"}},
+	// 			{Obj: h.ReqDetail, Name: []string{"AccountNo"}},
+	// 		},
+	// 	},
+	// }
+	// errs := utils.ValidateByRule(h, ruleId, rule)
 	// if errs != nil {
 	// 	return ruleId, errs
 	// }
+
+	//## Validate Rule 2
+	// ruleId = 2
+	// rule = []utils.Rules{
+	// 	{
+	// 		RuleId: ruleId,
+	// 		FieldRules: []utils.FieldRule{
+	// 			{Obj: h, Name: []string{"RefId", "TransDate", "transTime"}},
+	// 			{Obj: h.ReqDetail, Name: []string{"AccountNo"}},
+	// 		},
+	// 	},
+	// }
+	// errs = utils.ValidateByRule(h, ruleId, rule)
+	// if errs != nil {
+	// 	return ruleId, errs
+	// }
+
 	return ruleId, errs
 }
 
-// func validateDetail(h *ReqDetail) (float32, []string) {
-// 	var ruleId float32 = 0
-
-// 	//## Validate Rule 1
-// 	ruleId = 1
-// 	errs := utils.ValidateByRule(h, ruleId, 0, []utils.ValidateRule{
-// 		{FieldName: "RefId"},
-// 		{FieldName: "TransDate"},
-// 	})
-// 	if errs != nil {
-// 		return ruleId, errs
-// 	}
-// 	return ruleId, errs
-// }
-
-// type reqHeader struct {
-// 	refId     string
-// 	transDate string
-// 	transTime string
-// }
-
-//## Validate
-// func ValidateHeader() {
-
-// }
-
-// type reqDetail struct {
-// 	accountNo       string
-// 	cifNo           string
-// 	feeChannel      string
-// 	transactionType string
-// 	chargeType      string
-// 	orderingType    string
-// 	searchPayInFull string
-// }
-
-//## Response Model
-// type Response struct {
-// }
+//1, 2, 3.2, 3.3, 4, 5.1

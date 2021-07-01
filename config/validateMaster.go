@@ -34,25 +34,25 @@ func InitMasterRule() {
 
 	//## Character set
 	//## 3.1 => Field length
-	key = 3.1
-	validationRule[key] = make(map[string]string)
-	descript = map[string]string{}
-	descript["Message"] = "Character set: a b c d e f g h i j k l m n o p q r s t u v w x y z"
-	descript["Code"] = "V003"
-	descript["Rule"] = "lower" //custom
-	validationRule[key] = descript
+	// key = 3.1
+	// validationRule[key] = make(map[string]string)
+	// descript = map[string]string{}
+	// descript["Message"] = "Character set: a b c d e f g h i j k l m n o p q r s t u v w x y z"
+	// descript["Code"] = "V003"
+	// descript["Rule"] = "lower" //custom
+	// validationRule[key] = descript
 
 	//## 3.2 => Field length
-	key = 3.2
-	validationRule[key] = make(map[string]string)
-	descript = map[string]string{}
-	descript["Message"] = "Character set: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-	descript["Code"] = "V003"
-	descript["Rule"] = "Upper" //custom
-	validationRule[key] = descript
+	// key = 3.2
+	// validationRule[key] = make(map[string]string)
+	// descript = map[string]string{}
+	// descript["Message"] = "Character set: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+	// descript["Code"] = "V003"
+	// descript["Rule"] = "Upper" //custom
+	// validationRule[key] = descript
 
 	//## 3.3 => Field length
-	key = 3.3
+	key = 3
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "Character set: 0 1 2 3 4 5 6 7 8 9 ."

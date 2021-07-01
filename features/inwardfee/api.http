@@ -1,6 +1,6 @@
 //## Inward
 POST   http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MTMxMzI3fQ.IzGjK3ISAB-po7ia-B6saT3RhsP6V70j5ex-h1N9yeg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MTM4MzE2fQ.NaNgXbw4_O_sIjWsf7fs9A_-_HYIY38lkCUzFbowezU
 Content-Type: application/json
 
   {
@@ -9,6 +9,6 @@ Content-Type: application/json
      "transDate": "",
      "transTime": "09:45:37",
      "reqDetail": {
-         "accountNo": "xxx"
+         "accountNo": ""
      }
  }
