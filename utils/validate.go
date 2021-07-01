@@ -19,7 +19,7 @@ type ValidateRules struct {
 
 type RuleField struct {
 	FieldName string
-	Len       int
+	Length    int
 	Condition []string
 }
 
@@ -42,7 +42,7 @@ func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRul
 				// 	//condition
 				// }
 			case "number":
-				strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], fields.Len)
+				strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], fields.Length)
 			}
 
 			v.StringRule(fields.FieldName, strRules)

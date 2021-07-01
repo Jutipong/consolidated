@@ -75,6 +75,32 @@ func validateHeader(h *Request) (float32, []string) {
 		return ruleId, errs
 	}
 
+	//## Validate Rule 2 => ต้องระบุ Field length
+	ruleId = 1
+	errs = utils.ValidateByRule(h, ruleId, []utils.ValidateRules{
+		//config validate header
+		{Obj: h, RuleFields: []utils.RuleField{
+			{FieldName: "RefId", Length: 15},
+			{FieldName: "TransDate", Length: 8},
+			{FieldName: "TransTime", Length: 8},
+		}},
+		//config validate detail
+		{Obj: h.Detail, RuleFields: []utils.RuleField{
+			{FieldName: "FeeChannel"},
+			{FieldName: "TransactionType"},
+			{FieldName: "ChargeType"},
+			{FieldName: "FromCCY"},
+			{FieldName: "ToCCY"},
+			{FieldName: "AmountFrom"},
+			{FieldName: "AmountTo"},
+			{FieldName: "ExchangeRate"},
+			{FieldName: "EffectiveDate"},
+		}},
+	})
+	if errs != nil {
+		return ruleId, errs
+	}
+
 	return ruleId, errs
 }
 
