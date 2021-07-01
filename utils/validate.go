@@ -42,48 +42,86 @@ func ValidField(obj interface{}, field string, rules []Rule) (errs interface{}) 
 	return errs
 }
 
-type ValidateRule struct {
-	FieldName string
+type Rules struct {
+	RuleId     float32
+	FieldRules []FieldRule
+}
+
+type FieldRule struct {
+	Obj       interface{}
+	Name      []string
 	Value     int
 	Condition []string
 }
 
 //## ใช้ในการ Validate Request ตามลำดับ Rule => 1, 2, 3, .......
-func ValidateByRule(obj interface{}, ruleId float32, value int, rules []ValidateRule) (string, string, []string) {
+func ValidateByRule(obj interface{}, ruleId float32, rules []Rules) []string {
 	_rule := config.GetRule(ruleId)
 	var errMsg []string
 
-	for _, rule := range rules {
-		var strRules string
-		v := validate.New(obj)
+	for _, obj := range rules {
+		for _, fields := range obj.FieldRules {
+			for _, field := range fields.Name {
+				var strRules string
+				v := validate.New(fields.Obj)
 
-		switch _rule["Type"] {
-		case "":
-			if len(rule.Condition) == 0 {
-				strRules = fmt.Sprintf("%v|", _rule["Rule"])
-			}
-			// else {
-			// 	//condition
-			// }
-		case "number":
-			strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], value)
-		}
+				switch _rule["Type"] {
+				case "":
+					if len(fields.Condition) == 0 {
+						strRules = fmt.Sprintf("%v|", _rule["Rule"])
+					}
+					// else {
+					// 	//condition
+					// }
+				case "number":
+					strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], fields.Value)
+				}
 
-		v.StringRule(rule.FieldName, strRules)
-		if !v.Validate() {
-			for _, er := range GetFieldNameError(v) {
-				errMsg = append(errMsg, er)
+				v.StringRule(field, strRules)
+				if !v.Validate() {
+					for _, er := range GetFieldNameError(v) {
+						errMsg = append(errMsg, er)
+					}
+				}
 			}
 		}
 	}
 
-	if len(errMsg) == 0 {
-		return "", "", errMsg
-	} else {
-		return _rule["ErrorCode"], _rule["Message"], errMsg
-	}
-
+	return errMsg
 }
+
+//Backup
+// //## ใช้ในการ Validate Request ตามลำดับ Rule => 1, 2, 3, .......
+// func ValidateByRule(obj interface{}, ruleId float32, rules []ValidateRule) []string {
+// 	_rule := config.GetRule(ruleId)
+// 	var errMsg []string
+
+// 	for _, rule := range rules {
+// 		var strRules string
+// 		v := validate.New(obj)
+
+// 		switch _rule["Type"] {
+// 		case "":
+// 			if len(rule.Condition) == 0 {
+// 				strRules = fmt.Sprintf("%v|", _rule["Rule"])
+// 			}
+// 			// else {
+// 			// 	//condition
+// 			// }
+// 		case "number":
+// 			strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], rule.Value)
+// 		}
+
+// 		v.StringRule(rule.FieldName, strRules)
+// 		if !v.Validate() {
+// 			for _, er := range GetFieldNameError(v) {
+// 				errMsg = append(errMsg, er)
+// 			}
+// 		}
+// 	}
+
+// 	return errMsg
+// }
 
 //## GetValidateError
 type ErrosMsg struct {

@@ -1,4 +1,4 @@
-package config
+package base
 
 var validationRule = map[float32]map[string]string{}
 
@@ -12,6 +12,7 @@ func GetRule(id float32) map[string]string {
 
 func InitMasterRule() {
 	var key float32
+	// validationRule := map[float32]map[string]string{}
 
 	//## 1 => required
 	key = 1
@@ -95,14 +96,6 @@ func InitMasterRule() {
 	descript["Message"] = "format: YYYYMMDD HH:MM:SS"
 	descript["Code"] = "V005"
 	descript["Rule"] = "yyyymmmddhhmmss" //custom
-	validationRule[key] = descript
-
-	//## Master BadUnauthorized
-	key = 400
-	validationRule[key] = make(map[string]string)
-	descript = map[string]string{}
-	descript["Message"] = "Unauthorized"
-	descript["Code"] = "400"
 	validationRule[key] = descript
 
 	// b, _ := json.Marshal(validationRule[key])

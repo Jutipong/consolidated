@@ -75,7 +75,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript := map[string]string{}
 	descript["Message"] = "Mandatory field"
-	descript["ErrorCode"] = "V001"
+	descript["Code"] = "V001"
 	descript["Rule"] = "required"
 	validationRule[key] = descript
 
@@ -84,7 +84,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "Field length"
-	descript["ErrorCode"] = "V002"
+	descript["Code"] = "V002"
 	descript["Rule"] = "maxLen"
 	descript["Type"] = "number"
 	validationRule[key] = descript
@@ -95,7 +95,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "Character set: a b c d e f g h i j k l m n o p q r s t u v w x y z"
-	descript["ErrorCode"] = "V003"
+	descript["Code"] = "V003"
 	descript["Rule"] = "lower" //custom
 	validationRule[key] = descript
 
@@ -104,7 +104,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "Character set: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-	descript["ErrorCode"] = "V003"
+	descript["Code"] = "V003"
 	descript["Rule"] = "Upper" //custom
 	validationRule[key] = descript
 
@@ -113,7 +113,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "Character set: 0 1 2 3 4 5 6 7 8 9 ."
-	descript["ErrorCode"] = "V003"
+	descript["Code"] = "V003"
 	descript["Rule"] = "numberx" //custom
 	validationRule[key] = descript
 
@@ -122,7 +122,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "Fix value"
-	descript["ErrorCode"] = "V004"
+	descript["Code"] = "V004"
 	descript["Rule"] = "fixValue" //custom
 	validationRule[key] = descript
 
@@ -132,7 +132,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "format: YYYYMMDD"
-	descript["ErrorCode"] = "V005"
+	descript["Code"] = "V005"
 	descript["Rule"] = "yyyymmmdd" //custom
 	validationRule[key] = descript
 
@@ -141,7 +141,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "format: HH:MM:SS"
-	descript["ErrorCode"] = "V005"
+	descript["Code"] = "V005"
 	descript["Rule"] = "hhmmss" //custom
 	validationRule[key] = descript
 
@@ -150,7 +150,7 @@ func InitValidationRule() {
 	validationRule[key] = make(map[string]string)
 	descript = map[string]string{}
 	descript["Message"] = "format: YYYYMMDD HH:MM:SS"
-	descript["ErrorCode"] = "V005"
+	descript["Code"] = "V005"
 	descript["Rule"] = "yyyymmmddhhmmss" //custom
 	validationRule[key] = descript
 
@@ -160,7 +160,7 @@ func InitValidationRule() {
 
 //Test make
 type ErrorData struct {
-	ErrorCode    string
+	Code    string
 	ErrorMessage string
 	Rules        map[int]ValidateRule
 }
@@ -176,7 +176,7 @@ func TestMpa() {
 
 	//V001
 	err := ErrorData{
-		ErrorCode:    "V001",
+		Code:    "V001",
 		ErrorMessage: "Mandatory field",
 		Rules: map[int]ValidateRule{
 			1: {1, "Mandatory field"},
@@ -186,7 +186,7 @@ func TestMpa() {
 
 	//V002
 	err = ErrorData{
-		ErrorCode:    "V002",
+		Code:    "V002",
 		ErrorMessage: "Field length",
 		Rules: map[int]ValidateRule{
 			2: {2, "Field length"},
@@ -196,7 +196,7 @@ func TestMpa() {
 
 	//V003
 	err = ErrorData{
-		ErrorCode:    "V003",
+		Code:    "V003",
 		ErrorMessage: "Char set",
 		Rules: map[int]ValidateRule{
 			1: {1, "Char set 1"},
@@ -213,13 +213,13 @@ func TestMpa() {
 	fmt.Println()
 
 	fmt.Println("Select Value:")
-	errorCode := "V003"
+	Code := "V003"
 	ruleID := 1
-	v := errorData[errorCode].Rules[ruleID]
+	v := errorData[Code].Rules[ruleID]
 	vb, _ := json.Marshal(v)
 	fmt.Println(string(vb))
 
-	//JSON Data: {"V001":{"ErrorCode":"V001","ErrorMessage":"Mandatory field","Rules":{"1":{"RuleID":1,"RuleDescription":"Mandatory field"}}},"V002":{"ErrorCode":"V002","ErrorMessage":"Field length","Rules":{"2":{"RuleID":2,"RuleDescription":"Field length"}}},"V003":{"ErrorCode":"V003","ErrorMessage":"Char set","Rules":{"1":{"RuleID":1,"RuleDescription":"Char set 1"},"2":{"RuleID":2,"RuleDescription":"Char set 2"},"3":{"RuleID":3,"RuleDescription":"Char set 3"}}}}
+	//JSON Data: {"V001":{"Code":"V001","ErrorMessage":"Mandatory field","Rules":{"1":{"RuleID":1,"RuleDescription":"Mandatory field"}}},"V002":{"Code":"V002","ErrorMessage":"Field length","Rules":{"2":{"RuleID":2,"RuleDescription":"Field length"}}},"V003":{"Code":"V003","ErrorMessage":"Char set","Rules":{"1":{"RuleID":1,"RuleDescription":"Char set 1"},"2":{"RuleID":2,"RuleDescription":"Char set 2"},"3":{"RuleID":3,"RuleDescription":"Char set 3"}}}}
 
 	// Select Value: {"RuleID":1,"RuleDescription":"Char set 1"}
 
