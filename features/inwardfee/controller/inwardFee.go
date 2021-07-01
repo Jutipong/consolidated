@@ -18,7 +18,9 @@ type UserController struct{}
 func (u *UserController) InwardFee(c *gin.Context) {
 	var req model.Request
 	err := c.ShouldBind(&req)
-	if err == nil {
+	if err != nil {
+		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())
+	} else {
 		//## Validate
 		ruleId, errs := req.Validate()
 		if errs != nil {
@@ -26,15 +28,5 @@ func (u *UserController) InwardFee(c *gin.Context) {
 		} else {
 			utils.JsonResult(c, float32(0000), enum.Success, req)
 		}
-	} else {
-		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())
 	}
-
-	// req := []model.Request{}
-	// err := _inwardFee.FindById(&req)
-	// if err == nil {
-	// 	utils.JsonResult(c, http.StatusOK, enum.Success, req)
-	// } else {
-	// 	utils.JsonResult(c, http.StatusInternalServerError, err.Error(), nil)
-	// }
 }
