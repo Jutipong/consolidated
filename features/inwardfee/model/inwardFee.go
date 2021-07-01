@@ -14,7 +14,7 @@ type Request struct {
 }
 
 type ReqDetail struct {
-	AccountNo       string `json:"reqDetail"`
+	AccountNo       string `json:"accountNo"`
 	CifNo           string `json:"cifNo"`
 	FeeChannel      string `json:"feeChannel"`
 	TransactionType string `json:"transactionType"`

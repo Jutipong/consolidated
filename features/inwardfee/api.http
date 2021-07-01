@@ -7,6 +7,8 @@ Content-Type: application/json
      "channelID": "Inward",
      "refId": "ffffffffffffffffffffffffff",
      "transDate": "",
-     "transTime": "09:45:37"
-     
+     "transTime": "09:45:37",
+     "reqDetail": {
+         "accountNo": "xxx"
+     }
  }
