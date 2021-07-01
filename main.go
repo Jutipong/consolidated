@@ -8,7 +8,7 @@ import (
 
 func init() {
 	//## 1.Config
-	if err := config.SetupConfg("./config"); err != nil {
+	if err := config.SetupConfig("./config"); err != nil {
 		panic("fail get config: config.yaml")
 	}
 	//## 2.Logger File
