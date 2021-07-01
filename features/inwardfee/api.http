@@ -1,11 +1,11 @@
 //## Inward
 POST   http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MDcyODExfQ.8mrzoIBal7aLiRZpCmRH-AwkdtbljjOt_FUOA-ZmA7w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MTE4Mjk1fQ.ob_rlM5vHPCkMBBe47MX-KlgbKRrUxVQgQMTaK7_7II
 Content-Type: application/json
 
   {
       "channelID": "Inward",
-      "refId": "",
-      "trfansDate": "",
+      "refId": "ffffffffffffffffffffffffff",
+      "transDate": "",
       "transTime": "09:45:37"
   }

@@ -8,9 +8,9 @@ import (
 )
 
 type ResultData struct {
-	ResponseCode int         `json:"responseCode"`
-	ResponseDesc string      `json:"responseDesc"`
-	Data         interface{} `json:"channelID"`
+	ResponseCode   int         `json:"responseCode"`
+	ResponseDesc   string      `json:"responseDesc"`
+	ResponseDetail interface{} `json:"responseDetail"`
 }
 
 func JsonResult(c *gin.Context, status int, message string, payload interface{}) {
@@ -18,7 +18,7 @@ func JsonResult(c *gin.Context, status int, message string, payload interface{})
 
 	//## Initial Data
 	res.ResponseCode = status
-	res.Data = payload
+	res.ResponseDetail = payload
 
 	if res.ResponseCode == http.StatusOK {
 		res.ResponseDesc = enum.Success
@@ -35,9 +35,9 @@ func JsonResult(c *gin.Context, status int, message string, payload interface{})
 }
 
 type ResponseData struct {
-	ResponseCode string      `json:"responseCode"`
-	ResponseDesc string      `json:"responseDesc"`
-	Data         interface{} `json:"channelID"`
+	ResponseCode   string      `json:"responseCode"`
+	ResponseDesc   string      `json:"responseDesc"`
+	ResponseDetail interface{} `json:"responseDetail"`
 }
 
 func JsonResponse(c *gin.Context, statusCode string, message string, payload interface{}) {
@@ -46,7 +46,7 @@ func JsonResponse(c *gin.Context, statusCode string, message string, payload int
 	//## Initial Data
 	res.ResponseCode = statusCode
 	res.ResponseDesc = message
-	res.Data = payload
+	res.ResponseDetail = payload
 
 	// if res.ResponseCode == http.StatusOK {
 	// 	res.ResponseDesc = enum.Success
