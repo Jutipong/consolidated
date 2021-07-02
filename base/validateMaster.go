@@ -22,13 +22,23 @@ func InitMasterRule() {
 	description["Rule"] = "required"
 	validationRule[key] = description
 
-	//## 2 => Field length
+	//## 2 => Field length for string
 	key = 2
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
 	description["Message"] = "Field length"
 	description["Code"] = "V002"
 	description["Rule"] = "maxLen"
+	description["Type"] = "number"
+	validationRule[key] = description
+
+	//## 2.1 => Field length for string
+	key = 2.1
+	validationRule[key] = make(map[string]string)
+	description = map[string]string{}
+	description["Message"] = "Digit length"
+	description["Code"] = "V002"
+	description["Rule"] = "digit"
 	description["Type"] = "number"
 	validationRule[key] = description
 

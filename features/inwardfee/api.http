@@ -1,10 +1,10 @@
 ### test fail
 POST   http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MTM4MzE2fQ.NaNgXbw4_O_sIjWsf7fs9A_-_HYIY38lkCUzFbowezU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjI3ODEyfQ.P5BQd8JqHlNuB5ZwN_UHTWF5_VNGrZxc4dBwnR0ACGk
 Content-Type: application/json
 
 {
-    "channelID": "",
+    "channelID": "asd",
     "refId": "",
     "transDate": "",
     "transTime": "",
@@ -20,9 +20,9 @@ Content-Type: application/json
         "purpose": "",
         "fromCCY": "",
         "toCCY": "",
-        "amountFrom": "",
-        "amountTo": "",
-        "exchangeRate": "",
+        "amountFrom": 222222222222222.11,
+        "amountTo": 222222222222222.34,
+        "exchangeRate": 333333333333333.6,
         "effectiveDate": "",
         "feeType": ""
     }
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ### test data all
 POST  http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjE1ODAwfQ.4O_dnzqdxgursSMQMQND9rwtoZuLF-isScW5htJaZ3w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjI3ODEyfQ.P5BQd8JqHlNuB5ZwN_UHTWF5_VNGrZxc4dBwnR0ACGk
 Content-Type: application/json
 
 {
@@ -51,9 +51,9 @@ Content-Type: application/json
         "purpose": "10xxxxxxxx-",
         "fromCCY": "AED",
         "toCCY": "AED",
-        "amountFrom": "amountFrom",
-        "amountTo": "amountTo",
-        "exchangeRate": "exchangeRate",
+        "amountFrom": 222222222222222.11,
+        "amountTo": 222222222222222.34,
+        "exchangeRate": 333333333333333.6,
         "effectiveDate": "20210324",
         "feeType": "20xxxxxxxxxxxxxxxxxx-"
     }
