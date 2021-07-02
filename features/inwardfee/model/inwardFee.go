@@ -1,7 +1,6 @@
 package model
 
 import (
-	"consolidated/base"
 	"consolidated/validation"
 )
 
@@ -116,47 +115,39 @@ func validateHeader(req *Request) (float32, []string) {
 
 	//Rule 4 => Fix value
 	ruleId = validation.FixValue([]validation.FixValueRule{
-		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
-			Conditions: []string{"SWIFT"}},
-		{FieldName: "TransactionType", Value: req.Detail.TransactionType,
-			Conditions: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
-		{FieldName: "ChargeType", Value: req.Detail.ChargeType,
-			Conditions: []string{"BEN", "SHA", "OUR"}},
-		{FieldName: "OrderingType", Value: req.Detail.OrderingType,
-			Conditions: []string{"corp", "retail"}},
-		{FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
-			Conditions: []string{"Y", "N"}},
-		{FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
-			Conditions: []string{"Deposit", "Withdraw"}},
-		{FieldName: "FeeType", Value: req.Detail.FeeType,
-			Conditions: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
-		{FieldName: "FromCCY", Value: req.Detail.FromCCY,
-			Conditions: base.MsCurrency()},
-		{FieldName: "ToCCY", Value: req.Detail.ToCCY,
-			Conditions: base.MsCurrency()},
-		{FieldName: "BenCountry", Value: req.Detail.BenCountry,
-			Conditions: base.MsCountry()},
+		// {FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
+		// 	Conditions: []string{"SWIFT"}},
+		// {FieldName: "TransactionType", Value: req.Detail.TransactionType,
+		// 	Conditions: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
+		// {FieldName: "ChargeType", Value: req.Detail.ChargeType,
+		// 	Conditions: []string{"BEN", "SHA", "OUR"}},
+		// {FieldName: "OrderingType", Value: req.Detail.OrderingType,
+		// 	Conditions: []string{"corp", "retail"}},
+		// {FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
+		// 	Conditions: []string{"Y", "N"}},
+		// {FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
+		// 	Conditions: []string{"Deposit", "Withdraw"}},
+		// {FieldName: "FeeType", Value: req.Detail.FeeType,
+		// 	Conditions: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
+		// {FieldName: "FromCCY", Value: req.Detail.FromCCY,
+		// 	Conditions: base.MsCurrency()},
+		// {FieldName: "ToCCY", Value: req.Detail.ToCCY,
+		// 	Conditions: base.MsCurrency()},
+		// {FieldName: "BenCountry", Value: req.Detail.BenCountry,
+		// 	Conditions: base.MsCountry()},
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs
 	}
 
-	// // #region Validate Rule 5.1 => Date pattern (format: YYYYMMDD) => V005
-	// ruleId = 5.1
-	// errs = utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
-	//	//Header
-	// 	{Obj: req, RuleFields: []utils.RuleField{
-	// 		{FieldName: "TransDate"},
-	// 	}},
-	// 	//Detail
-	// 	{Obj: req.Detail, RuleFields: []utils.RuleField{
-	// 		{FieldName: "EffectiveDate"},
-	// 	}},
-	// })
-	// if errs != nil {
-	// 	return ruleId, errs
-	// }
-	// // #endregion
+	//Rule 5.1 => YYYYMMDD
+	ruleId = validation.YYYYMMDD([]validation.DateTimeRule{
+		{FieldName: "TransDate", Value: req.TransDate},
+		{FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate},
+	}, &errs)
+	if len(errs) > 0 {
+		return ruleId, errs
+	}
 
 	return 0000, errs
 }

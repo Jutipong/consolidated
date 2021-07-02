@@ -11,7 +11,7 @@ type DigitLengthRule struct {
 	Value     float64
 }
 
-//## Validate Rule = 2
+//## Validate Rule = 2.1
 func DigitLength(fields []DigitLengthRule, errs *[]string) float32 {
 	for _, f := range fields {
 		arr := strings.SplitN(strconv.FormatFloat(f.Value, 'f', -1, 64), ".", 2)

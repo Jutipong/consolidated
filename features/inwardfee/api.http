@@ -68,7 +68,7 @@ Content-Type: application/json
 {
     "channelID": "channelID",
     "refId": "15xxxxxxxxxxxxx",
-    "transDate": "8xxxxxxx",
+    "transDate": "20210324",
     "transTime": "8xxxxxxx",
     "reqDetail": {
         "accountNo": "20xxxxxxxxxxxxxxxxxx",
