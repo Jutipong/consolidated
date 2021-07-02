@@ -46,46 +46,47 @@ func (h *Request) Validate() (float32, []string) {
 	}
 }
 
-func validateHeader(h *Request) (float32, []string) {
+func validateHeader(req *Request) (float32, []string) {
 	var ruleId float32 = 0
 
-	//## Validate Rule 1
+	// #region Validate Rule 1 => Mandatory field => V001
 	ruleId = 1
-	errs := utils.ValidateByRule(h, ruleId, []utils.ValidateRules{
+	errs := utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
 		//config validate header
-		{Obj: h, RuleFields: []utils.RuleField{
+		{Obj: req, RuleFields: []utils.RuleField{
 			{FieldName: "RefId"},
 			{FieldName: "TransDate"},
 			{FieldName: "TransTime"},
 		}},
 		//config validate detail
-		{Obj: h.Detail, RuleFields: []utils.RuleField{
+		{Obj: req.Detail, RuleFields: []utils.RuleField{
 			{FieldName: "FeeChannel"},
 			{FieldName: "TransactionType"},
 			{FieldName: "ChargeType"},
 			{FieldName: "FromCCY"},
 			{FieldName: "ToCCY"},
-			{FieldName: "AmountFrom"},
-			{FieldName: "AmountTo"},
-			{FieldName: "ExchangeRate"},
+			{FieldName: "AmountFrom"},   //Numeric
+			{FieldName: "AmountTo"},     //Numeric
+			{FieldName: "ExchangeRate"}, //Numeric
 			{FieldName: "EffectiveDate"},
 		}},
 	})
 	if errs != nil {
 		return ruleId, errs
 	}
+	// #endregion
 
-	//## Validate Rule 2 => ต้องระบุ Field length
+	// #region Validate Rule 2 => length => V002
 	ruleId = 2
-	errs = utils.ValidateByRule(h, ruleId, []utils.ValidateRules{
+	errs = utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
 		//config validate header
-		{Obj: h, RuleFields: []utils.RuleField{
+		{Obj: req, RuleFields: []utils.RuleField{
 			{FieldName: "RefId", Length: 15},
 			{FieldName: "TransDate", Length: 8},
 			{FieldName: "TransTime", Length: 8},
 		}},
 		//config validate detail
-		{Obj: h.Detail, RuleFields: []utils.RuleField{
+		{Obj: req.Detail, RuleFields: []utils.RuleField{
 			{FieldName: "AccountNo", Length: 20},
 			{FieldName: "CifNo", Length: 20},
 			{FieldName: "FeeChannel", Length: 20},
@@ -111,8 +112,39 @@ func validateHeader(h *Request) (float32, []string) {
 	if errs != nil {
 		return ruleId, errs
 	}
+	// #endregion
+
+	// #region Validate Rule 4 => Fix value => V004
+	ruleId = 4
+	errs = utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
+		//config validate detail
+		{Obj: req.Detail, RuleFields: []utils.RuleField{
+			{FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
+				Condition: []string{"SWIFT"}},
+			{FieldName: "TransactionType", Value: req.Detail.TransactionType,
+				Condition: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
+			{FieldName: "ChargeType", Value: req.Detail.ChargeType,
+				Condition: []string{"BEN", "SHA", "OUR"}},
+			{FieldName: "OrderingType", Value: req.Detail.OrderingType,
+				Condition: []string{"corp", "retail"}},
+			{FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
+				Condition: []string{"Y", "N"}},
+			{FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
+				Condition: []string{"Deposit", "Withdraw"}},
+			{FieldName: "FeeType", Value: req.Detail.FeeType,
+				Condition: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
+		}},
+	})
+	if errs != nil {
+		return ruleId, errs
+	}
+	// #endregion
 
 	return ruleId, errs
 }
 
-//1, 2, 3.2, 3.3, 4, 5.1
+//1 	=> Mandatory field => V001
+//2 	=> length => V002
+//3.x 	=> Character set => V003
+//4, 	=> Fix value => V004
+//5.x 	=> Date pattern => V005

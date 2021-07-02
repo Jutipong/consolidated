@@ -19,15 +19,26 @@ type ValidateRules struct {
 
 type RuleField struct {
 	FieldName string
+	Value     string
 	Length    int
 	Condition []string
 }
 
-//## ใช้ในการ Validate Request ตามลำดับ Rule => 1, 2, 3, .......
-func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRules) []string {
+//## Validate Request By library
+func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRules) (errMsg []string) {
 	_rule := config.GetRule(ruleId)
-	var errMsg []string
 
+	switch ruleId {
+	case 4:
+		validateByCondition(_rule, validateRules, &errMsg)
+	default:
+		// validateLibrary(_rule, validateRules, &errMsg)
+	}
+
+	return errMsg
+}
+
+func validateLibrary(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
 	for _, rule := range validateRules {
 		for _, fields := range rule.RuleFields {
 			var strRules string
@@ -35,12 +46,7 @@ func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRul
 
 			switch _rule["Type"] {
 			case "":
-				if len(fields.Condition) == 0 {
-					strRules = fmt.Sprintf("%v|", _rule["Rule"])
-				}
-				// else {
-				// 	//condition
-				// }
+				strRules = fmt.Sprintf("%v|", _rule["Rule"])
 			case "number":
 				strRules = fmt.Sprintf("%v:%v|", _rule["Rule"], fields.Length)
 			}
@@ -48,26 +54,35 @@ func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRul
 			v.StringRule(fields.FieldName, strRules)
 			if !v.Validate() {
 				for fieldName := range v.Errors {
-					errMsg = append(errMsg, fieldName)
+					*errMsg = append(*errMsg, fieldName)
 				}
 			}
 		}
 	}
+}
 
-	return errMsg
+func validateByCondition(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
+	s := String{}
+	for _, rule := range validateRules {
+		for _, fields := range rule.RuleFields {
+			if !s.Contains(fields.Condition, fields.Value) {
+				*errMsg = append(*errMsg, fields.FieldName)
+			}
+		 }
+	}
 }
 
 //## GetValidateError
-type ErrosMsg struct {
+type ErrsMsg struct {
 	Field       string
 	Description []string
 }
 
 func GetValidateError(v *validate.Validation) interface{} {
-	errs := []ErrosMsg{}
+	errs := []ErrsMsg{}
 
 	for fieldName, validations := range v.Errors {
-		err := ErrosMsg{
+		err := ErrsMsg{
 			Field:       fieldName,
 			Description: make([]string, 0),
 		}
