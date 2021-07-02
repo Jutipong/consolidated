@@ -30,30 +30,32 @@ Content-Type: application/json
 
 ### test data all
 POST  http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MTM4MzE2fQ.NaNgXbw4_O_sIjWsf7fs9A_-_HYIY38lkCUzFbowezU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjA5MjMzfQ.ROU_kxQsOFQTD-Cs6n7g4vc1pCXLvE5wSQbS0UpEQ3o 
 Content-Type: application/json
 
 {
     "channelID": "channelID",
-    "refId": "refId",
-    "transDate": "transDate",
-    "transTime": "transTime",
+    "refId": "15xxxxxxxxxxxxx-",
+    "transDate": "8xxxxxxx-",
+    "transTime": "8xxxxxxx-",
     "reqDetail": {
-        "accountNo": "accountNo",
-        "cifNo": "cifNo",
-        "feeChannel": "feeChannel",
-        "transactionType": "transactionType",
-        "chargeType": "chargeType",
-        "orderingType": "orderingType",
-        "searchPayInFull": "searchPayInFull",
-        "benCountry": "benCountry",
-        "purpose": "purpose",
-        "fromCCY": "fromCCY",
-        "toCCY": "toCCY",
+        "accountNo": "20xxxxxxxxxxxxxxxxxx-",
+        "cifNo": "20xxxxxxxxxxxxxxxxxx-",
+        "feeChannel": "20xxxxxxxxxxxxxxxxxx-",
+        "transactionType": "10xxxxxxxx-",
+        "chargeType": "3xx-",
+        "orderingType": "10xxxxxxxx-",
+        "searchPayInFull": "1-",
+        "depositWithdraw":"10xxxxxxxx-",
+        "benCountry": "2x-",
+        "purpose": "10xxxxxxxx-",
+        "fromCCY": "3xx-",
+        "toCCY": "3xx-",
         "amountFrom": "amountFrom",
         "amountTo": "amountTo",
         "exchangeRate": "exchangeRate",
-        "effectiveDate": "effectiveDate",
-        "feeType": "feeType"
+        "effectiveDate": "8xxxxxxx-",
+        "feeType": "20xxxxxxxxxxxxxxxxxx-"
     }
+    
 }

@@ -76,7 +76,7 @@ func validateHeader(h *Request) (float32, []string) {
 	}
 
 	//## Validate Rule 2 => ต้องระบุ Field length
-	ruleId = 1
+	ruleId = 2
 	errs = utils.ValidateByRule(h, ruleId, []utils.ValidateRules{
 		//config validate header
 		{Obj: h, RuleFields: []utils.RuleField{
@@ -86,15 +86,26 @@ func validateHeader(h *Request) (float32, []string) {
 		}},
 		//config validate detail
 		{Obj: h.Detail, RuleFields: []utils.RuleField{
-			{FieldName: "FeeChannel"},
-			{FieldName: "TransactionType"},
-			{FieldName: "ChargeType"},
-			{FieldName: "FromCCY"},
-			{FieldName: "ToCCY"},
-			{FieldName: "AmountFrom"},
-			{FieldName: "AmountTo"},
-			{FieldName: "ExchangeRate"},
-			{FieldName: "EffectiveDate"},
+			{FieldName: "AccountNo", Length: 20},
+			{FieldName: "CifNo", Length: 20},
+			{FieldName: "FeeChannel", Length: 20},
+			{FieldName: "TransactionType", Length: 10},
+			{FieldName: "ChargeType", Length: 3},
+			{FieldName: "OrderingType", Length: 10},
+			{FieldName: "SearchPayInFull", Length: 1},
+			{FieldName: "DepositWithdraw", Length: 10},
+			{FieldName: "BenCountry", Length: 2},
+			{FieldName: "Purpose", Length: 10},
+			{FieldName: "FromCCY", Length: 3},
+			{FieldName: "ToCCY", Length: 3},
+			{FieldName: "EffectiveDate", Length: 8},
+			{FieldName: "FeeType", Length: 20},
+
+			// Todo: เรื่อง decimal
+			// {FieldName: "AmountFrom", Length: 17}, //17,2
+			// {FieldName: "AmountTo", Length: 17}, //17,2
+			// {FieldName: "ExchangeRate", Length: 17}, //17.10
+
 		}},
 	})
 	if errs != nil {
