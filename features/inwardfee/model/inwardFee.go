@@ -1,6 +1,7 @@
 package model
 
 import (
+	"consolidated/base"
 	"consolidated/validation"
 )
 
@@ -75,7 +76,7 @@ func validateHeader(req *Request) (float32, []string) {
 		return ruleId, errs
 	}
 
-	//Rule 2 => Required
+	//Rule 2 => MaxLength
 	ruleId = validation.MaxLength([]validation.MaxLengthRule{
 		// {FieldName: "RefId", Value: req.RefId, Length: 15},
 		// {FieldName: "TransDate", Value: req.TransDate, Length: 8},
@@ -105,62 +106,40 @@ func validateHeader(req *Request) (float32, []string) {
 
 	//Rule 2. => Digit length => .2
 	ruleId = validation.DigitLength([]validation.DigitLengthRule{
-		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},     //17,2
-		{FieldName: "AmountTo", Value: req.Detail.AmountTo},         //17,2
-		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate}, //17.10
+		// {FieldName: "AmountFrom", Value: req.Detail.AmountFrom},     //17,2
+		// {FieldName: "AmountTo", Value: req.Detail.AmountTo},         //17,2
+		// {FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate}, //17.10
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs
 	}
 
-	// #region Validate Rule 2.1 => 2 digit => V002
-	// ruleId = 2.1
-	// errs := utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
-	// 	//Detail
-	// 	{Obj: req.Detail, RuleFields: []utils.RuleField{
-	// 		// Todo: เรื่อง decimal
-	// 		{FieldName: "AmountFrom", ValueFloat: req.Detail.AmountFrom},     //17,2
-	// 		{FieldName: "AmountTo", ValueFloat: req.Detail.AmountTo},         //17,2
-	// 		{FieldName: "ExchangeRate", ValueFloat: req.Detail.ExchangeRate}, //17.10
-
-	// 	}},
-	// })
-	// if errs != nil {
-	// 	return ruleId, errs
-	// }
-	// #endregio
-
-	// // #region Validate Rule 4 => Fix value => V004
-	// ruleId = 4
-	// errs = utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
-	// 	//Detail
-	// 	{Obj: req.Detail, RuleFields: []utils.RuleField{
-	// 		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
-	// 			Condition: []string{"SWIFT"}},
-	// 		{FieldName: "TransactionType", Value: req.Detail.TransactionType,
-	// 			Condition: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
-	// 		{FieldName: "ChargeType", Value: req.Detail.ChargeType,
-	// 			Condition: []string{"BEN", "SHA", "OUR"}},
-	// 		{FieldName: "OrderingType", Value: req.Detail.OrderingType,
-	// 			Condition: []string{"corp", "retail"}},
-	// 		{FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
-	// 			Condition: []string{"Y", "N"}},
-	// 		{FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
-	// 			Condition: []string{"Deposit", "Withdraw"}},
-	// 		{FieldName: "FeeType", Value: req.Detail.FeeType,
-	// 			Condition: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
-	// 		{FieldName: "FromCCY", Value: req.Detail.FromCCY,
-	// 			Condition: base.MsCurrency()},
-	// 		{FieldName: "ToCCY", Value: req.Detail.ToCCY,
-	// 			Condition: base.MsCurrency()},
-	// 		{FieldName: "BenCountry", Value: req.Detail.BenCountry,
-	// 			Condition: base.MsCountry()},
-	// 	}},
-	// })
-	// if errs != nil {
-	// 	return ruleId, errs
-	// }
-	// // #endregion
+	//Rule 4 => Fix value
+	ruleId = validation.FixValue([]validation.FixValueRule{
+		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
+			Conditions: []string{"SWIFT"}},
+		{FieldName: "TransactionType", Value: req.Detail.TransactionType,
+			Conditions: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
+		{FieldName: "ChargeType", Value: req.Detail.ChargeType,
+			Conditions: []string{"BEN", "SHA", "OUR"}},
+		{FieldName: "OrderingType", Value: req.Detail.OrderingType,
+			Conditions: []string{"corp", "retail"}},
+		{FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
+			Conditions: []string{"Y", "N"}},
+		{FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
+			Conditions: []string{"Deposit", "Withdraw"}},
+		{FieldName: "FeeType", Value: req.Detail.FeeType,
+			Conditions: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
+		{FieldName: "FromCCY", Value: req.Detail.FromCCY,
+			Conditions: base.MsCurrency()},
+		{FieldName: "ToCCY", Value: req.Detail.ToCCY,
+			Conditions: base.MsCurrency()},
+		{FieldName: "BenCountry", Value: req.Detail.BenCountry,
+			Conditions: base.MsCountry()},
+	}, &errs)
+	if len(errs) > 0 {
+		return ruleId, errs
+	}
 
 	// // #region Validate Rule 5.1 => Date pattern (format: YYYYMMDD) => V005
 	// ruleId = 5.1

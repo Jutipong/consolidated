@@ -59,3 +59,35 @@ Content-Type: application/json
     }
     
 }
+
+### test data all
+POST  http://localhost:8080/api/v1/inwardfee HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjM1NDc2fQ.PG6k4zxV2r6MatUcdtp_gk9Y9u4ulrkWwdGID3rXPaM
+Content-Type: application/json
+
+{
+    "channelID": "channelID",
+    "refId": "15xxxxxxxxxxxxx",
+    "transDate": "8xxxxxxx",
+    "transTime": "8xxxxxxx",
+    "reqDetail": {
+        "accountNo": "20xxxxxxxxxxxxxxxxxx",
+        "cifNo": "20xxxxxxxxxxxxxxxxxx",
+        "feeChannel": "SWIFT",
+        "transactionType": "CASH",
+        "chargeType": "OUR",
+        "orderingType": "retail",
+        "searchPayInFull": "Y",
+        "depositWithdraw":"Withdraw",
+        "benCountry": "AX",
+        "purpose": "10xxxxxxxx",
+        "fromCCY": "AED",
+        "toCCY": "AED",
+        "amountFrom": 12345.3476,
+        "amountTo": 222222222222222.34,
+        "exchangeRate": 3333333333333330.69,
+        "effectiveDate": "20210324",
+        "feeType": "Bahtnet Fee"
+    }
+    
+}
