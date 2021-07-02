@@ -2,7 +2,6 @@ package utils
 
 import (
 	"consolidated/base"
-	"consolidated/enum"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,15 +20,22 @@ func JsonResult(c *gin.Context, ruleId float32, message string, payload interfac
 
 	res.ResponseCode = _rule["Code"]
 	res.ResponseDetail = payload
-	if res.ResponseCode == "0000" {
-		res.ResponseDesc = enum.Success
+
+	if len(message) == 0 {
+		res.ResponseDesc = _rule["Message"]
 	} else {
-		if len(message) == 0 {
-			res.ResponseDesc = _rule["Message"]
-		} else {
-			res.ResponseDesc = message
-		}
+		res.ResponseDesc = message
 	}
+
+	// if res.ResponseCode == "0000" {
+	// 	res.ResponseDesc = enum.Success
+	// } else {
+	// 	if len(message) == 0 {
+	// 		res.ResponseDesc = _rule["Message"]
+	// 	} else {
+	// 		res.ResponseDesc = message
+	// 	}
+	// }
 
 	//## Next
 	c.JSON(http.StatusOK, res)
