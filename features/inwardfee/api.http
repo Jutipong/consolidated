@@ -36,7 +36,7 @@ Content-Type: application/json
 {
     "channelID": "channelID",
     "refId": "15xxxxxxxxxxxxx-",
-    "transDate": "8xxxxxxx-",
+    "transDate": "20210701",
     "transTime": "8xxxxxxx-",
     "reqDetail": {
         "accountNo": "20xxxxxxxxxxxxxxxxxx-",
@@ -49,12 +49,12 @@ Content-Type: application/json
         "depositWithdraw":"10xxxxxxxx-",
         "benCountry": "2x-",
         "purpose": "10xxxxxxxx-",
-        "fromCCY": "3xx-",
-        "toCCY": "3xx-",
+        "fromCCY": "AED",
+        "toCCY": "AED",
         "amountFrom": "amountFrom",
         "amountTo": "amountTo",
         "exchangeRate": "exchangeRate",
-        "effectiveDate": "8xxxxxxx-",
+        "effectiveDate": "20210324",
         "feeType": "20xxxxxxxxxxxxxxxxxx-"
     }
     

@@ -1,13 +1,14 @@
 package config
 
 import (
+	"consolidated/base"
 	"time"
 
 	"github.com/gookit/validate"
 )
 
 func SetupCustomValidate() {
-	_validationRule := MasterRule()
+	_validationRule := base.MasterRule()
 
 	validate.Config(func(opt *validate.GlobalOption) {
 		opt.StopOnError = false

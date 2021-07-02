@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"consolidated/config"
+	"consolidated/base"
 	"consolidated/enum"
 	"net/http"
 
@@ -16,7 +16,7 @@ type ResultData struct {
 
 func JsonResult(c *gin.Context, ruleId float32, message string, payload interface{}) {
 	var res ResultData
-	_rule := config.GetRule(ruleId)
+	_rule := base.GetRule(ruleId)
 	//## Initial Data
 
 	res.ResponseCode = _rule["Code"]

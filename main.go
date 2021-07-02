@@ -1,6 +1,7 @@
 package main
 
 import (
+	"consolidated/base"
 	"consolidated/config"
 	"consolidated/router"
 	"consolidated/utils"
@@ -24,7 +25,7 @@ func init() {
 	//## 4.Setup validate
 
 	//## 5.Initial Master Validate Rule
-	config.InitMasterRule()
+	base.InitMasterRule()
 	//## 6. Setup Custom Validation
 	config.SetupCustomValidate()
 }

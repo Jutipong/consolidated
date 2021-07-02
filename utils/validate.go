@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"consolidated/config"
+	"consolidated/base"
 	"fmt"
 
 	"github.com/gookit/validate"
@@ -26,13 +26,13 @@ type RuleField struct {
 
 //## Validate Request By library
 func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRules) (errMsg []string) {
-	_rule := config.GetRule(ruleId)
+	_rule := base.GetRule(ruleId)
 
 	switch ruleId {
 	case 4:
 		validateByCondition(_rule, validateRules, &errMsg)
 	default:
-		// validateLibrary(_rule, validateRules, &errMsg)
+		validateLibrary(_rule, validateRules, &errMsg)
 	}
 
 	return errMsg
@@ -68,7 +68,7 @@ func validateByCondition(_rule map[string]string, validateRules []ValidateRules,
 			if !s.Contains(fields.Condition, fields.Value) {
 				*errMsg = append(*errMsg, fields.FieldName)
 			}
-		 }
+		}
 	}
 }
 

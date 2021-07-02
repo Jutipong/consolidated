@@ -1,6 +1,7 @@
 package model
 
 import (
+	"consolidated/base"
 	"consolidated/utils"
 )
 
@@ -133,6 +134,28 @@ func validateHeader(req *Request) (float32, []string) {
 				Condition: []string{"Deposit", "Withdraw"}},
 			{FieldName: "FeeType", Value: req.Detail.FeeType,
 				Condition: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
+			{FieldName: "FromCCY", Value: req.Detail.FromCCY,
+				Condition: base.MsCurrency()},
+			{FieldName: "ToCCY", Value: req.Detail.ToCCY,
+				Condition: base.MsCurrency()},
+			{FieldName: "BenCountry", Value: req.Detail.BenCountry,
+				Condition: base.MsCountry()},
+		}},
+	})
+	if errs != nil {
+		return ruleId, errs
+	}
+	// #endregion
+
+	// #region Validate Rule 5.1 => Date pattern (format: YYYYMMDD) => V005
+	ruleId = 5.1
+	errs = utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
+		{Obj: req, RuleFields: []utils.RuleField{
+			{FieldName: "TransDate"},
+		}},
+		//config validate detail
+		{Obj: req.Detail, RuleFields: []utils.RuleField{
+			{FieldName: "EffectiveDate"},
 		}},
 	})
 	if errs != nil {
