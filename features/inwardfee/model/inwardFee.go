@@ -1,6 +1,7 @@
 package model
 
 import (
+	"consolidated/base"
 	"consolidated/validation"
 )
 
@@ -14,37 +15,35 @@ type Request struct {
 }
 
 type ReqDetail struct {
-	AccountNo       string `json:"accountNo"`
-	CifNo           string `json:"cifNo"`
-	FeeChannel      string `json:"feeChannel"`
-	TransactionType string `json:"transactionType"`
-	ChargeType      string `json:"chargeType"`
-	OrderingType    string `json:"orderingType"`
-	SearchPayInFull string `json:"searchPayInFull"`
-	DepositWithdraw string `json:"depositWithdraw"`
-	BenCountry      string `json:"benCountry"`
-	Purpose         string `json:"purpose"`
-	FromCCY         string `json:"fromCCY"`
-	ToCCY           string `json:"toCCY"`
-
-	AmountFrom   float64 `json:"amountFrom"`
-	AmountTo     float64 `json:"amountTo"`
-	ExchangeRate float64 `json:"exchangeRate"`
-
-	EffectiveDate string `json:"effectiveDate"`
-	FeeType       string `json:"feeType"`
+	AccountNo       string  `json:"accountNo"`
+	CifNo           string  `json:"cifNo"`
+	FeeChannel      string  `json:"feeChannel"`
+	TransactionType string  `json:"transactionType"`
+	ChargeType      string  `json:"chargeType"`
+	OrderingType    string  `json:"orderingType"`
+	SearchPayInFull string  `json:"searchPayInFull"`
+	DepositWithdraw string  `json:"depositWithdraw"`
+	BenCountry      string  `json:"benCountry"`
+	Purpose         string  `json:"purpose"`
+	FromCCY         string  `json:"fromCCY"`
+	ToCCY           string  `json:"toCCY"`
+	AmountFrom      float64 `json:"amountFrom"`
+	AmountTo        float64 `json:"amountTo"`
+	ExchangeRate    float64 `json:"exchangeRate"`
+	EffectiveDate   string  `json:"effectiveDate"`
+	FeeType         string  `json:"feeType"`
 }
 
 type Response struct {
 	FeeType     string  `json:"feeType"`
-	FeeAmount   float64 `json:"feeAmount"` //Numeric 17,2
+	FeeAmount   float64 `json:"feeAmount"`
 	FeeCCY      string  `json:"feeCCY"`
 	FeeCategory string  `json:"feeCategory"`
 	FeeRefID    string  `json:"feeRefID"`
 }
 
 func (h *Request) Validate() (float32, []string) {
-	ruleId, errs := validateHeader(h)
+	ruleId, errs := validate(h)
 	if len(errs) != 0 {
 		return ruleId, errs
 	} else {
@@ -52,24 +51,23 @@ func (h *Request) Validate() (float32, []string) {
 	}
 }
 
-func validateHeader(req *Request) (float32, []string) {
+func validate(req *Request) (float32, []string) {
 	errs := []string{}
 
 	//Rule 1 => Required
 	ruleId := validation.Required([]validation.RequiredRule{
-		// {FieldName: "RefId", Value: req.RefId},
-		// {FieldName: "TransDate", Value: req.TransDate},
-		// {FieldName: "TransTime", Value: req.TransTime},
-		//Detail
-		// {FieldName: "FeeChannel", Value: req.Detail.FeeChannel},
-		// {FieldName: "TransactionType", Value: req.Detail.TransactionType},
-		// {FieldName: "ChargeType", Value: req.Detail.ChargeType},
-		// {FieldName: "FromCCY", Value: req.Detail.FromCCY},
-		// {FieldName: "ToCCY", Value: req.Detail.ToCCY},
-		// {FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate},
-		// {FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
-		// {FieldName: "AmountTo", Value: req.Detail.AmountTo},
-		// {FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
+		{FieldName: "RefId", Value: req.RefId},
+		{FieldName: "TransDate", Value: req.TransDate},
+		{FieldName: "TransTime", Value: req.TransTime},
+		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel},
+		{FieldName: "TransactionType", Value: req.Detail.TransactionType},
+		{FieldName: "ChargeType", Value: req.Detail.ChargeType},
+		{FieldName: "FromCCY", Value: req.Detail.FromCCY},
+		{FieldName: "ToCCY", Value: req.Detail.ToCCY},
+		{FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate},
+		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
+		{FieldName: "AmountTo", Value: req.Detail.AmountTo},
+		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs
@@ -77,37 +75,45 @@ func validateHeader(req *Request) (float32, []string) {
 
 	//Rule 2 => MaxLength
 	ruleId = validation.MaxLength([]validation.MaxLengthRule{
-		// {FieldName: "RefId", Value: req.RefId, Length: 15},
-		// {FieldName: "TransDate", Value: req.TransDate, Length: 8},
-		// {FieldName: "TransTime", Value: req.TransTime, Length: 8},
-		// {FieldName: "AccountNo", Value: req.Detail.AccountNo, Length: 20},
-		// {FieldName: "CifNo", Value: req.Detail.CifNo, Length: 20},
-		// {FieldName: "FeeChannel", Value: req.Detail.FeeChannel, Length: 20},
-		// {FieldName: "TransactionType", Value: req.Detail.TransactionType, Length: 10},
-		// {FieldName: "ChargeType", Value: req.Detail.ChargeType, Length: 3},
-		// {FieldName: "OrderingType", Value: req.Detail.OrderingType, Length: 10},
-		// {FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull, Length: 1},
-		// {FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw, Length: 10},
-		// {FieldName: "BenCountry", Value: req.Detail.BenCountry, Length: 2},
-		// {FieldName: "Purpose", Value: req.Detail.Purpose, Length: 10},
-		// {FieldName: "FromCCY", Value: req.Detail.FromCCY, Length: 3},
-		// {FieldName: "ToCCY", Value: req.Detail.ToCCY, Length: 3},
-		// {FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate, Length: 8},
-		// {FieldName: "FeeType", Value: req.Detail.FeeType, Length: 20},
-		// // Todo: เรื่อง decimal
-		// {FieldName: "AmountFrom", Value: req.Detail.AmountFrom, Length: 18},     //17,2
-		// {FieldName: "AmountTo", Value: req.Detail.AmountTo, Length: 18},         //17,2
-		// {FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate, Length: 18}, //17.10
+		{FieldName: "RefId", Value: req.RefId, Length: 15},
+		{FieldName: "TransDate", Value: req.TransDate, Length: 8},
+		{FieldName: "TransTime", Value: req.TransTime, Length: 8},
+		{FieldName: "AccountNo", Value: req.Detail.AccountNo, Length: 20},
+		{FieldName: "CifNo", Value: req.Detail.CifNo, Length: 20},
+		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel, Length: 20},
+		{FieldName: "TransactionType", Value: req.Detail.TransactionType, Length: 10},
+		{FieldName: "ChargeType", Value: req.Detail.ChargeType, Length: 3},
+		{FieldName: "OrderingType", Value: req.Detail.OrderingType, Length: 10},
+		{FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull, Length: 1},
+		{FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw, Length: 10},
+		{FieldName: "BenCountry", Value: req.Detail.BenCountry, Length: 2},
+		{FieldName: "Purpose", Value: req.Detail.Purpose, Length: 10},
+		{FieldName: "FromCCY", Value: req.Detail.FromCCY, Length: 3},
+		{FieldName: "ToCCY", Value: req.Detail.ToCCY, Length: 3},
+		{FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate, Length: 8},
+		{FieldName: "FeeType", Value: req.Detail.FeeType, Length: 20},
+		// Todo: เรื่อง decimal
+		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom, Length: 18},
+		{FieldName: "AmountTo", Value: req.Detail.AmountTo, Length: 18},
+		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate, Length: 18},
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs
 	}
 
-	//Rule 2. => Digit length => .2
+	//Rule 2.1 => Digit length => .2
+	ruleId = validation.MinLength([]validation.MinValueRule{
+		{FieldName: "ExchangeRate", Min: 0, Value: req.Detail.ExchangeRate},
+	}, &errs)
+	if len(errs) > 0 {
+		return ruleId, errs
+	}
+
+	//Rule 2.2 => Digit length => .2
 	ruleId = validation.DigitLength([]validation.DigitLengthRule{
-		// {FieldName: "AmountFrom", Value: req.Detail.AmountFrom},     //17,2
-		// {FieldName: "AmountTo", Value: req.Detail.AmountTo},         //17,2
-		// {FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate}, //17.10
+		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
+		{FieldName: "AmountTo", Value: req.Detail.AmountTo},
+		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs
@@ -115,26 +121,26 @@ func validateHeader(req *Request) (float32, []string) {
 
 	//Rule 4 => Fix value
 	ruleId = validation.FixValue([]validation.FixValueRule{
-		// {FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
-		// 	Conditions: []string{"SWIFT"}},
-		// {FieldName: "TransactionType", Value: req.Detail.TransactionType,
-		// 	Conditions: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
-		// {FieldName: "ChargeType", Value: req.Detail.ChargeType,
-		// 	Conditions: []string{"BEN", "SHA", "OUR"}},
-		// {FieldName: "OrderingType", Value: req.Detail.OrderingType,
-		// 	Conditions: []string{"corp", "retail"}},
-		// {FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
-		// 	Conditions: []string{"Y", "N"}},
-		// {FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
-		// 	Conditions: []string{"Deposit", "Withdraw"}},
-		// {FieldName: "FeeType", Value: req.Detail.FeeType,
-		// 	Conditions: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
-		// {FieldName: "FromCCY", Value: req.Detail.FromCCY,
-		// 	Conditions: base.MsCurrency()},
-		// {FieldName: "ToCCY", Value: req.Detail.ToCCY,
-		// 	Conditions: base.MsCurrency()},
-		// {FieldName: "BenCountry", Value: req.Detail.BenCountry,
-		// 	Conditions: base.MsCountry()},
+		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
+			Conditions: []string{"SWIFT"}},
+		{FieldName: "TransactionType", Value: req.Detail.TransactionType,
+			Conditions: []string{"THB", "FCD", "CASH", "Multi", "e-Money"}},
+		{FieldName: "ChargeType", Value: req.Detail.ChargeType,
+			Conditions: []string{"BEN", "SHA", "OUR"}},
+		{FieldName: "OrderingType", Value: req.Detail.OrderingType,
+			Conditions: []string{"corp", "retail"}},
+		{FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull,
+			Conditions: []string{"Y", "N"}},
+		{FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw,
+			Conditions: []string{"Deposit", "Withdraw"}},
+		{FieldName: "FeeType", Value: req.Detail.FeeType,
+			Conditions: []string{"Inward Fee", "Cable Fee", "Bahtnet Fee", "Investigate Fee"}},
+		{FieldName: "FromCCY", Value: req.Detail.FromCCY,
+			Conditions: base.MsCurrency()},
+		{FieldName: "ToCCY", Value: req.Detail.ToCCY,
+			Conditions: base.MsCurrency()},
+		{FieldName: "BenCountry", Value: req.Detail.BenCountry,
+			Conditions: base.MsCountry()},
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs

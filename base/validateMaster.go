@@ -21,7 +21,7 @@ func InitMasterRule() {
 	description["Code"] = "V001"
 	validationRule[key] = description
 
-	//## 2 => Field length
+	//## 2 => Field max length
 	key = 2
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -29,8 +29,16 @@ func InitMasterRule() {
 	description["Code"] = "V002"
 	validationRule[key] = description
 
-	//## 2.1 => Digit length
+	//## 2.1 => Field min length
 	key = 2.1
+	validationRule[key] = make(map[string]string)
+	description = map[string]string{}
+	description["Message"] = "Invalid fields length"
+	description["Code"] = "V002"
+	validationRule[key] = description
+
+	//## 2.2 => Digit length
+	key = 2.2
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
 	description["Message"] = "Invalid fields length (.2 digit)"
