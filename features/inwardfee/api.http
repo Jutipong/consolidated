@@ -1,10 +1,10 @@
 ### test fail
 POST   http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MTM4MzE2fQ.NaNgXbw4_O_sIjWsf7fs9A_-_HYIY38lkCUzFbowezU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjI3ODEyfQ.P5BQd8JqHlNuB5ZwN_UHTWF5_VNGrZxc4dBwnR0ACGk
 Content-Type: application/json
 
 {
-    "channelID": "",
+    "channelID": "asd",
     "refId": "",
     "transDate": "",
     "transTime": "",
@@ -20,9 +20,9 @@ Content-Type: application/json
         "purpose": "",
         "fromCCY": "",
         "toCCY": "",
-        "amountFrom": "",
-        "amountTo": "",
-        "exchangeRate": "",
+        "amountFrom": 222222222222222.11,
+        "amountTo": 222222222222222.34,
+        "exchangeRate": 333333333333333.6,
         "effectiveDate": "",
         "feeType": ""
     }
@@ -30,32 +30,64 @@ Content-Type: application/json
 
 ### test data all
 POST  http://localhost:8080/api/v1/inwardfee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjE1ODAwfQ.4O_dnzqdxgursSMQMQND9rwtoZuLF-isScW5htJaZ3w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjM1NDc2fQ.PG6k4zxV2r6MatUcdtp_gk9Y9u4ulrkWwdGID3rXPaM
 Content-Type: application/json
 
 {
     "channelID": "channelID",
-    "refId": "15xxxxxxxxxxxxx-",
-    "transDate": "20210701",
-    "transTime": "8xxxxxxx-",
+    "refId": "15xxxxxxxxxxxxx",
+    "transDate": "8xxxxxxx",
+    "transTime": "8xxxxxxx",
     "reqDetail": {
-        "accountNo": "20xxxxxxxxxxxxxxxxxx-",
-        "cifNo": "20xxxxxxxxxxxxxxxxxx-",
-        "feeChannel": "20xxxxxxxxxxxxxxxxxx-",
-        "transactionType": "10xxxxxxxx-",
-        "chargeType": "3xx-",
-        "orderingType": "10xxxxxxxx-",
-        "searchPayInFull": "1-",
-        "depositWithdraw":"10xxxxxxxx-",
-        "benCountry": "2x-",
-        "purpose": "10xxxxxxxx-",
+        "accountNo": "20xxxxxxxxxxxxxxxxxx",
+        "cifNo": "20xxxxxxxxxxxxxxxxxx",
+        "feeChannel": "20xxxxxxxxxxxxxxxxxx",
+        "transactionType": "10xxxxxxxx",
+        "chargeType": "3xx",
+        "orderingType": "10xxxxxxxx",
+        "searchPayInFull": "1",
+        "depositWithdraw":"10xxxxxxxx",
+        "benCountry": "2x",
+        "purpose": "10xxxxxxxx",
         "fromCCY": "AED",
         "toCCY": "AED",
-        "amountFrom": "amountFrom",
-        "amountTo": "amountTo",
-        "exchangeRate": "exchangeRate",
+        "amountFrom": 12345.3476,
+        "amountTo": 222222222222222.34,
+        "exchangeRate": 3333333333333330.69,
         "effectiveDate": "20210324",
-        "feeType": "20xxxxxxxxxxxxxxxxxx-"
+        "feeType": "20xxxxxxxxxxxxxxxxxx"
+    }
+    
+}
+
+### test data all
+POST  http://localhost:8080/api/v1/inwardfee HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjM1NDc2fQ.PG6k4zxV2r6MatUcdtp_gk9Y9u4ulrkWwdGID3rXPaM
+Content-Type: application/json
+
+{
+    "channelID": "channelID",
+    "refId": "15xxxxxxxxxxxxx",
+    "transDate": "20210324",
+    "transTime": "8xxxxxxx",
+    "reqDetail": {
+        "accountNo": "20xxxxxxxxxxxxxxxxxx",
+        "cifNo": "20xxxxxxxxxxxxxxxxxx",
+        "feeChannel": "SWIFT",
+        "transactionType": "CASH",
+        "chargeType": "OUR",
+        "orderingType": "retail",
+        "searchPayInFull": "Y",
+        "depositWithdraw":"Withdraw",
+        "benCountry": "AX",
+        "purpose": "10xxxxxxxx",
+        "fromCCY": "AED",
+        "toCCY": "AED",
+        "amountFrom": 12345.3476,
+        "amountTo": 222222222222222.34,
+        "exchangeRate": 3333333333333330.69,
+        "effectiveDate": "20210324",
+        "feeType": "Bahtnet Fee"
     }
     
 }

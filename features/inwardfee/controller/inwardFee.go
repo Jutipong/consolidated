@@ -4,14 +4,11 @@ import (
 	"consolidated/enum"
 	"consolidated/features/inwardfee/model"
 
-	// "consolidated/features/inwardfee/service"
 	"consolidated/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
-
-// var _inwardFee = service.InwardFee{}
 
 type UserController struct{}
 

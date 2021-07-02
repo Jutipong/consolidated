@@ -32,4 +32,5 @@ func SetupCustomValidate() {
 	validate.AddGlobalMessages(map[string]string{
 		"required": _validationRule[1]["Message"],
 	})
+
 }

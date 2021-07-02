@@ -3,6 +3,8 @@ package utils
 import (
 	"consolidated/base"
 	"fmt"
+	"strconv"
+	"strings"
 
 	"github.com/gookit/validate"
 )
@@ -18,10 +20,12 @@ type ValidateRules struct {
 }
 
 type RuleField struct {
-	FieldName string
-	Value     string
-	Length    int
-	Condition []string
+	FieldName  string
+	Value      string
+	ValueFloat float64
+	
+	Length     int
+	Condition  []string
 }
 
 //## Validate Request By library
@@ -29,6 +33,8 @@ func ValidateByRule(obj interface{}, ruleId float32, validateRules []ValidateRul
 	_rule := base.GetRule(ruleId)
 
 	switch ruleId {
+	case 2.1:
+		validateFloat64(_rule, validateRules, &errMsg)
 	case 4:
 		validateByCondition(_rule, validateRules, &errMsg)
 	default:
@@ -53,7 +59,9 @@ func validateLibrary(_rule map[string]string, validateRules []ValidateRules, err
 
 			v.StringRule(fields.FieldName, strRules)
 			if !v.Validate() {
-				for fieldName := range v.Errors {
+				fmt.Println(v.Errors)
+				for fieldName, value := range v.Errors {
+					fmt.Println(value)
 					*errMsg = append(*errMsg, fieldName)
 				}
 			}
@@ -66,6 +74,51 @@ func validateByCondition(_rule map[string]string, validateRules []ValidateRules,
 	for _, rule := range validateRules {
 		for _, fields := range rule.RuleFields {
 			if !s.Contains(fields.Condition, fields.Value) {
+				*errMsg = append(*errMsg, fields.FieldName)
+			}
+		}
+	}
+}
+
+func validateFloat64(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
+	validateFloat64Length(_rule, validateRules, errMsg)
+	if len(*errMsg) == 0 {
+		validateDigit(_rule, validateRules, errMsg)
+	}
+}
+
+func validateFloat64Length(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
+	for _, rule := range validateRules {
+		for _, fields := range rule.RuleFields {
+			str := strconv.FormatFloat(fields.ValueFloat, 'f', -1, 64)
+			if len(str) > fields.Length {
+				*errMsg = append(*errMsg, fields.FieldName)
+			}
+		}
+	}
+}
+
+func validateDigit(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
+	for _, rule := range validateRules {
+		for _, fields := range rule.RuleFields {
+			arr := strings.SplitN(strconv.FormatFloat(fields.ValueFloat, 'f', -1, 64), ".", 2)
+			fmt.Println(arr)
+			if len(arr) != 2 {
+				*errMsg = append(*errMsg, fields.FieldName)
+			} else {
+				if len(arr[1]) > 2 {
+					*errMsg = append(*errMsg, fields.FieldName)
+				}
+			}
+		}
+	}
+}
+
+func validateFloat64MaxValue(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
+	for _, rule := range validateRules {
+		for _, fields := range rule.RuleFields {
+			str := strconv.FormatFloat(fields.ValueFloat, 'f', -1, 64)
+			if len(str) > fields.Length {
 				*errMsg = append(*errMsg, fields.FieldName)
 			}
 		}
