@@ -53,63 +53,65 @@ func (h *Request) Validate() (float32, []string) {
 }
 
 func validateHeader(req *Request) (float32, []string) {
-	// var ruleId float32 = 0
 	errs := []string{}
-	ruleId := validation.Required([]validation.RuleField{
-		{FidelName: "RefId", Value: req.RefId},
-		{FidelName: "TransDate", Value: req.TransDate},
-		{FidelName: "TransTime", Value: req.TransTime},
-		{FidelName: "FeeChannel", Value: req.Detail.FeeChannel},
-		{FidelName: "TransactionType", Value: req.Detail.TransactionType},
-		{FidelName: "ChargeType", Value: req.Detail.ChargeType},
-		{FidelName: "FromCCY", Value: req.Detail.FromCCY},
-		{FidelName: "ToCCY", Value: req.Detail.ToCCY},
-		{FidelName: "EffectiveDate", Value: req.Detail.EffectiveDate},
-		{FidelName: "AmountFrom", Value: req.Detail.AmountFrom},
-		{FidelName: "AmountTo", Value: req.Detail.AmountTo},
-		{FidelName: "ExchangeRate", Value: req.Detail.ExchangeRate},
+
+	//Rule 1 => Required
+	ruleId := validation.Required([]validation.RequiredRule{
+		// {FieldName: "RefId", Value: req.RefId},
+		// {FieldName: "TransDate", Value: req.TransDate},
+		// {FieldName: "TransTime", Value: req.TransTime},
+		//Detail
+		// {FieldName: "FeeChannel", Value: req.Detail.FeeChannel},
+		// {FieldName: "TransactionType", Value: req.Detail.TransactionType},
+		// {FieldName: "ChargeType", Value: req.Detail.ChargeType},
+		// {FieldName: "FromCCY", Value: req.Detail.FromCCY},
+		// {FieldName: "ToCCY", Value: req.Detail.ToCCY},
+		// {FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate},
+		// {FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
+		// {FieldName: "AmountTo", Value: req.Detail.AmountTo},
+		// {FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
 	}, &errs)
 	if len(errs) > 0 {
 		return ruleId, errs
 	}
 
-	// #region Validate Rule 2 => length => V002
-	// ruleId = 2
-	// errs := utils.ValidateByRule(req, ruleId, []utils.ValidateRules{
-	// 	// //Header
-	// 	// {Obj: req, RuleFields: []utils.RuleField{
-	// 	// 	{FieldName: "RefId", Length: 15},
-	// 	// 	{FieldName: "TransDate", Length: 8},
-	// 	// 	{FieldName: "TransTime", Length: 8},
-	// 	// }},
-	// 	//Detail
-	// 	{Obj: req.Detail, RuleFields: []utils.RuleField{
-	// 		// {FieldName: "AccountNo", Length: 20},
-	// 		// {FieldName: "CifNo", Length: 20},
-	// 		// {FieldName: "FeeChannel", Length: 20},
-	// 		// {FieldName: "TransactionType", Length: 10},
-	// 		// {FieldName: "ChargeType", Length: 3},
-	// 		// {FieldName: "OrderingType", Length: 10},
-	// 		// {FieldName: "SearchPayInFull", Length: 1},
-	// 		// {FieldName: "DepositWithdraw", Length: 10},
-	// 		// {FieldName: "BenCountry", Length: 2},
-	// 		// {FieldName: "Purpose", Length: 10},
-	// 		// {FieldName: "FromCCY", Length: 3},
-	// 		// {FieldName: "ToCCY", Length: 3},
-	// 		// {FieldName: "EffectiveDate", Length: 8},
-	// 		// {FieldName: "FeeType", Length: 20},
+	//Rule 2 => Required
+	ruleId = validation.MaxLength([]validation.MaxLengthRule{
+		// {FieldName: "RefId", Value: req.RefId, Length: 15},
+		// {FieldName: "TransDate", Value: req.TransDate, Length: 8},
+		// {FieldName: "TransTime", Value: req.TransTime, Length: 8},
+		// {FieldName: "AccountNo", Value: req.Detail.AccountNo, Length: 20},
+		// {FieldName: "CifNo", Value: req.Detail.CifNo, Length: 20},
+		// {FieldName: "FeeChannel", Value: req.Detail.FeeChannel, Length: 20},
+		// {FieldName: "TransactionType", Value: req.Detail.TransactionType, Length: 10},
+		// {FieldName: "ChargeType", Value: req.Detail.ChargeType, Length: 3},
+		// {FieldName: "OrderingType", Value: req.Detail.OrderingType, Length: 10},
+		// {FieldName: "SearchPayInFull", Value: req.Detail.SearchPayInFull, Length: 1},
+		// {FieldName: "DepositWithdraw", Value: req.Detail.DepositWithdraw, Length: 10},
+		// {FieldName: "BenCountry", Value: req.Detail.BenCountry, Length: 2},
+		// {FieldName: "Purpose", Value: req.Detail.Purpose, Length: 10},
+		// {FieldName: "FromCCY", Value: req.Detail.FromCCY, Length: 3},
+		// {FieldName: "ToCCY", Value: req.Detail.ToCCY, Length: 3},
+		// {FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate, Length: 8},
+		// {FieldName: "FeeType", Value: req.Detail.FeeType, Length: 20},
+		// // Todo: เรื่อง decimal
+		// {FieldName: "AmountFrom", Value: req.Detail.AmountFrom, Length: 18},     //17,2
+		// {FieldName: "AmountTo", Value: req.Detail.AmountTo, Length: 18},         //17,2
+		// {FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate, Length: 18}, //17.10
+	}, &errs)
+	if len(errs) > 0 {
+		return ruleId, errs
+	}
 
-	// 		// Todo: เรื่อง decimal
-	// 		{FieldName: "AmountFrom", Length: 22},   //17,2
-	// 		{FieldName: "AmountTo", Length: 22},     //17,2
-	// 		{FieldName: "ExchangeRate", Length: 22}, //17.10
-
-	// 	}},
-	// })
-	// if errs != nil {
-	// 	return ruleId, errs
-	// }
-	// #endregion
+	//Rule 2. => Digit length => .2
+	ruleId = validation.DigitLength([]validation.DigitLengthRule{
+		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},     //17,2
+		{FieldName: "AmountTo", Value: req.Detail.AmountTo},         //17,2
+		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate}, //17.10
+	}, &errs)
+	if len(errs) > 0 {
+		return ruleId, errs
+	}
 
 	// #region Validate Rule 2.1 => 2 digit => V002
 	// ruleId = 2.1
@@ -177,5 +179,5 @@ func validateHeader(req *Request) (float32, []string) {
 	// }
 	// // #endregion
 
-	return ruleId, errs
+	return 0000, errs
 }

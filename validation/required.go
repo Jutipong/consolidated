@@ -1,15 +1,20 @@
 package validation
 
-type RuleField struct {
-	FidelName string
+import (
+	"fmt"
+	"strings"
+)
+
+type RequiredRule struct {
+	FieldName string
 	Value     interface{}
 }
 
 //## Validate Rule = 1
-func Required(fields []RuleField, errs *[]string) float32 {
+func Required(fields []RequiredRule, errs *[]string) float32 {
 	for _, f := range fields {
-		if f.Value == "" || f.Value == nil {
-			*errs = append(*errs, f.FidelName)
+		if strings.TrimSpace(fmt.Sprintf("%v", f.Value)) == "" || f.Value == nil {
+			*errs = append(*errs, f.FieldName)
 		}
 	}
 
