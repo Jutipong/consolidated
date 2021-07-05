@@ -83,7 +83,7 @@ Content-Type: application/json
         "purpose": "10xxxxxxxx",
         "fromCCY": "AED",
         "toCCY": "AED",
-        "amountFrom": 12345.3476,
+        "amountFrom": 12345.36,
         "amountTo": 222222222222222.34,
         "exchangeRate": 3333333333333330.69,
         "effectiveDate": "20210324",

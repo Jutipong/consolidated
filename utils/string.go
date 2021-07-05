@@ -1,8 +1,6 @@
 package utils
 
-type String struct{}
-
-func (st *String) Contains(slice []string, item string) bool {
+func Contains(slice []string, item string) bool {
 	set := make(map[string]struct{}, len(slice))
 	for _, s := range slice {
 		set[s] = struct{}{}
