@@ -11,7 +11,6 @@ func SerializeObject(objs interface{}) string {
 	}
 }
 
-func DeserializeObject(str string, st interface{}) interface{} {
-	st = json.Unmarshal([]byte(str), &st)
-	return st
+func DeserializeObject(str string, st interface{}) {
+	json.Unmarshal([]byte(str), &st)
 }

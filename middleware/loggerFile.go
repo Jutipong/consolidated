@@ -40,7 +40,6 @@ func GinBodyLogMiddleware() gin.HandlerFunc {
 			httpStatus := c.Writer.Status()
 
 			//## Request Data
-			//## request := string(bodyBytes) default
 			//==============================================
 			var request string
 			var req interface{}

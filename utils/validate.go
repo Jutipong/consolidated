@@ -23,9 +23,9 @@ type RuleField struct {
 	FieldName  string
 	Value      string
 	ValueFloat float64
-	
-	Length     int
-	Condition  []string
+
+	Length    int
+	Condition []string
 }
 
 //## Validate Request By library
@@ -70,10 +70,9 @@ func validateLibrary(_rule map[string]string, validateRules []ValidateRules, err
 }
 
 func validateByCondition(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
-	s := String{}
 	for _, rule := range validateRules {
 		for _, fields := range rule.RuleFields {
-			if !s.Contains(fields.Condition, fields.Value) {
+			if !Contains(fields.Condition, fields.Value) {
 				*errMsg = append(*errMsg, fields.FieldName)
 			}
 		}

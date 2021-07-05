@@ -14,7 +14,6 @@ func init() {
 	}
 	//## 2.Logger File
 	if err := utils.SetupLogger(); err != "" {
-		utils.LogError(err)
 		panic(err)
 	}
 	//## 3.Database
@@ -27,7 +26,7 @@ func init() {
 	//## 5.Initial Master Validate Rule
 	base.InitMasterRule()
 	//## 6. Setup Custom Validation
-	config.SetupCustomValidate()
+	// base.SetupCustomValidate()
 }
 
 func main() {
