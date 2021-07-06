@@ -43,7 +43,8 @@ type Response struct {
 }
 
 func (h *Request) Validate() (float32, []string) {
-	ruleId, errs := validate(h)
+	var errs []string
+	ruleId := validate(h, &errs)
 	if len(errs) != 0 {
 		return ruleId, errs
 	} else {
@@ -51,8 +52,7 @@ func (h *Request) Validate() (float32, []string) {
 	}
 }
 
-func validate(req *Request) (float32, []string) {
-	errs := []string{}
+func validate(req *Request, errs *[]string) float32 {
 
 	//Rule 1 => Required
 	ruleId := validation.Required([]validation.RequiredRule{
@@ -68,9 +68,9 @@ func validate(req *Request) (float32, []string) {
 		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
 		{FieldName: "AmountTo", Value: req.Detail.AmountTo},
 		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
-	}, &errs)
-	if len(errs) > 0 {
-		return ruleId, errs
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
 	}
 
 	//Rule 2 => MaxLength
@@ -96,17 +96,17 @@ func validate(req *Request) (float32, []string) {
 		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom, Length: 18},
 		{FieldName: "AmountTo", Value: req.Detail.AmountTo, Length: 18},
 		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate, Length: 18},
-	}, &errs)
-	if len(errs) > 0 {
-		return ruleId, errs
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
 	}
 
 	//Rule 2.1 => Digit length => .2
 	ruleId = validation.MinLength([]validation.MinValueRule{
 		{FieldName: "ExchangeRate", Min: 0, Value: req.Detail.ExchangeRate},
-	}, &errs)
-	if len(errs) > 0 {
-		return ruleId, errs
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
 	}
 
 	//Rule 2.2 => Digit length => .2
@@ -114,9 +114,9 @@ func validate(req *Request) (float32, []string) {
 		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
 		{FieldName: "AmountTo", Value: req.Detail.AmountTo},
 		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
-	}, &errs)
-	if len(errs) > 0 {
-		return ruleId, errs
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
 	}
 
 	//Rule 4 => Fix value
@@ -141,19 +141,19 @@ func validate(req *Request) (float32, []string) {
 			Conditions: base.MsCurrency()},
 		{FieldName: "BenCountry", Value: req.Detail.BenCountry,
 			Conditions: base.MsCountry()},
-	}, &errs)
-	if len(errs) > 0 {
-		return ruleId, errs
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
 	}
 
 	//Rule 5.1 => YYYYMMDD
 	ruleId = validation.YYYYMMDD([]validation.DateTimeRule{
 		{FieldName: "TransDate", Value: req.TransDate},
 		{FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate},
-	}, &errs)
-	if len(errs) > 0 {
-		return ruleId, errs
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
 	}
 
-	return 0000, errs
+	return 0000
 }

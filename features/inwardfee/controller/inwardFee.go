@@ -23,7 +23,7 @@ func (u *UserController) InwardFee(c *gin.Context) {
 		if errs != nil {
 			utils.JsonResult(c, ruleId, "", errs)
 		} else {
-			utils.JsonResult(c, float32(0000), enum.Success, req)
+			utils.JsonResult(c, ruleId, enum.Success, req)
 		}
 	}
 }

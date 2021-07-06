@@ -113,16 +113,16 @@ func validateDigit(_rule map[string]string, validateRules []ValidateRules, errMs
 	}
 }
 
-func validateFloat64MaxValue(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
-	for _, rule := range validateRules {
-		for _, fields := range rule.RuleFields {
-			str := strconv.FormatFloat(fields.ValueFloat, 'f', -1, 64)
-			if len(str) > fields.Length {
-				*errMsg = append(*errMsg, fields.FieldName)
-			}
-		}
-	}
-}
+// func validateFloat64MaxValue(_rule map[string]string, validateRules []ValidateRules, errMsg *[]string) {
+// 	for _, rule := range validateRules {
+// 		for _, fields := range rule.RuleFields {
+// 			str := strconv.FormatFloat(fields.ValueFloat, 'f', -1, 64)
+// 			if len(str) > fields.Length {
+// 				*errMsg = append(*errMsg, fields.FieldName)
+// 			}
+// 		}
+// 	}
+// }
 
 //## GetValidateError
 type ErrsMsg struct {

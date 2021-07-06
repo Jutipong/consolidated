@@ -25,10 +25,12 @@ func init() {
 
 	//## 5.Initial Master Validate Rule
 	base.InitMasterRule()
-	//## 6. Setup Custom Validation
+	//## 6. Setup Custom Validation ยังไม่ได้ใช้งาน
 	// base.SetupCustomValidate()
 }
 
+//GIN_MODE=debug
+//GIN_MODE=release
 func main() {
 	//## 7.Router
 	router := router.Setup()
