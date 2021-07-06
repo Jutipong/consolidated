@@ -16,7 +16,7 @@ type appConfig struct {
 	LoggerFile     model.LoggerFile
 }
 
-// LoadConfig loads config from files
+// LoadConfig from files
 func SetupConfig(configPaths ...string) error {
 	v := viper.New()
 	v.SetConfigName("config")

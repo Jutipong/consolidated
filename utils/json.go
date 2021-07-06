@@ -2,7 +2,7 @@ package utils
 
 import "encoding/json"
 
-func SerializeObject(objs interface{}) string {
+func JsonSerialize(objs interface{}) string {
 	b, err := json.Marshal(&objs)
 	if err != nil {
 		return ""
@@ -11,6 +11,6 @@ func SerializeObject(objs interface{}) string {
 	}
 }
 
-func DeserializeObject(str string, st interface{}) {
+func JsonDeserialize(str string, st interface{}) {
 	json.Unmarshal([]byte(str), &st)
 }

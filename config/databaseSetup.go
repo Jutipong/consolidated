@@ -19,7 +19,6 @@ func SetupDatabase() string {
 
 	//Auto Migrate
 	// db.Table("User").AutoMigrate(&User{})
-
 	// defer DB.Close()
 	return ""
 }

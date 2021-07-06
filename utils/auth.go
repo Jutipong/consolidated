@@ -11,6 +11,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 //## No Logger File
@@ -77,4 +78,20 @@ func GetUserRequest(ctx *gin.Context) repo.UserRequest {
 	var userRequest repo.UserRequest
 	json.Unmarshal([]byte(jsonData), &userRequest)
 	return userRequest
+}
+
+func getSalt(password *string) {
+	*password = fmt.Sprintf("%s%s", *password, "conrms")
+}
+
+func HashPassword(password string) (string, error) {
+	getSalt(&password)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(bytes), err
+}
+
+func CheckPasswordHash(password, hash string) bool {
+	getSalt(&password)
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
