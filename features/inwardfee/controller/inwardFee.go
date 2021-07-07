@@ -14,8 +14,8 @@ type UserController struct{}
 
 func (u *UserController) InwardFee(c *gin.Context) {
 	var req model.Request
-	err := c.ShouldBind(&req)
-	if err != nil {
+	// err := c.ShouldBind(&req)
+	if err := c.ShouldBind(&req); err != nil {
 		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())
 	} else {
 		//## Validate

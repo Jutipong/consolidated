@@ -45,25 +45,6 @@ func InitMasterRule() {
 	description["Code"] = "V002"
 	validationRule[key] = description
 
-	//## Character set
-	//## 3.1 => Field length
-	// key = 3.1
-	// validationRule[key] = make(map[string]string)
-	// description = map[string]string{}
-	// description["Message"] = "Character set: a b c d e f g h i j k l m n o p q r s t u v w x y z"
-	// description["Code"] = "V003"
-	// description["Rule"] = "lower" //custom
-	// validationRule[key] = description
-
-	//## 3.2 => Field length
-	// key = 3.2
-	// validationRule[key] = make(map[string]string)
-	// description = map[string]string{}
-	// description["Message"] = "Character set: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
-	// description["Code"] = "V003"
-	// description["Rule"] = "Upper" //custom
-	// validationRule[key] = description
-
 	//## 3.3 => Field length
 	key = 3
 	validationRule[key] = make(map[string]string)
@@ -106,6 +87,13 @@ func InitMasterRule() {
 	validationRule[key] = description
 
 	key = 400
+	validationRule[key] = make(map[string]string)
+	description = map[string]string{}
+	description["Message"] = "Bad Request"
+	description["Code"] = "400"
+	validationRule[key] = description
+
+	key = 401
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
 	description["Message"] = "Unauthorized"

@@ -39,22 +39,21 @@ func Login(c *gin.Context, userRequest *model.UserRequest) (code float32, err in
 	//## 1.Check Username
 	userAuth := repository.AuthUser{Username: userLogin.Username}
 	if err := userAuth.FindByUserName(); err != nil {
-		return float32(400), []string{}
+		return float32(401), []string{}
 	}
 	//## 2.Get Salt in db
 	userSalt := repository.AuthSalt{ID: userAuth.ID}
 	if err := userSalt.FindById(); err != nil {
-		return float32(400), []string{}
+		return float32(401), []string{}
 	}
 
 	//## Validate password
 	if !utils.CheckPasswordHash(userLogin.Password+userSalt.Salt, userAuth.Password) {
-		return  float32(400), []string{}
+		return float32(401), []string{}
 	}
 
-
 	userRequest.UserId = userAuth.Username
-	userRequest.UserName =  userAuth.Username;
+	userRequest.UserName = userAuth.Username
 
-	return  float32(0000), nil
+	return float32(0000), nil
 }
