@@ -13,9 +13,9 @@ func (u *UserAPI) Setup(r *gin.Engine) {
 	g := r.Group("/api/user")
 	{
 		user := controller.UserController{}
-		g.GET("", utils.JwtVerify, user.FindAll)
+		g.GET("", user.FindAll)
 		g.GET("/:id", utils.JwtVerify, user.FindID)
-		g.POST("",  user.AddNewCustomer)
+		g.POST("", user.AddNewCustomer)
 		g.PUT("", utils.JwtVerify, user.PutOneCustomer)
 		g.DELETE("", utils.JwtVerify, user.DeleteCustomer)
 

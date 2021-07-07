@@ -10,7 +10,7 @@ import (
 
 //## No Get Logger File
 func Login(c *gin.Context) {
-	auth, statusCode, err := service.BasicAuth(c)
+	auth, statusCode, err := service.Login(c)
 	if err != nil {
 		utils.JsonResult(c, statusCode, "", err)
 	} else {

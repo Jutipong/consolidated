@@ -3,7 +3,8 @@ package utils
 import (
 	"consolidated/config"
 	"consolidated/enum"
-	repo "consolidated/features/auth/repository"
+	"consolidated/features/auth/model"
+	repo "consolidated/features/auth/model"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -15,7 +16,7 @@ import (
 )
 
 //## No Logger File
-func JwtGenerate(payload repo.Auth) string {
+func JwtGenerate(payload model.Auth) string {
 	atClaims := jwt.MapClaims{}
 
 	// atClaims["id"] = payload.ID
@@ -81,7 +82,7 @@ func GetUserRequest(ctx *gin.Context) repo.UserRequest {
 }
 
 func getSalt(password *string) {
-	*password = fmt.Sprintf("%s%s", *password, "conrms")
+	*password += "zFA.HNNVQXv]A;^F<'*)xlBl$"
 }
 
 func HashPassword(password string) (string, error) {
@@ -91,7 +92,6 @@ func HashPassword(password string) (string, error) {
 }
 
 func CheckPasswordHash(password, hash string) bool {
-	getSalt(&password)
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }

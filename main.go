@@ -17,23 +17,22 @@ func init() {
 		panic(err)
 	}
 	//## 3.Database
-	// if err := config.SetupDatabase(); err != "" {
-	// 	utils.LogError(err)
-	// 	panic(err)
-	// }
-	//## 4.Setup validate
+	if err := config.SetupDatabase(); err != "" {
+		utils.LogError(err)
+		panic(err)
+	}
 
-	//## 5.Initial Master Validate Rule
+	//## 4.Initial Master Validate Rule
 	base.InitMasterRule()
-	//## 6. Setup Custom Validation ยังไม่ได้ใช้งาน
+	//## 5. Setup Custom Validation ยังไม่ได้ใช้งาน
 	// base.SetupCustomValidate()
 }
 
 //GIN_MODE=debug
 //GIN_MODE=release
 func main() {
-	//## 7.Router
+	//## 6.Router
 	router := router.Setup()
-	//## 8.Start Server
+	//## 7.Start Server
 	router.Run(":" + config.Config.Server.Port)
 }
