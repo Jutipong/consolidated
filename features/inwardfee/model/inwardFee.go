@@ -92,7 +92,6 @@ func validate(req *Request, errs *[]string) float32 {
 		{FieldName: "ToCCY", Value: req.Detail.ToCCY, Length: 3},
 		{FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate, Length: 8},
 		{FieldName: "FeeType", Value: req.Detail.FeeType, Length: 20},
-		// Todo: เรื่อง decimal
 		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom, Length: 18},
 		{FieldName: "AmountTo", Value: req.Detail.AmountTo, Length: 18},
 		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate, Length: 18},
