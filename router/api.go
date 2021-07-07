@@ -9,11 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Setup() *gin.Engine {
+func Setup(r *gin.Engine) {
 
-	r := gin.Default()
-	r.Use(middleware.GinBodyLogMiddleware())
-	r.Use(gin.Recovery())
+	// r := gin.Default()
+	// r.Use(middleware.GinBodyLogMiddleware())
+	// r.Use(gin.Recovery())
 
 	//## authentication
 	_authApi := auth.AuthAPI{}
@@ -26,6 +26,4 @@ func Setup() *gin.Engine {
 	//## InwardFee
 	_inwardFee := inwardfree.InwardFeeAPI{}
 	_inwardFee.Setup(r)
-
-	return r
 }

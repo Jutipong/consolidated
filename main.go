@@ -3,10 +3,15 @@ package main
 import (
 	"consolidated/base"
 	"consolidated/config"
+	"consolidated/middleware"
 	"consolidated/router"
 	"consolidated/utils"
+
+	"github.com/gin-gonic/gin"
 )
 
+//GIN_MODE=debug
+//GIN_MODE=release
 func init() {
 	//## 1.Config
 	if err := config.SetupConfig("./config"); err != nil {
@@ -28,11 +33,10 @@ func init() {
 	// base.SetupCustomValidate()
 }
 
-//GIN_MODE=debug
-//GIN_MODE=release
 func main() {
-	//## 6.Router
-	router := router.Setup()
-	//## 7.Start Server
-	router.Run(":" + config.Config.Server.Port)
+	r := gin.Default()
+	r.Use(middleware.GinBodyLogMiddleware())
+	r.Use(gin.Recovery())
+	router.Setup(r)
+	r.Run(":" + config.Config.Server.Port)
 }
