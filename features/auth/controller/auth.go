@@ -12,7 +12,7 @@ import (
 //## No Get Logger File
 func Login(c *gin.Context) {
 	var userRequest model.UserRequest
-	code, err := service.Login(c,&userRequest)
+	code, err := service.Login(c, &userRequest)
 	if err != nil {
 		utils.JsonResult(c, code, "", err)
 	} else {
