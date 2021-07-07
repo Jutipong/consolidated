@@ -10,9 +10,9 @@ import (
 
 //## No Get Logger File
 func Login(c *gin.Context) {
-	auth, statusCode, err := service.Login(c)
+	auth, code, err := service.Login(c)
 	if err != nil {
-		utils.JsonResult(c, statusCode, "", err)
+		utils.JsonResult(c, code, "", err)
 	} else {
 		token := utils.JwtGenerate(auth)
 		c.JSON(http.StatusOK, gin.H{"token": token})

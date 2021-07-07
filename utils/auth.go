@@ -81,12 +81,7 @@ func GetUserRequest(ctx *gin.Context) repo.UserRequest {
 	return userRequest
 }
 
-func getSalt(password *string) {
-	*password += "zFA.HNNVQXv]A;^F<'*)xlBl$"
-}
-
 func HashPassword(password string) (string, error) {
-	getSalt(&password)
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(bytes), err
 }
