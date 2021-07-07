@@ -3,8 +3,7 @@ package utils
 import (
 	"consolidated/config"
 	"consolidated/enum"
-	"consolidated/features/auth/model"
-	repo "consolidated/features/auth/model"
+	"consolidated/model"
 	"fmt"
 	"net/http"
 	"time"
@@ -52,9 +51,9 @@ func JwtVerify(c *gin.Context) {
 	}
 }
 
-func GetUserRequest(ctx *gin.Context) repo.UserRequest {
+func GetUserRequest(ctx *gin.Context) model.UserRequest {
 	str := ctx.GetString(enum.UserRequest)
-	var userRequest repo.UserRequest
+	var userRequest model.UserRequest
 	JsonDeserialize(str, &userRequest)
 	return userRequest
 }

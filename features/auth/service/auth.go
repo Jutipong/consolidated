@@ -1,8 +1,8 @@
 package service
 
 import (
-	"consolidated/features/auth/model"
 	"consolidated/features/auth/repository"
+	"consolidated/model"
 	"consolidated/utils"
 	"encoding/base64"
 	"strings"

@@ -16,7 +16,6 @@ type Response struct {
 func JsonResult(c *gin.Context, ruleId float32, message string, payload interface{}) {
 	var res Response
 	_rule := base.GetRule(ruleId)
-
 	res.ResponseCode = _rule["Code"]
 	res.ResponseDetail = payload
 

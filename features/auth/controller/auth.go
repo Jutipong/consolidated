@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"consolidated/features/auth/model"
+	"consolidated/model"
 	"consolidated/features/auth/service"
 	"consolidated/utils"
 	"net/http"
