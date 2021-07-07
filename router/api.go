@@ -4,7 +4,6 @@ import (
 	"consolidated/features/auth"
 	inwardfree "consolidated/features/inwardfee"
 	"consolidated/features/user"
-	"consolidated/middleware"
 
 	"github.com/gin-gonic/gin"
 )

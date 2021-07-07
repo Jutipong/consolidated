@@ -5,7 +5,6 @@ import (
 	"consolidated/enum"
 	"consolidated/features/auth/model"
 	repo "consolidated/features/auth/model"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -16,31 +15,10 @@ import (
 )
 
 //## No Logger File
-func JwtGenerate(payload model.Auth) string {
+func JwtGenerate(payload model.UserRequest) string {
 	atClaims := jwt.MapClaims{}
-
-	// atClaims["id"] = payload.ID
-	// atClaims["username"] = payload.Username
-	// atClaims["level"] = payload.Level
-	// userRequest := &model.UserRequest{
-	userRequest := repo.UserRequest{
-		SystemId:    "S0001",
-		EmpCode:     "E0001",
-		User:        "U0001",
-		Permissions: "Admin",
-	}
-
-	b, err := json.Marshal(userRequest)
-	if err != nil {
-		fmt.Println(err)
-		msg := fmt.Sprintf("generate token err: %s", err.Error())
-		fmt.Println(msg)
-		return msg
-	}
-
-	atClaims[enum.UserRequest] = string(b)
+	atClaims[enum.UserRequest] = JsonSerialize(payload)
 	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
-
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
 	return token
@@ -75,9 +53,9 @@ func JwtVerify(c *gin.Context) {
 }
 
 func GetUserRequest(ctx *gin.Context) repo.UserRequest {
-	jsonData := ctx.GetString(enum.UserRequest)
+	str := ctx.GetString(enum.UserRequest)
 	var userRequest repo.UserRequest
-	json.Unmarshal([]byte(jsonData), &userRequest)
+	JsonDeserialize(str, &userRequest)
 	return userRequest
 }
 

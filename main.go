@@ -22,10 +22,10 @@ func init() {
 		panic(err)
 	}
 	//## 3.Database
-	if err := config.SetupDatabase(); err != "" {
-		utils.LogError(err)
-		panic(err)
-	}
+	// if err := config.SetupDatabase(); err != "" {
+	// 	utils.LogError(err)
+	// 	panic(err)
+	// }
 
 	//## 4.Initial Master Validate Rule
 	base.InitMasterRule()
