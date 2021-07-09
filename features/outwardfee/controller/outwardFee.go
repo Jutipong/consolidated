@@ -2,7 +2,7 @@ package controller
 
 import (
 	"consolidated/enum"
-	"consolidated/features/inwardfee/model"
+	"consolidated/features/outwardfee/model"
 
 	"consolidated/utils"
 	"net/http"
@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type InwardController struct{}
+type OutwardController struct{}
 
-func (u *InwardController) InwardFee(c *gin.Context) {
+func (u *OutwardController) Branch(c *gin.Context) {
 	var req model.Request
 	if err := c.ShouldBind(&req); err != nil {
 		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())

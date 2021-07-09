@@ -10,9 +10,9 @@ import (
 type InwardFeeAPI struct{}
 
 func (u *InwardFeeAPI) Setup(r *gin.Engine) {
-	g := r.Group("/api/v1/inwardfee")
+	g := r.Group("fee/inward/v1/")
 	{
-		_user := controller.UserController{}
-		g.POST("", utils.JwtVerify, _user.InwardFee)
+		_user := controller.InwardController{}
+		g.POST("iwrm", utils.JwtVerify, _user.InwardFee)
 	}
 }
