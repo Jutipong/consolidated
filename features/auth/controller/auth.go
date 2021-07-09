@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"consolidated/model"
 	"consolidated/features/auth/service"
 	"consolidated/utils"
 	"net/http"
@@ -10,11 +11,12 @@ import (
 
 //## No Get Logger File
 func Login(c *gin.Context) {
-	auth, err := service.BasicAuth(c)
+	var userRequest model.UserRequest
+	code, err := service.Login(c, &userRequest)
 	if err != nil {
-		utils.JsonResult(c, http.StatusBadRequest, "", err)
+		utils.JsonResult(c, code, "", err)
 	} else {
-		token := utils.JwtGenerate(auth)
+		token := utils.JwtGenerate(userRequest)
 		c.JSON(http.StatusOK, gin.H{"token": token})
 	}
 }

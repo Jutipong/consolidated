@@ -1,35 +1,29 @@
 package utils
 
 import (
-	"consolidated/enum"
+	"consolidated/base"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-type ResponseData struct {
-	Status  int
-	Message string
-	Data    interface{}
+type Response struct {
+	ResponseCode   string      `json:"responseCode"`
+	ResponseDesc   string      `json:"responseDesc"`
+	ResponseDetail interface{} `json:"responseDetail"`
 }
 
-func JsonResult(c *gin.Context, status int, message string, payload interface{}) {
-	var res ResponseData
+func JsonResult(c *gin.Context, ruleId float32, message string, payload interface{}) {
+	var res Response
+	_rule := base.GetRule(ruleId)
+	res.ResponseCode = _rule["Code"]
+	res.ResponseDetail = payload
 
-	//## Initial Data
-	res.Status = status
-	res.Data = payload
-
-	if res.Status == http.StatusOK {
-		res.Message = enum.Success
+	if len(message) == 0 {
+		res.ResponseDesc = _rule["Message"]
 	} else {
-		if len(message) == 0 {
-			res.Message = enum.Error
-		} else {
-			res.Message = message
-		}
+		res.ResponseDesc = message
 	}
 
-	//## Next
 	c.JSON(http.StatusOK, res)
 }

@@ -16,8 +16,8 @@ type appConfig struct {
 	LoggerFile     model.LoggerFile
 }
 
-// LoadConfig loads config from files
-func SetupConfg(configPaths ...string) error {
+// LoadConfig from files
+func SetupConfig(configPaths ...string) error {
 	v := viper.New()
 	v.SetConfigName("config")
 	v.SetConfigType("yaml")

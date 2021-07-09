@@ -1,8 +1,7 @@
 ### Login 
-POST http://localhost:8080/api/login HTTP/1.1
-Authorization: Basic admin:
+POST   http://localhost:8080/api/login HTTP/1.1
+Authorization: Basic INWARD:iwc@nrms
 # Content-Type: application/json
-
 # {
 #     "Username": "admin",
 #     "Password" : "1234"

@@ -3,42 +3,21 @@ package utils
 import (
 	"consolidated/config"
 	"consolidated/enum"
-	repo "consolidated/features/auth/repository"
-	"encoding/json"
+	"consolidated/model"
 	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 //## No Logger File
-func JwtGenerate(payload repo.Auth) string {
+func JwtGenerate(payload model.UserRequest) string {
 	atClaims := jwt.MapClaims{}
-
-	// atClaims["id"] = payload.ID
-	// atClaims["username"] = payload.Username
-	// atClaims["level"] = payload.Level
-	// userRequest := &model.UserRequest{
-	userRequest := repo.UserRequest{
-		SystemId:    "S0001",
-		EmpCode:     "E0001",
-		User:        "U0001",
-		Permissions: "Admin",
-	}
-
-	b, err := json.Marshal(userRequest)
-	if err != nil {
-		fmt.Println(err)
-		msg := fmt.Sprintf("generate token err: %s", err.Error())
-		fmt.Println(msg)
-		return msg
-	}
-
-	atClaims[enum.UserRequest] = string(b)
+	atClaims[enum.UserRequest] = JsonSerialize(payload)
 	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
-
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
 	return token
@@ -72,9 +51,19 @@ func JwtVerify(c *gin.Context) {
 	}
 }
 
-func GetUserRequest(ctx *gin.Context) repo.UserRequest {
-	jsonData := ctx.GetString(enum.UserRequest)
-	var userRequest repo.UserRequest
-	json.Unmarshal([]byte(jsonData), &userRequest)
+func GetUserRequest(ctx *gin.Context) model.UserRequest {
+	str := ctx.GetString(enum.UserRequest)
+	var userRequest model.UserRequest
+	JsonDeserialize(str, &userRequest)
 	return userRequest
+}
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(bytes), err
+}
+
+func CheckPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }

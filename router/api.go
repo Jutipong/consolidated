@@ -2,25 +2,27 @@ package router
 
 import (
 	"consolidated/features/auth"
+	inwardfree "consolidated/features/inwardfee"
 	"consolidated/features/user"
-	"consolidated/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Setup() *gin.Engine {
+func Setup(r *gin.Engine) {
 
-	router := gin.Default()
-	router.Use(middleware.GinBodyLogMiddleware())
-	router.Use(gin.Recovery())
+	// r := gin.Default()
+	// r.Use(middleware.GinBodyLogMiddleware())
+	// r.Use(gin.Recovery())
 
 	//## authentication
-	authApi := auth.AuthAPI{}
-	authApi.Setup(router)
+	_authApi := auth.AuthAPI{}
+	_authApi.Setup(r)
 
 	//## User
-	userApi := user.UserAPI{}
-	userApi.Setup(router)
+	_userApi := user.UserAPI{}
+	_userApi.Setup(r)
 
-	return router
+	//## InwardFee
+	_inwardFee := inwardfree.InwardFeeAPI{}
+	_inwardFee.Setup(r)
 }

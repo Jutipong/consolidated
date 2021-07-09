@@ -1,21 +1,24 @@
 package main
 
 import (
+	"consolidated/base"
 	"consolidated/config"
+	"consolidated/middleware"
 	"consolidated/router"
 	"consolidated/utils"
 
-	"github.com/gookit/validate"
+	"github.com/gin-gonic/gin"
 )
 
+//GIN_MODE=debug
+//GIN_MODE=release
 func init() {
 	//## 1.Config
-	if err := config.SetupConfg("./config"); err != nil {
+	if err := config.SetupConfig("./config"); err != nil {
 		panic("fail get config: config.yaml")
 	}
 	//## 2.Logger File
 	if err := utils.SetupLogger(); err != "" {
-		utils.LogError(err)
 		panic(err)
 	}
 	//## 3.Database
@@ -23,16 +26,16 @@ func init() {
 		utils.LogError(err)
 		panic(err)
 	}
-	//## 4.Setup validate
-	validate.Config(func(opt *validate.GlobalOption) {
-		opt.StopOnError = false
-		// opt.SkipOnEmpty = false
-	})
+	//## 4.Initial Master Validate Rule
+	base.InitMasterRule()
+	//## 5. Setup Custom Validation ยังไม่ได้ใช้งาน
+	// base.SetupCustomValidate()
 }
 
 func main() {
-	//## 5.Router
-	router := router.Setup()
-	//## 6.Start Server
-	router.Run(":" + config.Config.Server.Port)
+	r := gin.Default()
+	r.Use(middleware.GinBodyLogMiddleware())
+	r.Use(gin.Recovery())
+	router.Setup(r)
+	r.Run(":" + config.Config.Server.Port)
 }
