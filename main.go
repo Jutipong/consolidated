@@ -28,8 +28,6 @@ func init() {
 	}
 	//## 4.Initial Master Validate Rule
 	base.InitMasterRule()
-	//## 5. Setup Custom Validation ยังไม่ได้ใช้งาน
-	// base.SetupCustomValidate()
 }
 
 func main() {
