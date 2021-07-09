@@ -110,7 +110,7 @@ func validate(req *Request, errs *[]string) float32 {
 		return ruleId
 	}
 
-	//Rule 2.2 => Digit length => .2
+	//Rule 2.2 => MinValue
 	ruleId = validation.MinValue([]validation.MinValueRule{
 		{FieldName: "ExchangeRate", Min: 0, Value: req.Detail.ExchangeRate},
 	}, errs)
