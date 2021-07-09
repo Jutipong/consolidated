@@ -101,14 +101,6 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 2.1 => Digit length => .2
-	ruleId = validation.MinLength([]validation.MinValueRule{
-		{FieldName: "ExchangeRate", Min: 0, Value: req.Detail.ExchangeRate},
-	}, errs)
-	if len(*errs) > 0 {
-		return ruleId
-	}
-
-	//Rule 2.2 => Digit length => .2
 	ruleId = validation.DigitLength([]validation.DigitLengthRule{
 		{FieldName: "AmountFrom", Value: req.Detail.AmountFrom},
 		{FieldName: "AmountTo", Value: req.Detail.AmountTo},

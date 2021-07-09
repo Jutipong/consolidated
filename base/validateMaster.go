@@ -13,7 +13,7 @@ func GetRule(id float32) map[string]string {
 func InitMasterRule() {
 	var key float32
 
-	//## 1 => required
+	//## 1 => Mandatory field
 	key = 1
 	validationRule[key] = make(map[string]string)
 	description := map[string]string{}
@@ -21,7 +21,7 @@ func InitMasterRule() {
 	description["Code"] = "V001"
 	validationRule[key] = description
 
-	//## 2 => Field max length
+	//## 2 => Invalid fields length
 	key = 2
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -29,23 +29,15 @@ func InitMasterRule() {
 	description["Code"] = "V002"
 	validationRule[key] = description
 
-	//## 2.1 => Field min length
+	//## 2.1 => Invalid fields length (.2 digit)
 	key = 2.1
-	validationRule[key] = make(map[string]string)
-	description = map[string]string{}
-	description["Message"] = "Invalid fields length"
-	description["Code"] = "V002"
-	validationRule[key] = description
-
-	//## 2.2 => Digit length
-	key = 2.2
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
 	description["Message"] = "Invalid fields length (.2 digit)"
 	description["Code"] = "V002"
 	validationRule[key] = description
 
-	//## 3.3 => Field length
+	//## 3.3 => Character set: 0 1 2 3 4 5 6 7 8 9 .
 	key = 3
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -53,7 +45,7 @@ func InitMasterRule() {
 	description["Code"] = "V003"
 	validationRule[key] = description
 
-	//## 4 => Field length
+	//## 4 => Fix value
 	key = 4
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -62,7 +54,7 @@ func InitMasterRule() {
 	validationRule[key] = description
 
 	//##Date pattern
-	//## 5.1 => Field length
+	//## 5.1 => Invalid fields type
 	key = 5.1
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -70,7 +62,7 @@ func InitMasterRule() {
 	description["Code"] = "V005"
 	validationRule[key] = description
 
-	//## 5.2 => Field length
+	//## 5.2 => format: HH:MM:SS
 	key = 5.2
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -78,7 +70,7 @@ func InitMasterRule() {
 	description["Code"] = "V005"
 	validationRule[key] = description
 
-	//## 5.3 => Field length
+	//## 5.3 => format: YYYYMMDD HH:MM:SS
 	key = 5.3
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
@@ -86,6 +78,9 @@ func InitMasterRule() {
 	description["Code"] = "V005"
 	validationRule[key] = description
 
+	//=================================//
+	//		Stutus		   //
+	//=================================//
 	key = 400
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
