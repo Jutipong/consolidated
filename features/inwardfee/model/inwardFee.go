@@ -110,6 +110,22 @@ func validate(req *Request, errs *[]string) float32 {
 		return ruleId
 	}
 
+	//Rule 2.2 => Digit length => .2
+	ruleId = validation.MinValue([]validation.MinValueRule{
+		{FieldName: "ExchangeRate", Min: 0, Value: req.Detail.ExchangeRate},
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
+	}
+
+	//Rule 3 => Number
+	ruleId = validation.Number([]validation.NumberRule{
+		{FieldName: "AccountNo", Value: req.Detail.AccountNo},
+	}, errs)
+	if len(*errs) > 0 {
+		return ruleId
+	}
+
 	//Rule 4 => Fix value
 	ruleId = validation.FixValue([]validation.FixValueRule{
 		{FieldName: "FeeChannel", Value: req.Detail.FeeChannel,
