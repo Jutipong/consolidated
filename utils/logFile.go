@@ -7,7 +7,7 @@ import (
 	"time"
 
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
-	log "github.com/sirupsen/logrus"
+	logFile "github.com/sirupsen/logrus"
 )
 
 // type LoggerTrasection struct {
@@ -21,7 +21,7 @@ type PlainFormatter struct {
 	LevelDesc       []string
 }
 
-func (f *PlainFormatter) Format(entry *log.Entry) ([]byte, error) {
+func (f *PlainFormatter) Format(entry *logFile.Entry) ([]byte, error) {
 	timestamp := fmt.Sprint(entry.Time.Format(f.TimestampFormat))
 	return []byte(fmt.Sprintf("%s %s %s\n", f.LevelDesc[entry.Level], timestamp, entry.Message)), nil
 }
@@ -44,8 +44,8 @@ func SetupLogger() string {
 	plainFormatter := new(PlainFormatter)
 	plainFormatter.TimestampFormat = "[2006-01-02 15:04:05]"
 	plainFormatter.LevelDesc = []string{"PANC", "FATL", "ERROR", "WARN", "INFO", "DEBUG"}
-	log.SetFormatter(plainFormatter)
-	log.SetOutput(writer)
+	logFile.SetFormatter(plainFormatter)
+	logFile.SetOutput(writer)
 
 	return ""
 }
@@ -59,7 +59,7 @@ func LogInfo(payload interface{}) {
 	// b, _ := json.Marshal(payload)
 	// fmt.Println(string(b))
 	// log.Info(string(b))
-	log.Info(payload)
+	logFile.Info(payload)
 }
 
 ////## Request
@@ -94,7 +94,7 @@ func LogInfo(payload interface{}) {
 func LogWarn(payload interface{}) {
 	b, _ := json.Marshal(payload)
 	fmt.Println(string(b))
-	log.Warn(string(b))
+	logFile.Warn(string(b))
 }
 
 // //## Request
@@ -129,7 +129,7 @@ func LogWarn(payload interface{}) {
 func LogError(payload interface{}) {
 	b, _ := json.Marshal(payload)
 	fmt.Println(string(b))
-	log.Error(string(b))
+	logFile.Error(string(b))
 }
 
 // //## Request
