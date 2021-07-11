@@ -1,7 +1,7 @@
 package user
 
 import (
-	"consolidated/features/user/controller"
+	"consolidated/features/user/handler"
 	"consolidated/utils"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +12,7 @@ type UserAPI struct{}
 func (u *UserAPI) Setup(r *gin.Engine) {
 	g := r.Group("/api/user")
 	{
-		user := controller.UserController{}
+		user := handler.UserHandler{}
 		g.GET("", utils.JwtVerify, user.FindAll)
 		g.GET("/:id", utils.JwtVerify, user.FindID)
 		g.POST("", user.AddNewCustomer)

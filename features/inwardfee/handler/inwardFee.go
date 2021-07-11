@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"consolidated/enum"
@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type InwardController struct{}
+type InwardHandler struct{}
 
-func (u *InwardController) InwardFee(c *gin.Context) {
+func (u *InwardHandler) InwardFee(c *gin.Context) {
 	var req model.Request
 	if err := c.ShouldBind(&req); err != nil {
 		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())

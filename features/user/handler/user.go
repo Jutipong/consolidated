@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"consolidated/enum"
@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type UserController struct{}
+type UserHandler struct{}
 
-func (u *UserController) FindAll(c *gin.Context) {
+func (u *UserHandler) FindAll(c *gin.Context) {
 	user := []repository.User{}
 	err := service.FindAll(&user)
 	if err == nil {
@@ -22,7 +22,7 @@ func (u *UserController) FindAll(c *gin.Context) {
 	}
 }
 
-func (u *UserController) FindID(c *gin.Context) {
+func (u *UserHandler) FindID(c *gin.Context) {
 	user := repository.User{}
 	id := c.Params.ByName("id")
 
@@ -34,7 +34,7 @@ func (u *UserController) FindID(c *gin.Context) {
 	}
 }
 
-func (u *UserController) AddNewCustomer(c *gin.Context) {
+func (u *UserHandler) AddNewCustomer(c *gin.Context) {
 	var user repository.User
 	err := c.ShouldBind(&user)
 	if err != nil {
@@ -49,7 +49,7 @@ func (u *UserController) AddNewCustomer(c *gin.Context) {
 	}
 }
 
-func (u *UserController) PutOneCustomer(c *gin.Context) {
+func (u *UserHandler) PutOneCustomer(c *gin.Context) {
 	var user repository.User
 	id := c.Params.ByName("id")
 	c.BindJSON(&user)
@@ -62,7 +62,7 @@ func (u *UserController) PutOneCustomer(c *gin.Context) {
 	}
 }
 
-func (u *UserController) DeleteCustomer(c *gin.Context) {
+func (u *UserHandler) DeleteCustomer(c *gin.Context) {
 	var user repository.User
 	id := c.Params.ByName("id")
 	err := service.DeleteCustomer(&user, id)

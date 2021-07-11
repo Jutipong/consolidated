@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"consolidated/enum"
@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type OutwardController struct{}
+type OutwardHandler struct{}
 
-func (u *OutwardController) Branch(c *gin.Context) {
+func (u *OutwardHandler) Branch(c *gin.Context) {
 	var req model.Request
 	if err := c.ShouldBind(&req); err != nil {
 		utils.JsonResult(c, http.StatusBadRequest, enum.Success, err.Error())

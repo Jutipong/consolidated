@@ -7,6 +7,5 @@ func InitTimeZone() {
 	if err != nil {
 		panic(err)
 	}
-
 	time.Local = ict
 }
