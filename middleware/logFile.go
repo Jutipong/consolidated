@@ -22,7 +22,7 @@ func (w bodyLogWriter) Write(b []byte) (int, error) {
 	return w.ResponseWriter.Write(b)
 }
 
-func GinBodyLogMiddleware() gin.HandlerFunc {
+func LoggerFile() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if !strings.Contains(c.Request.RequestURI, "login") {
 			var bodyBytes []byte

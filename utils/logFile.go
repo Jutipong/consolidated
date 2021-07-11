@@ -10,12 +10,12 @@ import (
 	logFile "github.com/sirupsen/logrus"
 )
 
-type PlainFormatter struct {
+type plainFormatter struct {
 	TimestampFormat string
 	LevelDesc       []string
 }
 
-func (f *PlainFormatter) Format(entry *logFile.Entry) ([]byte, error) {
+func (f *plainFormatter) Format(entry *logFile.Entry) ([]byte, error) {
 	timestamp := fmt.Sprint(entry.Time.Format(f.TimestampFormat))
 	return []byte(fmt.Sprintf("%s %s %s\n", f.LevelDesc[entry.Level], timestamp, entry.Message)), nil
 }
@@ -37,7 +37,7 @@ func SetupLogger() {
 	}
 
 	//## Format Logger
-	plainFormatter := new(PlainFormatter)
+	plainFormatter := new(plainFormatter)
 	plainFormatter.TimestampFormat = "[2006-01-02 15:04:05]"
 	plainFormatter.LevelDesc = []string{"PANC", "FATL", "ERROR", "WARN", "INFO", "DEBUG"}
 	logFile.SetFormatter(plainFormatter)

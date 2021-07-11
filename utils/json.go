@@ -2,8 +2,8 @@ package utils
 
 import "encoding/json"
 
-func JsonSerialize(objs interface{}) string {
-	b, err := json.Marshal(&objs)
+func JsonSerialize(payload interface{}) string {
+	b, err := json.Marshal(&payload)
 	if err != nil {
 		return ""
 	} else {

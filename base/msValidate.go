@@ -82,7 +82,7 @@ func InitMasterRule() {
 	validationRule[key] = description
 
 	//=================================//
-	//		Stutus		   //
+	//		Status		   //
 	//=================================//
 	key = 400
 	validationRule[key] = make(map[string]string)

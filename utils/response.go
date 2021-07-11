@@ -8,21 +8,21 @@ import (
 )
 
 type Response struct {
-	ResponseCode   string      `json:"responseCode"`
-	ResponseDesc   string      `json:"responseDesc"`
-	ResponseDetail interface{} `json:"responseDetail"`
+	Code    string      `json:"responseCode"`
+	Message string      `json:"responseDesc"`
+	Datas   interface{} `json:"responseDetail"`
 }
 
-func JsonResult(c *gin.Context, ruleId float32, message string, payload interface{}) {
+func JsonResult(c *gin.Context, code float32, message string, payload interface{}) {
 	var res Response
-	_rule := base.GetRule(ruleId)
-	res.ResponseCode = _rule["Code"]
-	res.ResponseDetail = payload
+	_rule := base.GetRule(code)
+	res.Code = _rule["Code"]
+	res.Datas = payload
 
 	if len(message) == 0 {
-		res.ResponseDesc = _rule["Message"]
+		res.Message = _rule["Message"]
 	} else {
-		res.ResponseDesc = message
+		res.Message = message
 	}
 
 	c.JSON(http.StatusOK, res)

@@ -1,4 +1,4 @@
-package router
+package api
 
 import (
 	"consolidated/features/auth"
@@ -10,10 +10,6 @@ import (
 )
 
 func Setup(r *gin.Engine) {
-
-	// r := gin.Default()
-	// r.Use(middleware.GinBodyLogMiddleware())
-	// r.Use(gin.Recovery())
 
 	//## authentication
 	_authApi := auth.AuthAPI{}

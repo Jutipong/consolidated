@@ -2,7 +2,7 @@ Server:
   Env: development
   RunMode: debug
   Port: 8080
-  SecretKey: "85jf89gwh[45985jrnw0tui45039469372876@#$%^&*()sdfsf"
+  SecretKey: "12345678900987654321"
 Database:
   Server: localhost
   Port: 1433
