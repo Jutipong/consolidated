@@ -1,10 +1,10 @@
-package enum
+package base
 
 //## Http
 const (
-	Success string = "Success"
-	Error   string = "Error"
-	Fail    string = "Fail"
+	Successfully string = "Successfully"
+	Error        string = "Error"
+	Fail         string = "Fail"
 )
 
 //## Jwt Key

@@ -1,9 +1,8 @@
 package service
 
 import (
-	"consolidated/features/auth/repository"
-	"consolidated/model"
-	"consolidated/utils"
+	"consolidated/feature/auth/repository"
+	"consolidated/util"
 	"encoding/base64"
 	"strings"
 
@@ -11,7 +10,7 @@ import (
 	"github.com/gookit/validate"
 )
 
-func Login(c *gin.Context, userRequest *model.UserRequest) (code float32, err interface{}) {
+func Login(c *gin.Context, userRequest *util.UserRequest) (code float32, err interface{}) {
 	auth := strings.SplitN(c.Request.Header.Get("Authorization"), " ", 2)
 	if len(auth) != 2 || auth[0] != "Basic" {
 		return float32(400), []string{}
@@ -25,13 +24,13 @@ func Login(c *gin.Context, userRequest *model.UserRequest) (code float32, err in
 	}
 
 	//## Validate Struct
-	userLogin := model.UserLogin{
+	userLogin := util.UserLogin{
 		Username: pair[0],
 		Password: pair[1],
 	}
 	v := validate.Struct(userLogin)
 	if !v.Validate() {
-		errs := utils.GetFieldNameError(v)
+		errs := util.GetFieldNameError(v)
 		return float32(1), errs
 	}
 
@@ -48,7 +47,7 @@ func Login(c *gin.Context, userRequest *model.UserRequest) (code float32, err in
 	}
 
 	//## Validate password
-	if !utils.CheckPasswordHash(userLogin.Password+userSalt.Salt, userAuth.Password) {
+	if !util.CheckPasswordHash(userLogin.Password+userSalt.Salt, userAuth.Password) {
 		return float32(401), []string{}
 	}
 

@@ -1,8 +1,8 @@
-package middleware
+package util
 
 import (
 	"bytes"
-	"consolidated/utils"
+	"consolidated/config"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -60,11 +60,11 @@ func LoggerFile() gin.HandlerFunc {
 
 			switch c.Writer.Status() {
 			case http.StatusOK:
-				utils.LogInfo(strLog)
+				config.LogInfo(strLog)
 			case http.StatusBadRequest, http.StatusUnauthorized:
-				utils.LogWarn(strLog)
+				config.LogWarn(strLog)
 			default:
-				utils.LogError(strLog)
+				config.LogError(strLog)
 			}
 		}
 		c.Next()

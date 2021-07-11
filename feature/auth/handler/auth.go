@@ -1,9 +1,8 @@
 package handler
 
 import (
-	"consolidated/model"
-	"consolidated/features/auth/service"
-	"consolidated/utils"
+	"consolidated/feature/auth/service"
+	"consolidated/util"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,12 +10,12 @@ import (
 
 //## No Get Logger File
 func Login(c *gin.Context) {
-	var userRequest model.UserRequest
+	var userRequest util.UserRequest
 	code, err := service.Login(c, &userRequest)
 	if err != nil {
-		utils.JsonResult(c, code, "", err)
+		util.JsonResponse(c, code, "", err)
 	} else {
-		token := utils.JwtGenerate(userRequest)
+		token := util.JwtGenerate(userRequest)
 		c.JSON(http.StatusOK, gin.H{"token": token})
 	}
 }

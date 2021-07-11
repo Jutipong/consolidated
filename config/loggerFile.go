@@ -1,7 +1,6 @@
-package utils
+package config
 
 import (
-	"consolidated/config"
 	"fmt"
 	"log"
 	"time"
@@ -25,7 +24,7 @@ func SetupLogger() {
 	//## Config File
 	writer, err := rotatelogs.New(
 		// config.Config.LoggerFile.RootPath+"%Y%m%d.log",
-		config.LogFile().RootPath+"%Y%m%d.log",
+		LogFile().RootPath+"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB
 		rotatelogs.WithMaxAge(-1),
 		// rotatelogs.WithRotationCount(7),

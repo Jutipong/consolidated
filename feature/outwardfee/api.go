@@ -1,8 +1,8 @@
 package outwardfree
 
 import (
-	"consolidated/features/outwardfee/handler"
-	"consolidated/utils"
+	"consolidated/feature/outwardfee/handler"
+	"consolidated/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,6 +13,6 @@ func (u *OutwardFeeAPI) Setup(r *gin.Engine) {
 	g := r.Group("/fee/outward/v1/")
 	{
 		_user := handler.OutwardHandler{}
-		g.POST("branch", utils.JwtVerify, _user.Branch)
+		g.POST("branch", util.JwtVerify, _user.Branch)
 	}
 }

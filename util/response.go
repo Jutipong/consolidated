@@ -1,4 +1,4 @@
-package utils
+package util
 
 import (
 	"consolidated/base"
@@ -13,7 +13,7 @@ type Response struct {
 	Datas   interface{} `json:"responseDetail"`
 }
 
-func JsonResult(c *gin.Context, code float32, message string, payload interface{}) {
+func JsonResponse(c *gin.Context, code float32, message string, payload interface{}) {
 	var res Response
 	_rule := base.GetRule(code)
 	res.Code = _rule["Code"]

@@ -1,4 +1,4 @@
-package utils
+package util
 
 func Contains(slice []string, item string) bool {
 	set := make(map[string]struct{}, len(slice))

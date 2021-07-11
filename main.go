@@ -3,9 +3,8 @@ package main
 import (
 	"consolidated/base"
 	"consolidated/config"
-	api "consolidated/features"
-	"consolidated/middleware"
-	"consolidated/utils"
+	api "consolidated/feature"
+	"consolidated/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,13 +15,13 @@ func init() {
 	config.InitialConfig()
 	config.InitTimeZone()
 	config.InitialDB()
-	utils.SetupLogger()
+	config.SetupLogger()
 	base.InitMasterRule()
 }
 
 func main() {
 	r := gin.Default()
-	r.Use(middleware.LoggerFile())
+	r.Use(util.LoggerFile())
 	r.Use(gin.Recovery())
 	api.Setup(r)
 	r.Run(":" + config.Server().Port)

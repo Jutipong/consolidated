@@ -1,9 +1,8 @@
-package utils
+package util
 
 import (
+	"consolidated/base"
 	"consolidated/config"
-	"consolidated/enum"
-	"consolidated/model"
 	"fmt"
 	"net/http"
 	"time"
@@ -13,10 +12,20 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+type UserLogin struct {
+	Username string `validate:"required"`
+	Password string `validate:"required"`
+}
+
+type UserRequest struct {
+	UserId   string
+	UserName string
+}
+
 //## No Logger File
-func JwtGenerate(payload model.UserRequest) string {
+func JwtGenerate(payload UserRequest) string {
 	atClaims := jwt.MapClaims{}
-	atClaims[enum.UserRequest] = JsonSerialize(payload)
+	atClaims[base.UserRequest] = JsonSerialize(payload)
 	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, _ := at.SignedString([]byte(config.Server().SecretKey))
@@ -25,10 +34,10 @@ func JwtGenerate(payload model.UserRequest) string {
 }
 
 func JwtVerify(c *gin.Context) {
-	const BEARER_SCHEMA = enum.Bearer
-	authHeader := c.GetHeader(enum.Authorization)
+	const BEARER_SCHEMA = base.Bearer
+	authHeader := c.GetHeader(base.Authorization)
 	if len(authHeader) == 0 {
-		JsonResult(c, http.StatusBadRequest, "authorization is empty", nil)
+		JsonResponse(c, http.StatusBadRequest, "authorization is empty", nil)
 		c.Abort()
 		return
 	}
@@ -43,19 +52,20 @@ func JwtVerify(c *gin.Context) {
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		c.Set(enum.UserRequest, fmt.Sprint(claims[enum.UserRequest]))
+		c.Set(base.UserRequest, fmt.Sprint(claims[base.UserRequest]))
 		c.Next()
 
 	} else {
-		JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
+		JsonResponse(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
 		return
 	}
 }
 
-func GetUserRequest(ctx *gin.Context) model.UserRequest {
-	str := ctx.GetString(enum.UserRequest)
-	var userRequest model.UserRequest
+func GetUserRequest(ctx *gin.Context) UserRequest {
+	str := ctx.GetString(base.UserRequest)
+
+	var userRequest UserRequest
 	JsonDeserialize(str, &userRequest)
 	return userRequest
 }
