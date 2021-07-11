@@ -1,0 +1,13 @@
+Server:
+  Env: development
+  RunMode: debug
+  Port: 8080
+  SecretKey: "85jf89gwh[45985jrnw0tui45039469372876@#$%^&*()sdfsf"
+Database:
+  Server: localhost
+  Port: 1433
+  User: sa
+  Pass: p@ssw0rd
+  DatabaseName: Consolidated
+LoggerFile:
+  RootPath: ./logs/

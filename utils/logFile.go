@@ -20,11 +20,12 @@ func (f *PlainFormatter) Format(entry *logFile.Entry) ([]byte, error) {
 	return []byte(fmt.Sprintf("%s %s %s\n", f.LevelDesc[entry.Level], timestamp, entry.Message)), nil
 }
 
-func SetupLogger() string {
+func SetupLogger() {
 
 	//## Config File
 	writer, err := rotatelogs.New(
-		config.Config.LoggerFile.RootPath+"%Y%m%d.log",
+		// config.Config.LoggerFile.RootPath+"%Y%m%d.log",
+		config.LogFile().RootPath+"%Y%m%d.log",
 		rotatelogs.WithRotationSize((10 * 1048576)), //10MB
 		rotatelogs.WithMaxAge(-1),
 		// rotatelogs.WithRotationCount(7),
@@ -32,7 +33,7 @@ func SetupLogger() string {
 	)
 
 	if err != nil {
-		return fmt.Sprintf("LoggerFile Setup fail: %v", err.Error())
+		panic(err)
 	}
 
 	//## Format Logger
@@ -41,8 +42,6 @@ func SetupLogger() string {
 	plainFormatter.LevelDesc = []string{"PANC", "FATL", "ERROR", "WARN", "INFO", "DEBUG"}
 	logFile.SetFormatter(plainFormatter)
 	logFile.SetOutput(writer)
-
-	return ""
 }
 
 func LogInfo(payload interface{}) {

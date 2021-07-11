@@ -13,20 +13,9 @@ import (
 //GIN_MODE=debug
 //GIN_MODE=release
 func init() {
-	//## 1.Config
-	if err := config.SetupConfig("./config"); err != nil {
-		panic("fail get config: config.yaml")
-	}
-	//## 2.Logger File
-	if err := utils.SetupLogger(); err != "" {
-		panic(err)
-	}
-	//## 3.Database
-	if err := config.SetupDatabase(); err != "" {
-		utils.LogError(err)
-		panic(err)
-	}
-	//## 4.Initial Master Validate Rule
+	config.InitialConfig()
+	config.InitialDB()
+	utils.SetupLogger()
 	base.InitMasterRule()
 }
 
@@ -35,5 +24,5 @@ func main() {
 	r.Use(middleware.GinBodyLogMiddleware())
 	r.Use(gin.Recovery())
 	router.Setup(r)
-	r.Run(":" + config.Config.Server.Port)
+	r.Run(":" + config.Server().Port)
 }

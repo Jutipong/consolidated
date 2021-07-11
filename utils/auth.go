@@ -19,7 +19,8 @@ func JwtGenerate(payload model.UserRequest) string {
 	atClaims[enum.UserRequest] = JsonSerialize(payload)
 	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
+	token, _ := at.SignedString([]byte(config.Server().SecretKey))
+	// token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
 	return token
 }
 
@@ -37,7 +38,8 @@ func JwtVerify(c *gin.Context) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return []byte(config.Config.Server.SecretKey), nil
+		return []byte(config.Server().SecretKey), nil
+		// return []byte(config.Config.Server.SecretKey), nil
 	})
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
