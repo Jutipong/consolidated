@@ -162,5 +162,5 @@ func validate(req *Request, errs *[]string) float32 {
 		return ruleId
 	}
 
-	return 0000
+	return base.Successfully
 }

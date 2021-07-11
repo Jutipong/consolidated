@@ -102,6 +102,19 @@ func InitMasterRule() {
 	validationRule[key] = make(map[string]string)
 	description = map[string]string{}
 	description["Message"] = "Success"
-	description["Code"] = "V001"
+	description["Code"] = "0000"
+	validationRule[key] = description
+
+	key = 111
+	validationRule[key] = make(map[string]string)
+	description = map[string]string{}
+	description["Message"] = "Data not found"
+	description["Code"] = "E001"
+	validationRule[key] = description
+
+	key = 500
+	validationRule[key] = make(map[string]string)
+	description = map[string]string{}
+	description["Message"] = "Error"
 	validationRule[key] = description
 }

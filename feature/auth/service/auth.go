@@ -1,6 +1,7 @@
 package service
 
 import (
+	"consolidated/base"
 	"consolidated/feature/auth/repository"
 	"consolidated/util"
 	"encoding/base64"
@@ -13,14 +14,14 @@ import (
 func Login(c *gin.Context, userRequest *util.UserRequest) (code float32, err interface{}) {
 	auth := strings.SplitN(c.Request.Header.Get("Authorization"), " ", 2)
 	if len(auth) != 2 || auth[0] != "Basic" {
-		return float32(400), []string{}
+		return base.BadRequest, []string{}
 	}
 
 	payload, _ := base64.StdEncoding.DecodeString(auth[1])
 	pair := strings.SplitN(string(payload), ":", 2)
 
 	if len(pair) != 2 {
-		return float32(400), []string{}
+		return base.BadRequest, []string{}
 	}
 
 	//## Validate Struct
@@ -38,21 +39,21 @@ func Login(c *gin.Context, userRequest *util.UserRequest) (code float32, err int
 	//## 1.Check Username
 	userAuth := repository.AuthUser{Username: userLogin.Username}
 	if err := userAuth.FindByUserName(); err != nil {
-		return float32(401), []string{}
+		return base.Unauthorized, []string{}
 	}
 	//## 2.Get Salt in db
 	userSalt := repository.AuthSalt{ID: userAuth.ID}
 	if err := userSalt.FindById(); err != nil {
-		return float32(401), []string{}
+		return base.Unauthorized, []string{}
 	}
 
 	//## Validate password
 	if !util.CheckPasswordHash(userLogin.Password+userSalt.Salt, userAuth.Password) {
-		return float32(401), []string{}
+		return base.Unauthorized, []string{}
 	}
 
 	userRequest.UserId = userAuth.Username
 	userRequest.UserName = userAuth.Username
 
-	return float32(0000), nil
+	return base.Successfully, nil
 }
