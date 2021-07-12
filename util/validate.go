@@ -144,7 +144,6 @@ import (
 
 func GetFieldNameError(v *validate.Validation) []string {
 	errs := []string{}
-
 	for fieldName := range v.Errors {
 		errs = append(errs, fieldName)
 	}

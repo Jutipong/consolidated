@@ -14,18 +14,20 @@ import (
 
 func Login(c *gin.Context) {
 	var userRequest util.UserRequest
-	code, err := service.Login(c, &userRequest)
-	if err != nil {
-		util.JsonResponse(c, code, "", err)
+	var errs []string
+
+	code := service.Login(c, &userRequest, &errs)
+	if code != base.Successfully {
+		util.JsonResponse(c, code, "", errs)
 	} else {
-		token := jwtGenerate(userRequest)
+		token := jwtGenerate(&userRequest)
 		c.JSON(http.StatusOK, gin.H{"token": token})
 	}
 }
 
-func jwtGenerate(payload util.UserRequest) string {
+func jwtGenerate(payload *util.UserRequest) string {
 	atClaims := jwt.MapClaims{}
-	atClaims[base.UserRequest] = util.JsonSerialize(payload)
+	atClaims[base.UserRequest] = util.JsonSerialize(*payload)
 	atClaims["exp"] = time.Now().Add(time.Hour * time.Duration(config.Server().TokenExpire)).Unix()
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, _ := at.SignedString([]byte(config.Server().SecretKey))

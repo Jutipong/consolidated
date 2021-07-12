@@ -1,6 +1,6 @@
 ### test fail
 POST   http://localhost:8080/fee/inward/v1/iwrm HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MDgxNzIzfQ.zab4EQ3PkHLfQrUMr1I56mY_3geS3kjbdn2RBPTsXaQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MTE5MzcxfQ._rrjdsQOnahoCO2iHxyaKgLxWlATUuDP0237adCK0ew
 Content-Type: application/json
 
 {
