@@ -2,6 +2,7 @@ Server:
   Env: development
   RunMode: debug
   Port: 8080
+  TokenExpire: 8
   SecretKey: "12345678900987654321"
 Database:
   Server: localhost

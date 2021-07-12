@@ -12,7 +12,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//## No Get Logger File
 func Login(c *gin.Context) {
 	var userRequest util.UserRequest
 	code, err := service.Login(c, &userRequest)
@@ -27,7 +26,7 @@ func Login(c *gin.Context) {
 func jwtGenerate(payload util.UserRequest) string {
 	atClaims := jwt.MapClaims{}
 	atClaims[base.UserRequest] = util.JsonSerialize(payload)
-	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
+	atClaims["exp"] = time.Now().Add(time.Hour * time.Duration(config.Server().TokenExpire)).Unix()
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
 	token, _ := at.SignedString([]byte(config.Server().SecretKey))
 	return token

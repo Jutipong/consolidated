@@ -6,10 +6,11 @@ import (
 
 //## Server
 type server struct {
-	Env       string
-	RunMode   string
-	Port      string
-	SecretKey string
+	Env         string
+	RunMode     string
+	Port        string
+	SecretKey   string
+	TokenExpire int
 }
 
 //## Database

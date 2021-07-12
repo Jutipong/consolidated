@@ -10,12 +10,6 @@ const (
 	Unauthorized float32 = 401
 )
 
-// const (
-// 	Successfully string = "Successfully"
-// 	Error        string = "Error"
-// 	Fail         string = "Fail"
-// )
-
 //## Jwt Key
 const (
 	Authorization string = "Authorization"
