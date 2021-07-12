@@ -3,7 +3,6 @@ package main
 import (
 	"consolidated/base"
 	"consolidated/config"
-	api "consolidated/feature"
 	"consolidated/util"
 
 	"github.com/gin-gonic/gin"
@@ -23,6 +22,6 @@ func main() {
 	r := gin.Default()
 	r.Use(util.LoggerFile())
 	r.Use(gin.Recovery())
-	api.Setup(r)
+	apiInitial(r)
 	r.Run(":" + config.Server().Port)
 }

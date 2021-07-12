@@ -1,14 +1,15 @@
-package api
+package main
 
 import (
 	"consolidated/feature/auth"
+	free "consolidated/feature/fee"
 	inwardfree "consolidated/feature/inwardfee"
 	outwardfree "consolidated/feature/outwardfee"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Setup(r *gin.Engine) {
+func apiInitial(r *gin.Engine) {
 
 	//## authentication
 	_authApi := auth.AuthAPI{}
@@ -21,4 +22,8 @@ func Setup(r *gin.Engine) {
 	//## OutwardFee
 	_outwardFee := outwardfree.OutwardFeeAPI{}
 	_outwardFee.Setup(r)
+
+	//## Fee
+	_fee := free.FeeAPI{}
+	_fee.Setup(r)
 }
