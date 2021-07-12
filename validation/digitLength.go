@@ -2,7 +2,6 @@ package validation
 
 import (
 	"consolidated/base"
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -16,7 +15,6 @@ type DigitLengthRule struct {
 func DigitLength(fields *[]DigitLengthRule, errs *[]string) float32 {
 	for _, f := range *fields {
 		arr := strings.SplitN(strconv.FormatFloat(f.Value, 'f', -1, 64), ".", 2)
-		fmt.Println(arr)
 		if len(arr) != 2 {
 			*errs = append(*errs, f.FieldName)
 		} else {
