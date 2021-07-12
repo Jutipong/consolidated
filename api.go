@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func apiInitial(r *gin.Engine) {
+func api(r *gin.Engine) {
 
 	//## authentication
 	_authApi := auth.AuthAPI{}
