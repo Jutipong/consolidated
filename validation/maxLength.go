@@ -1,6 +1,7 @@
 package validation
 
 import (
+	"consolidated/base"
 	"fmt"
 	"strconv"
 	"unicode/utf8"
@@ -13,8 +14,8 @@ type MaxLengthRule struct {
 }
 
 //## Validate Rule = 2
-func MaxLength(fields []MaxLengthRule, errs *[]string) float32 {
-	for _, f := range fields {
+func MaxLength(fields *[]MaxLengthRule, errs *[]string) float32 {
+	for _, f := range *fields {
 		switch f.Value.(type) {
 		case float64:
 			str := strconv.FormatFloat(f.Value.(float64), 'f', -1, 64)
@@ -32,6 +33,6 @@ func MaxLength(fields []MaxLengthRule, errs *[]string) float32 {
 	if len(*errs) > 0 {
 		return 2
 	} else {
-		return 0000
+		return base.Successfully
 	}
 }

@@ -49,7 +49,7 @@ func (h *Request) Validate() (float32, []string) {
 func validate(req *Request, errs *[]string) float32 {
 
 	//Rule 1 => Required
-	ruleId := validation.Required([]validation.RequiredRule{
+	ruleId := validation.Required(&[]validation.RequiredRule{
 		{FieldName: "RefId", Value: req.RefId},
 		{FieldName: "TransDate", Value: req.TransDate},
 		{FieldName: "TransTime", Value: req.TransTime},
@@ -69,7 +69,7 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 2 => MaxLength
-	ruleId = validation.MaxLength([]validation.MaxLengthRule{
+	ruleId = validation.MaxLength(&[]validation.MaxLengthRule{
 		{FieldName: "RefId", Value: req.RefId, Length: 15},
 		{FieldName: "TransDate", Value: req.TransDate, Length: 8},
 		{FieldName: "TransTime", Value: req.TransTime, Length: 8},
@@ -92,7 +92,7 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 2.1 => Digit length => .2
-	ruleId = validation.DigitLength([]validation.DigitLengthRule{
+	ruleId = validation.DigitLength(&[]validation.DigitLengthRule{
 		{FieldName: "FeeOutwardAmount", Value: req.Detail.FeeOutwardAmount},
 		{FieldName: "FeeComAmount", Value: req.Detail.FeeComAmount},
 		{FieldName: "ExchangeRate", Value: req.Detail.ExchangeRate},
@@ -102,7 +102,7 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 2.2 => MinValue
-	ruleId = validation.MinValue([]validation.MinValueRule{
+	ruleId = validation.MinValue(&[]validation.MinValueRule{
 		{FieldName: "ExchangeRate", Min: 0, Value: req.Detail.ExchangeRate},
 	}, errs)
 	if len(*errs) > 0 {
@@ -110,7 +110,7 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 4 => Fix value
-	ruleId = validation.FixValue([]validation.FixValueRule{
+	ruleId = validation.FixValue(&[]validation.FixValueRule{
 		{FieldName: "Channel", Value: req.Detail.Channel,
 			Conditions: []string{"Branch", "Online-Corporate", "Online-NEXT", "OWRM", "IWRM"}},
 		{FieldName: "Product", Value: req.Detail.Product,
@@ -131,7 +131,7 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 5.1 => YYYYMMDD
-	ruleId = validation.YYYYMMDD([]validation.DateTimeRule{
+	ruleId = validation.YYYYMMDD(&[]validation.DateTimeRule{
 		{FieldName: "TransDate", Value: req.TransDate},
 		{FieldName: "EffectiveDate", Value: req.Detail.EffectiveDate},
 	}, errs)
@@ -140,7 +140,7 @@ func validate(req *Request, errs *[]string) float32 {
 	}
 
 	//Rule 5.2 => YYYYMMDD
-	ruleId = validation.HHMMSS([]validation.DateTimeRule{
+	ruleId = validation.HHMMSS(&[]validation.DateTimeRule{
 		{FieldName: "TransTime", Value: req.TransTime},
 	}, errs)
 	if len(*errs) > 0 {
