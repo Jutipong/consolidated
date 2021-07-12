@@ -1,8 +1,8 @@
 package service
 
 import (
-	"consolidated/features/outwardfee/model"
-	"consolidated/features/outwardfee/repository"
+	"consolidated/feature/outwardfee/model"
+	"consolidated/feature/outwardfee/repository"
 )
 
 var _inwardFee = repository.OutwardFee{}

@@ -1,6 +1,6 @@
 package repository
 
-import "consolidated/features/outwardfee/model"
+import "consolidated/feature/outwardfee/model"
 
 type OutwardFee struct{}
 
