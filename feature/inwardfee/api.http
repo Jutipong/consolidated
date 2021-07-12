@@ -1,6 +1,6 @@
 ### test fail
-POST   http://localhost:8080/api/fee/inward/v1/iwrm HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjI3ODEyfQ.P5BQd8JqHlNuB5ZwN_UHTWF5_VNGrZxc4dBwnR0ACGk
+POST   http://localhost:8080/fee/inward/v1/iwrm HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MDgxNzIzfQ.zab4EQ3PkHLfQrUMr1I56mY_3geS3kjbdn2RBPTsXaQ
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### test data all
-POST  http://localhost:8080/api/v1/inwardfee HTTP/1.1
+POST  http://localhost:8080/fee/inward/v1/iwrm HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlN5c3RlbUlkXCI6XCJTMDAwMVwiLFwiRW1wQ29kZVwiOlwiRTAwMDFcIixcIlVzZXJcIjpcIlUwMDAxXCIsXCJQZXJtaXNzaW9uc1wiOlwiQWRtaW5cIixcIlRyYW5zYXRpb25JZFwiOlwiXCJ9IiwiZXhwIjoxNjI1MjM1NDc2fQ.PG6k4zxV2r6MatUcdtp_gk9Y9u4ulrkWwdGID3rXPaM
 Content-Type: application/json
 

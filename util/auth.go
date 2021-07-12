@@ -5,7 +5,6 @@ import (
 	"consolidated/config"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -20,17 +19,6 @@ type UserLogin struct {
 type UserRequest struct {
 	UserId   string
 	UserName string
-}
-
-//## No Logger File
-func JwtGenerate(payload UserRequest) string {
-	atClaims := jwt.MapClaims{}
-	atClaims[base.UserRequest] = JsonSerialize(payload)
-	atClaims["exp"] = time.Now().Add(time.Hour * 1).Unix()
-	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	token, _ := at.SignedString([]byte(config.Server().SecretKey))
-	// token, _ := at.SignedString([]byte(config.Config.Server.SecretKey))
-	return token
 }
 
 func JwtVerify(c *gin.Context) {

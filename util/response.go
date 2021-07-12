@@ -3,6 +3,7 @@ package util
 import (
 	"consolidated/base"
 	"net/http"
+	"unicode/utf8"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +20,7 @@ func JsonResponse(c *gin.Context, code float32, message string, payload interfac
 	res.Code = _rule["Code"]
 	res.Datas = payload
 
-	if len(message) == 0 {
+	if utf8.RuneCountInString(message) == 0 {
 		res.Message = _rule["Message"]
 	} else {
 		res.Message = message

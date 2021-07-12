@@ -2,7 +2,6 @@ package config
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
@@ -44,16 +43,16 @@ func SetupLogger() {
 }
 
 func LogInfo(payload interface{}) {
-	log.Println(payload)
+	// log.Println(payload)
 	logFile.Info(payload)
 }
 
 func LogWarn(payload interface{}) {
-	log.Println(payload)
+	// log.Println(payload)
 	logFile.Warn(payload)
 }
 
 func LogError(payload interface{}) {
-	log.Println(payload)
+	// log.Println(payload)
 	logFile.Error(payload)
 }
