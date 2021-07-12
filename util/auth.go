@@ -52,7 +52,6 @@ func JwtVerify(c *gin.Context) {
 
 func GetUserRequest(ctx *gin.Context) UserRequest {
 	str := ctx.GetString(base.UserRequest)
-
 	var userRequest UserRequest
 	JsonDeserialize(str, &userRequest)
 	return userRequest
