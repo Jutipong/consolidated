@@ -1,5 +1,7 @@
 package validation
 
+import "consolidated/base"
+
 type MinValueRule struct {
 	FieldName string
 	Value     float64
@@ -7,8 +9,8 @@ type MinValueRule struct {
 }
 
 //## Validate Rule = 2.2
-func MinValue(fields []MinValueRule, errs *[]string) float32 {
-	for _, f := range fields {
+func MinValue(fields *[]MinValueRule, errs *[]string) float32 {
+	for _, f := range *fields {
 		if f.Value <= float64(f.Min) {
 			*errs = append(*errs, f.FieldName)
 		}
@@ -17,6 +19,6 @@ func MinValue(fields []MinValueRule, errs *[]string) float32 {
 	if len(*errs) > 0 {
 		return 2.2
 	} else {
-		return 0000
+		return base.Successfully
 	}
 }

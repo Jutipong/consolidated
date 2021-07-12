@@ -1,6 +1,9 @@
 package validation
 
-import "time"
+import (
+	"consolidated/base"
+	"time"
+)
 
 type DateTimeRule struct {
 	FieldName string
@@ -8,8 +11,8 @@ type DateTimeRule struct {
 }
 
 //## Validate Rule = 5.1
-func YYYYMMDD(fields []DateTimeRule, errs *[]string) float32 {
-	for _, f := range fields {
+func YYYYMMDD(fields *[]DateTimeRule, errs *[]string) float32 {
+	for _, f := range *fields {
 		_, err := time.Parse("20060102", f.Value)
 		if err != nil {
 			*errs = append(*errs, f.FieldName)
@@ -19,6 +22,22 @@ func YYYYMMDD(fields []DateTimeRule, errs *[]string) float32 {
 	if len(*errs) > 0 {
 		return 5.1
 	} else {
-		return 0000
+		return base.Successfully
+	}
+}
+
+//## Validate Rule = 5.2
+func HHMMSS(fields *[]DateTimeRule, errs *[]string) float32 {
+	for _, f := range *fields {
+		_, err := time.Parse("15:04:05", f.Value)
+		if err != nil {
+			*errs = append(*errs, f.FieldName)
+		}
+	}
+
+	if len(*errs) > 0 {
+		return 5.2
+	} else {
+		return base.Successfully
 	}
 }
