@@ -22,6 +22,6 @@ func main() {
 	r := gin.Default()
 	r.Use(util.LoggerFile())
 	r.Use(gin.Recovery())
-	apiInitial(r)
+	api(r)
 	r.Run(":" + config.Server().Port)
 }
