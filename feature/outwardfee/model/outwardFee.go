@@ -5,7 +5,6 @@ import (
 	"consolidated/validation"
 )
 
-//## Request Model
 type Request struct {
 	ChannelID string    `json:"channelID"`
 	RefId     string    `json:"refId"`
@@ -39,7 +38,7 @@ type Response struct {
 	FeeCCY      string  `json:"feeCCY"`
 	FeeCategory string  `json:"feeCategory"`
 	FeeRefID    string  `json:"feeRefID"`
-}
+} //@name Outward.Response
 
 func (h *Request) Validate() (float32, []string) {
 	var errs []string

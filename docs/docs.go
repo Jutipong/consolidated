@@ -57,13 +57,13 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/util.Response"
+                                    "$ref": "#/definitions/Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/model.Response"
+                                            "$ref": "#/definitions/Inward.Response"
                                         }
                                     }
                                 }
@@ -106,13 +106,13 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/util.Response"
+                                    "$ref": "#/definitions/Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/model.Response"
+                                            "$ref": "#/definitions/Inward.Response"
                                         }
                                     }
                                 }
@@ -155,13 +155,13 @@ var doc = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/util.Response"
+                                    "$ref": "#/definitions/Response"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/model.Response"
+                                            "$ref": "#/definitions/Inward.Response"
                                         }
                                     }
                                 }
@@ -199,6 +199,40 @@ var doc = `{
         }
     },
     "definitions": {
+        "Inward.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response": {
+            "type": "object",
+            "properties": {
+                "responseCode": {
+                    "type": "string"
+                },
+                "responseDesc": {
+                    "type": "string"
+                },
+                "responseDetail": {
+                    "type": "object"
+                }
+            }
+        },
         "model.ReqDetail": {
             "type": "object",
             "properties": {
@@ -218,6 +252,9 @@ var doc = `{
                     "type": "string"
                 },
                 "cifNo": {
+                    "type": "string"
+                },
+                "depositWithdraw": {
                     "type": "string"
                 },
                 "effectiveDate": {
@@ -269,40 +306,6 @@ var doc = `{
                 },
                 "transTime": {
                     "type": "string"
-                }
-            }
-        },
-        "model.Response": {
-            "type": "object",
-            "properties": {
-                "feeAmount": {
-                    "type": "number"
-                },
-                "feeCCY": {
-                    "type": "string"
-                },
-                "feeCategory": {
-                    "type": "string"
-                },
-                "feeRefID": {
-                    "type": "string"
-                },
-                "feeType": {
-                    "type": "string"
-                }
-            }
-        },
-        "util.Response": {
-            "type": "object",
-            "properties": {
-                "responseCode": {
-                    "type": "string"
-                },
-                "responseDesc": {
-                    "type": "string"
-                },
-                "responseDetail": {
-                    "type": "object"
                 }
             }
         }

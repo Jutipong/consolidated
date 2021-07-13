@@ -1,4 +1,26 @@
 definitions:
+  Inward.Response:
+    properties:
+      feeAmount:
+        type: number
+      feeCCY:
+        type: string
+      feeCategory:
+        type: string
+      feeRefID:
+        type: string
+      feeType:
+        type: string
+    type: object
+  Response:
+    properties:
+      responseCode:
+        type: string
+      responseDesc:
+        type: string
+      responseDetail:
+        type: object
+    type: object
   model.ReqDetail:
     properties:
       accountNo:
@@ -12,6 +34,8 @@ definitions:
       chargeType:
         type: string
       cifNo:
+        type: string
+      depositWithdraw:
         type: string
       effectiveDate:
         type: string
@@ -47,28 +71,6 @@ definitions:
       transTime:
         type: string
     type: object
-  model.Response:
-    properties:
-      feeAmount:
-        type: number
-      feeCCY:
-        type: string
-      feeCategory:
-        type: string
-      feeRefID:
-        type: string
-      feeType:
-        type: string
-    type: object
-  util.Response:
-    properties:
-      responseCode:
-        type: string
-      responseDesc:
-        type: string
-      responseDetail:
-        type: object
-    type: object
 info:
   contact: {}
   description: (◍•ᴗ•◍)❤
@@ -93,10 +95,10 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/util.Response'
+            - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/model.Response'
+                  $ref: '#/definitions/Inward.Response'
               type: object
       security:
       - ApiKeyAuth: []
@@ -120,10 +122,10 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/util.Response'
+            - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/model.Response'
+                  $ref: '#/definitions/Inward.Response'
               type: object
       security:
       - ApiKeyAuth: []
@@ -147,10 +149,10 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/util.Response'
+            - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/model.Response'
+                  $ref: '#/definitions/Inward.Response'
               type: object
       security:
       - ApiKeyAuth: []

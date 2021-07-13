@@ -40,17 +40,7 @@ type Response struct {
 	FeeCCY      string  `json:"feeCCY"`
 	FeeCategory string  `json:"feeCategory"`
 	FeeRefID    string  `json:"feeRefID"`
-}
-
-
-type TestResponse struct {
-	FeeType     string  `json:"feeType"`
-	FeeAmount   float64 `json:"feeAmount"`
-	FeeCCY      string  `json:"feeCCY"`
-	FeeCategory string  `json:"feeCategory"`
-	FeeRefID    string  `json:"feeRefID"`
-}//@name Responsexx
-
+} //@name Inward.Response
 
 func (h *Request) Validate() (float32, []string) {
 	var errs []string

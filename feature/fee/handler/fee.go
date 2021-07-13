@@ -27,7 +27,7 @@ func (u *FeeHandler) Fee(c *gin.Context) {
 		if code, errs := req.Validate(); errs != nil {
 			util.JsonResponse(c, code, "", errs)
 		} else {
-			util.JsonResponse(c, code, "", util.JsonResponse)
+			util.JsonResponse(c, code, "", model.Response{})
 		}
 	}
 }

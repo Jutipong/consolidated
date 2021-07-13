@@ -35,7 +35,7 @@ type Response struct {
 	Amount        float64 `json:"amount"`
 	CCY           string  `json:"ccy"`
 	ProRefID      string  `json:"proRefID"`
-} //@name res
+} //@name Fee.Response
 
 func (h *Request) Validate() (float32, []string) {
 	var errs []string
