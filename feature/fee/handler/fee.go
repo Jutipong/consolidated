@@ -11,6 +11,13 @@ import (
 
 type FeeHandler struct{}
 
+// Fee godoc
+// @Tags Fee
+// @Accept  json
+// @Produce  json
+// @Param account body model.Request true "Fee"
+// @Success 200 {object} util.Response
+// @Router /fee/v1/promotioncode [post]
 func (u *FeeHandler) Fee(c *gin.Context) {
 	var req model.Request
 	if err := c.ShouldBind(&req); err != nil {

@@ -12,6 +12,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Login godoc
+// @Security BasicAuth
+// @Tags Authentication
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} string	"Token"
+// @Router /login [get]
 func Login(c *gin.Context) {
 	var userRequest util.UserRequest
 	var errs []string
@@ -21,7 +28,7 @@ func Login(c *gin.Context) {
 		util.JsonResponse(c, code, "", errs)
 	} else {
 		token := jwtGenerate(&userRequest)
-		c.JSON(http.StatusOK, gin.H{"token": token})
+		c.JSON(http.StatusOK, token)
 	}
 }
 

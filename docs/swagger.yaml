@@ -1,9 +1,102 @@
+definitions:
+  model.ReqDetail:
+    properties:
+      accountNo:
+        type: string
+      amountFrom:
+        type: number
+      amountTo:
+        type: number
+      benCountry:
+        type: string
+      chargeType:
+        type: string
+      cifNo:
+        type: string
+      effectiveDate:
+        type: string
+      exchangeRate:
+        type: number
+      feeChannel:
+        type: string
+      feeType:
+        type: string
+      fromCCY:
+        type: string
+      orderingType:
+        type: string
+      purpose:
+        type: string
+      searchPayInFull:
+        type: string
+      toCCY:
+        type: string
+      transactionType:
+        type: string
+    type: object
+  model.Request:
+    properties:
+      channelID:
+        type: string
+      refId:
+        type: string
+      reqDetail:
+        $ref: '#/definitions/model.ReqDetail'
+      transDate:
+        type: string
+      transTime:
+        type: string
+    type: object
+  util.Response:
+    properties:
+      responseCode:
+        type: string
+      responseDesc:
+        type: string
+      responseDetail:
+        type: object
+    type: object
 info:
   contact: {}
   description: This is a sample server celler server.
   title: Swagger Example API
   version: "1.0"
-paths: {}
+paths:
+  /fee/v1/promotioncode:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Fee
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Response'
+      tags:
+      - Fee
+  /login:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token
+          schema:
+            type: string
+      security:
+      - BasicAuth: []
+      tags:
+      - Authentication
 securityDefinitions:
   ApiKeyAuth:
     in: header

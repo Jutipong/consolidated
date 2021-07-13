@@ -6,7 +6,155 @@
         "contact": {},
         "version": "1.0"
     },
-    "paths": {},
+    "paths": {
+        "/fee/v1/promotioncode": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fee"
+                ],
+                "parameters": [
+                    {
+                        "description": "Fee",
+                        "name": "account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/util.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.ReqDetail": {
+            "type": "object",
+            "properties": {
+                "accountNo": {
+                    "type": "string"
+                },
+                "amountFrom": {
+                    "type": "number"
+                },
+                "amountTo": {
+                    "type": "number"
+                },
+                "benCountry": {
+                    "type": "string"
+                },
+                "chargeType": {
+                    "type": "string"
+                },
+                "cifNo": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "exchangeRate": {
+                    "type": "number"
+                },
+                "feeChannel": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                },
+                "fromCCY": {
+                    "type": "string"
+                },
+                "orderingType": {
+                    "type": "string"
+                },
+                "purpose": {
+                    "type": "string"
+                },
+                "searchPayInFull": {
+                    "type": "string"
+                },
+                "toCCY": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Request": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/model.ReqDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "util.Response": {
+            "type": "object",
+            "properties": {
+                "responseCode": {
+                    "type": "string"
+                },
+                "responseDesc": {
+                    "type": "string"
+                },
+                "responseDetail": {
+                    "type": "object"
+                }
+            }
+        }
+    },
     "securityDefinitions": {
         "ApiKeyAuth": {
             "type": "apiKey",
