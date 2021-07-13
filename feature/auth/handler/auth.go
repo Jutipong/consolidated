@@ -25,7 +25,7 @@ func Login(c *gin.Context) {
 
 	code := service.Login(c, &userRequest, &errs)
 	if code != base.Successfully {
-		util.JsonResponse(c, code, "", errs)
+		util.JsonResult(c, code, "", errs)
 	} else {
 		token := jwtGenerate(&userRequest)
 		c.JSON(http.StatusOK, token)
