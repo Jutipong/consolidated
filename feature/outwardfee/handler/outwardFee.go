@@ -17,7 +17,7 @@ type OutwardHandler struct{}
 // @Accept  json
 // @Produce  json
 // @Param model body model.Request true "Request"
-// @Success 200 {object} util.Response
+// @Success 200 {object} util.Response{responseDetail=model.Response}
 // @Router /fee/outward/v1/branch [post]
 func (u *OutwardHandler) Branch(c *gin.Context) {
 	var req model.Request
@@ -27,7 +27,7 @@ func (u *OutwardHandler) Branch(c *gin.Context) {
 		if code, errs := req.Validate(); errs != nil {
 			util.JsonResponse(c, code, "", errs)
 		} else {
-			util.JsonResponse(c, code, "", req)
+			util.JsonResponse(c, code, "", util.JsonResponse)
 		}
 	}
 }

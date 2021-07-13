@@ -1,20 +1,13 @@
 definitions:
-  model.Request:
+  model.ReqDetail:
     properties:
-      refId:
+      accountNo:
         type: string
-      reqDetail:
-        $ref: '#/definitions/model.RequestDetail'
-      transDate:
-        type: string
-      transTime:
-        type: string
-    type: object
-  model.RequestDetail:
-    properties:
-      FeeComAmount:
+      amountFrom:
         type: number
-      channel:
+      amountTo:
+        type: number
+      benCountry:
         type: string
       chargeType:
         type: string
@@ -24,19 +17,47 @@ definitions:
         type: string
       exchangeRate:
         type: number
-      feeOutwardAmount:
-        type: number
+      feeChannel:
+        type: string
+      feeType:
+        type: string
       fromCCY:
         type: string
       orderingType:
         type: string
-      product:
+      purpose:
         type: string
-      promotionCode:
-        type: string
-      sof:
+      searchPayInFull:
         type: string
       toCCY:
+        type: string
+      transactionType:
+        type: string
+    type: object
+  model.Request:
+    properties:
+      channelID:
+        type: string
+      refId:
+        type: string
+      reqDetail:
+        $ref: '#/definitions/model.ReqDetail'
+      transDate:
+        type: string
+      transTime:
+        type: string
+    type: object
+  model.Response:
+    properties:
+      feeAmount:
+        type: number
+      feeCCY:
+        type: string
+      feeCategory:
+        type: string
+      feeRefID:
+        type: string
+      feeType:
         type: string
     type: object
   util.Response:
@@ -71,7 +92,12 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/util.Response'
+            allOf:
+            - $ref: '#/definitions/util.Response'
+            - properties:
+                responseDetail:
+                  $ref: '#/definitions/model.Response'
+              type: object
       security:
       - ApiKeyAuth: []
       tags:
@@ -93,7 +119,12 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/util.Response'
+            allOf:
+            - $ref: '#/definitions/util.Response'
+            - properties:
+                responseDetail:
+                  $ref: '#/definitions/model.Response'
+              type: object
       security:
       - ApiKeyAuth: []
       tags:
@@ -115,7 +146,12 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/util.Response'
+            allOf:
+            - $ref: '#/definitions/util.Response'
+            - properties:
+                responseDetail:
+                  $ref: '#/definitions/model.Response'
+              type: object
       security:
       - ApiKeyAuth: []
       tags:

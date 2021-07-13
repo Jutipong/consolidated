@@ -42,6 +42,16 @@ type Response struct {
 	FeeRefID    string  `json:"feeRefID"`
 }
 
+
+type TestResponse struct {
+	FeeType     string  `json:"feeType"`
+	FeeAmount   float64 `json:"feeAmount"`
+	FeeCCY      string  `json:"feeCCY"`
+	FeeCategory string  `json:"feeCategory"`
+	FeeRefID    string  `json:"feeRefID"`
+}//@name Responsexx
+
+
 func (h *Request) Validate() (float32, []string) {
 	var errs []string
 	ruleId := validate(h, &errs)

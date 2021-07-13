@@ -55,7 +55,19 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/util.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/util.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "responseDetail": {
+                                            "$ref": "#/definitions/model.Response"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -92,7 +104,19 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/util.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/util.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "responseDetail": {
+                                            "$ref": "#/definitions/model.Response"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -129,7 +153,19 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/util.Response"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/util.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "responseDetail": {
+                                            "$ref": "#/definitions/model.Response"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -163,30 +199,19 @@ var doc = `{
         }
     },
     "definitions": {
-        "model.Request": {
+        "model.ReqDetail": {
             "type": "object",
             "properties": {
-                "refId": {
+                "accountNo": {
                     "type": "string"
                 },
-                "reqDetail": {
-                    "$ref": "#/definitions/model.RequestDetail"
-                },
-                "transDate": {
-                    "type": "string"
-                },
-                "transTime": {
-                    "type": "string"
-                }
-            }
-        },
-        "model.RequestDetail": {
-            "type": "object",
-            "properties": {
-                "FeeComAmount": {
+                "amountFrom": {
                     "type": "number"
                 },
-                "channel": {
+                "amountTo": {
+                    "type": "number"
+                },
+                "benCountry": {
                     "type": "string"
                 },
                 "chargeType": {
@@ -201,8 +226,11 @@ var doc = `{
                 "exchangeRate": {
                     "type": "number"
                 },
-                "feeOutwardAmount": {
-                    "type": "number"
+                "feeChannel": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
                 },
                 "fromCCY": {
                     "type": "string"
@@ -210,16 +238,56 @@ var doc = `{
                 "orderingType": {
                     "type": "string"
                 },
-                "product": {
+                "purpose": {
                     "type": "string"
                 },
-                "promotionCode": {
-                    "type": "string"
-                },
-                "sof": {
+                "searchPayInFull": {
                     "type": "string"
                 },
                 "toCCY": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Request": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/model.ReqDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
                     "type": "string"
                 }
             }

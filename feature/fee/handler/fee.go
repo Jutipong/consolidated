@@ -17,7 +17,7 @@ type FeeHandler struct{}
 // @Accept  json
 // @Produce  json
 // @Param model body model.Request true "Request"
-// @Success 200 {object} util.Response
+// @Success 200 {object} util.Response{responseDetail=model.Response}
 // @Router /fee/v1/promotioncode [post]
 func (u *FeeHandler) Fee(c *gin.Context) {
 	var req model.Request
@@ -27,7 +27,7 @@ func (u *FeeHandler) Fee(c *gin.Context) {
 		if code, errs := req.Validate(); errs != nil {
 			util.JsonResponse(c, code, "", errs)
 		} else {
-			util.JsonResponse(c, code, "", req)
+			util.JsonResponse(c, code, "", util.JsonResponse)
 		}
 	}
 }
