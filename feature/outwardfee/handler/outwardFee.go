@@ -11,6 +11,14 @@ import (
 
 type OutwardHandler struct{}
 
+// Branch godoc
+// @Security ApiKeyAuth
+// @Tags Branch
+// @Accept  json
+// @Produce  json
+// @Param model body model.Request true "Request"
+// @Success 200 {object} util.Response
+// @Router /fee/outward/v1/branch [post]
 func (u *OutwardHandler) Branch(c *gin.Context) {
 	var req model.Request
 	if err := c.ShouldBind(&req); err != nil {

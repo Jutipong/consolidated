@@ -76,6 +76,28 @@ paths:
       - ApiKeyAuth: []
       tags:
       - InwardFee
+  /fee/outward/v1/branch:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Response'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Branch
   /fee/v1/promotioncode:
     post:
       consumes:
