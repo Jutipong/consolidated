@@ -1,14 +1,56 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample server celler server.",
-        "title": "Swagger Example API",
+        "description": "(◍•ᴗ•◍)❤",
+        "title": "Consolidated API",
         "contact": {},
         "version": "1.0"
     },
     "paths": {
+        "/fee/inward/v1/iwrm": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InwardFee"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/util.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/fee/v1/promotioncode": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -20,8 +62,8 @@
                 ],
                 "parameters": [
                     {
-                        "description": "Fee",
-                        "name": "account",
+                        "description": "Request",
+                        "name": "model",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -67,19 +109,30 @@
         }
     },
     "definitions": {
-        "model.ReqDetail": {
+        "model.Request": {
             "type": "object",
             "properties": {
-                "accountNo": {
+                "refId": {
                     "type": "string"
                 },
-                "amountFrom": {
+                "reqDetail": {
+                    "$ref": "#/definitions/model.RequestDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.RequestDetail": {
+            "type": "object",
+            "properties": {
+                "FeeComAmount": {
                     "type": "number"
                 },
-                "amountTo": {
-                    "type": "number"
-                },
-                "benCountry": {
+                "channel": {
                     "type": "string"
                 },
                 "chargeType": {
@@ -94,11 +147,8 @@
                 "exchangeRate": {
                     "type": "number"
                 },
-                "feeChannel": {
-                    "type": "string"
-                },
-                "feeType": {
-                    "type": "string"
+                "feeOutwardAmount": {
+                    "type": "number"
                 },
                 "fromCCY": {
                     "type": "string"
@@ -106,36 +156,16 @@
                 "orderingType": {
                     "type": "string"
                 },
-                "purpose": {
+                "product": {
                     "type": "string"
                 },
-                "searchPayInFull": {
+                "promotionCode": {
+                    "type": "string"
+                },
+                "sof": {
                     "type": "string"
                 },
                 "toCCY": {
-                    "type": "string"
-                },
-                "transactionType": {
-                    "type": "string"
-                }
-            }
-        },
-        "model.Request": {
-            "type": "object",
-            "properties": {
-                "channelID": {
-                    "type": "string"
-                },
-                "refId": {
-                    "type": "string"
-                },
-                "reqDetail": {
-                    "$ref": "#/definitions/model.ReqDetail"
-                },
-                "transDate": {
-                    "type": "string"
-                },
-                "transTime": {
                     "type": "string"
                 }
             }
@@ -159,7 +189,7 @@
         "ApiKeyAuth": {
             "type": "apiKey",
             "name": "Authorization",
-            "in": "header"
+            "in": "Bearer token"
         },
         "BasicAuth": {
             "type": "basic"

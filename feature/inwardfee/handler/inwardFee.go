@@ -11,6 +11,14 @@ import (
 
 type InwardHandler struct{}
 
+// Iwrm godoc
+// @Security ApiKeyAuth
+// @Tags InwardFee
+// @Accept  json
+// @Produce  json
+// @Param model body model.Request true "Request"
+// @Success 200 {object} util.Response
+// @Router /fee/inward/v1/iwrm [post]
 func (u *InwardHandler) InwardFee(c *gin.Context) {
 	var req model.Request
 	if err := c.ShouldBind(&req); err != nil {

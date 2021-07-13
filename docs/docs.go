@@ -24,8 +24,50 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/fee/inward/v1/iwrm": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InwardFee"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/util.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/fee/v1/promotioncode": {
             "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
                 "consumes": [
                     "application/json"
                 ],
@@ -37,8 +79,8 @@ var doc = `{
                 ],
                 "parameters": [
                     {
-                        "description": "Fee",
-                        "name": "account",
+                        "description": "Request",
+                        "name": "model",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -84,19 +126,30 @@ var doc = `{
         }
     },
     "definitions": {
-        "model.ReqDetail": {
+        "model.Request": {
             "type": "object",
             "properties": {
-                "accountNo": {
+                "refId": {
                     "type": "string"
                 },
-                "amountFrom": {
+                "reqDetail": {
+                    "$ref": "#/definitions/model.RequestDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.RequestDetail": {
+            "type": "object",
+            "properties": {
+                "FeeComAmount": {
                     "type": "number"
                 },
-                "amountTo": {
-                    "type": "number"
-                },
-                "benCountry": {
+                "channel": {
                     "type": "string"
                 },
                 "chargeType": {
@@ -111,11 +164,8 @@ var doc = `{
                 "exchangeRate": {
                     "type": "number"
                 },
-                "feeChannel": {
-                    "type": "string"
-                },
-                "feeType": {
-                    "type": "string"
+                "feeOutwardAmount": {
+                    "type": "number"
                 },
                 "fromCCY": {
                     "type": "string"
@@ -123,36 +173,16 @@ var doc = `{
                 "orderingType": {
                     "type": "string"
                 },
-                "purpose": {
+                "product": {
                     "type": "string"
                 },
-                "searchPayInFull": {
+                "promotionCode": {
+                    "type": "string"
+                },
+                "sof": {
                     "type": "string"
                 },
                 "toCCY": {
-                    "type": "string"
-                },
-                "transactionType": {
-                    "type": "string"
-                }
-            }
-        },
-        "model.Request": {
-            "type": "object",
-            "properties": {
-                "channelID": {
-                    "type": "string"
-                },
-                "refId": {
-                    "type": "string"
-                },
-                "reqDetail": {
-                    "$ref": "#/definitions/model.ReqDetail"
-                },
-                "transDate": {
-                    "type": "string"
-                },
-                "transTime": {
                     "type": "string"
                 }
             }
@@ -176,7 +206,7 @@ var doc = `{
         "ApiKeyAuth": {
             "type": "apiKey",
             "name": "Authorization",
-            "in": "header"
+            "in": "Bearer token"
         },
         "BasicAuth": {
             "type": "basic"
@@ -199,8 +229,8 @@ var SwaggerInfo = swaggerInfo{
 	Host:        "",
 	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "Swagger Example API",
-	Description: "This is a sample server celler server.",
+	Title:       "Consolidated API",
+	Description: "(◍•ᴗ•◍)❤",
 }
 
 type s struct{}

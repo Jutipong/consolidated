@@ -20,14 +20,14 @@ func init() {
 }
 
 
-// @title Swagger Example API
+// @title Consolidated API
 // @version 1.0
-// @description This is a sample server celler server.
+// @description (◍•ᴗ•◍)❤
 
 // @securityDefinitions.basic BasicAuth
 
 // @securityDefinitions.apikey ApiKeyAuth
-// @in header
+// @in Bearer token
 // @name Authorization
 func main() {
 	r := gin.Default()

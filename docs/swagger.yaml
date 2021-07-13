@@ -1,13 +1,20 @@
 definitions:
-  model.ReqDetail:
+  model.Request:
     properties:
-      accountNo:
+      refId:
         type: string
-      amountFrom:
+      reqDetail:
+        $ref: '#/definitions/model.RequestDetail'
+      transDate:
+        type: string
+      transTime:
+        type: string
+    type: object
+  model.RequestDetail:
+    properties:
+      FeeComAmount:
         type: number
-      amountTo:
-        type: number
-      benCountry:
+      channel:
         type: string
       chargeType:
         type: string
@@ -17,34 +24,19 @@ definitions:
         type: string
       exchangeRate:
         type: number
-      feeChannel:
-        type: string
-      feeType:
-        type: string
+      feeOutwardAmount:
+        type: number
       fromCCY:
         type: string
       orderingType:
         type: string
-      purpose:
+      product:
         type: string
-      searchPayInFull:
+      promotionCode:
+        type: string
+      sof:
         type: string
       toCCY:
-        type: string
-      transactionType:
-        type: string
-    type: object
-  model.Request:
-    properties:
-      channelID:
-        type: string
-      refId:
-        type: string
-      reqDetail:
-        $ref: '#/definitions/model.ReqDetail'
-      transDate:
-        type: string
-      transTime:
         type: string
     type: object
   util.Response:
@@ -58,18 +50,18 @@ definitions:
     type: object
 info:
   contact: {}
-  description: This is a sample server celler server.
-  title: Swagger Example API
+  description: (◍•ᴗ•◍)❤
+  title: Consolidated API
   version: "1.0"
 paths:
-  /fee/v1/promotioncode:
+  /fee/inward/v1/iwrm:
     post:
       consumes:
       - application/json
       parameters:
-      - description: Fee
+      - description: Request
         in: body
-        name: account
+        name: model
         required: true
         schema:
           $ref: '#/definitions/model.Request'
@@ -80,6 +72,30 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/util.Response'
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - InwardFee
+  /fee/v1/promotioncode:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/util.Response'
+      security:
+      - ApiKeyAuth: []
       tags:
       - Fee
   /login:
@@ -99,7 +115,7 @@ paths:
       - Authentication
 securityDefinitions:
   ApiKeyAuth:
-    in: header
+    in: Bearer token
     name: Authorization
     type: apiKey
   BasicAuth:

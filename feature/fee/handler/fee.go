@@ -12,10 +12,11 @@ import (
 type FeeHandler struct{}
 
 // Fee godoc
+// @Security ApiKeyAuth
 // @Tags Fee
 // @Accept  json
 // @Produce  json
-// @Param account body model.Request true "Fee"
+// @Param model body model.Request true "Request"
 // @Success 200 {object} util.Response
 // @Router /fee/v1/promotioncode [post]
 func (u *FeeHandler) Fee(c *gin.Context) {
