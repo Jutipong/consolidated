@@ -6,6 +6,7 @@ import (
 	"consolidated/util"
 
 	"github.com/gin-gonic/gin"
+	_ "consolidated/docs"
 )
 
 //GIN_MODE=debug
@@ -18,6 +19,16 @@ func init() {
 	base.InitMasterRule()
 }
 
+
+// @title Swagger Example API
+// @version 1.0
+// @description This is a sample server celler server.
+
+// @securityDefinitions.basic BasicAuth
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	r := gin.Default()
 	r.Use(util.LoggerFile())
