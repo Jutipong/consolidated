@@ -8,7 +8,7 @@ import (
 )
 
 type IRepository interface {
-	Inquiry(req *model.Request) error
+	Inquiry(req *model.Request) ([]model.Response, error)
 }
 
 type repository struct {
@@ -19,6 +19,7 @@ func NewRepository(db *gorm.DB) IRepository {
 	return repository{db: db}
 }
 
-func (f repository) Inquiry(req *model.Request) error {
-	return errors.New("Inquiry")
+func (f repository) Inquiry(req *model.Request) ([]model.Response, error) {
+	var result []model.Response
+	return result, errors.New("Inquiry")
 }
