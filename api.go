@@ -2,7 +2,7 @@ package main
 
 import (
 	"consolidated/feature/auth"
-	free "consolidated/feature/fee"
+	free "consolidated/domain/fee"
 	inwardfree "consolidated/feature/inwardfee"
 	outwardfree "consolidated/feature/outwardfee"
 

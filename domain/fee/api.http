@@ -1,6 +1,6 @@
 ### test fail
 POST   http://localhost:8080/fee/inward/v1/iwrm HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MTE1NjYxfQ.hKaHIthpq5ejhqDVa2jy_AcmdxZQrkW1gghj4Nv1ByY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2Mjg5MjcyfQ.wSGuPrevy6LOFAa_pLIQhFspI32jHdoJoM8mKkjOvt8
 Content-Type: application/json
 
 {
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### test data all
 POST  http://localhost:8080/fee/v1/promotioncode HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MTE0ODY0fQ.Jvo64b7CCqFOo_nc_sFCEJV7Zr63BlZ-mCxIxidTbow
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2Mjg5MjcyfQ.wSGuPrevy6LOFAa_pLIQhFspI32jHdoJoM8mKkjOvt8
 Content-Type: application/json
 
 {
