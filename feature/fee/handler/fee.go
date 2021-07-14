@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"consolidated/feature/fee/model"
+	"consolidated/domain/fee/model"
 
 	"consolidated/util"
 	"net/http"
@@ -24,8 +24,8 @@ func (u *FeeHandler) Fee(c *gin.Context) {
 	if err := c.ShouldBind(&req); err != nil {
 		util.JsonResult(c, http.StatusBadRequest, "", err.Error())
 	} else {
-		if code, errs := req.Validate(); errs != nil {
-			util.JsonResult(c, code, "", errs)
+		if code, err := req.Validate(); err != nil {
+			util.JsonResult(c, code, "", err)
 		} else {
 			util.JsonResult(c, code, "", model.Response{})
 		}
