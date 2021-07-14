@@ -12,9 +12,9 @@ type Response struct {
 	Code    string      `json:"responseCode"`
 	Message string      `json:"responseDesc"`
 	Datas   interface{} `json:"responseDetail"`
-}
+} //@name Response
 
-func JsonResponse(c *gin.Context, code float32, message string, payload interface{}) {
+func JsonResult(c *gin.Context, code float32, message string, payload interface{}) {
 	var res Response
 	_rule := base.GetRule(code)
 	res.Code = _rule["Code"]

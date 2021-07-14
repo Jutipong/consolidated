@@ -25,7 +25,7 @@ func JwtVerify(c *gin.Context) {
 	const BEARER_SCHEMA = base.Bearer
 	authHeader := c.GetHeader(base.Authorization)
 	if len(authHeader) == 0 {
-		JsonResponse(c, http.StatusBadRequest, "authorization is empty", nil)
+		JsonResult(c, http.StatusBadRequest, "authorization is empty", nil)
 		c.Abort()
 		return
 	}
@@ -44,7 +44,7 @@ func JwtVerify(c *gin.Context) {
 		c.Next()
 
 	} else {
-		JsonResponse(c, http.StatusUnauthorized, err.Error(), nil)
+		JsonResult(c, http.StatusUnauthorized, err.Error(), nil)
 		c.Abort()
 		return
 	}

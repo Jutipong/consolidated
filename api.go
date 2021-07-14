@@ -7,6 +7,9 @@ import (
 	outwardfree "consolidated/feature/outwardfee"
 
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func api(r *gin.Engine) {
@@ -26,4 +29,6 @@ func api(r *gin.Engine) {
 	//## Fee
 	_fee := free.FeeAPI{}
 	_fee.Setup(r)
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

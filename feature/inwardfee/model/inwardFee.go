@@ -40,7 +40,7 @@ type Response struct {
 	FeeCCY      string  `json:"feeCCY"`
 	FeeCategory string  `json:"feeCategory"`
 	FeeRefID    string  `json:"feeRefID"`
-}
+} //@name Inward.Response
 
 func (h *Request) Validate() (float32, []string) {
 	var errs []string

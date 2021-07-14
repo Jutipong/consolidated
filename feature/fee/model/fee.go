@@ -5,15 +5,16 @@ import (
 	"consolidated/validation"
 )
 
-//## Request Model
+//@name Request
 type Request struct {
-	RefId     string    `json:"refId"`
-	TransDate string    `json:"transDate"`
-	TransTime string    `json:"transTime"`
-	Detail    ReqDetail `json:"reqDetail"`
+	RefId     string        `json:"refId"`
+	TransDate string        `json:"transDate"`
+	TransTime string        `json:"transTime"`
+	Detail    RequestDetail `json:"reqDetail"`
 }
 
-type ReqDetail struct {
+//@name Detail
+type RequestDetail struct {
 	PromotionCode    string  `json:"promotionCode"`
 	CifNo            string  `json:"cifNo"`
 	Channel          string  `json:"channel"`
@@ -34,7 +35,7 @@ type Response struct {
 	Amount        float64 `json:"amount"`
 	CCY           string  `json:"ccy"`
 	ProRefID      string  `json:"proRefID"`
-}
+} //@name Fee.Response
 
 func (h *Request) Validate() (float32, []string) {
 	var errs []string
