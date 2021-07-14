@@ -1,0 +1,181 @@
+definitions:
+  Outward.Response:
+    properties:
+      feeAmount:
+        type: number
+      feeCCY:
+        type: string
+      feeCategory:
+        type: string
+      feeRefID:
+        type: string
+      feeType:
+        type: string
+    type: object
+  Response:
+    properties:
+      responseCode:
+        type: string
+      responseDesc:
+        type: string
+      responseDetail:
+        type: object
+    type: object
+  model.ReqDetail:
+    properties:
+      accountNo:
+        type: string
+      amountFrom:
+        type: number
+      amountTo:
+        type: number
+      benCountry:
+        type: string
+      chargeType:
+        type: string
+      cifNo:
+        type: string
+      effectiveDate:
+        type: string
+      exchangeRate:
+        type: number
+      feeChannel:
+        type: string
+      feeType:
+        type: string
+      fromCCY:
+        type: string
+      orderingType:
+        type: string
+      purpose:
+        type: string
+      searchPayInFull:
+        type: string
+      toCCY:
+        type: string
+      transactionType:
+        type: string
+    type: object
+  model.Request:
+    properties:
+      channelID:
+        type: string
+      refId:
+        type: string
+      reqDetail:
+        $ref: '#/definitions/model.ReqDetail'
+      transDate:
+        type: string
+      transTime:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: (◍•ᴗ•◍)❤
+  title: Consolidated API
+  version: "1.0"
+paths:
+  /fee/inward/v1/iwrm:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                responseDetail:
+                  $ref: '#/definitions/Outward.Response'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - InwardFee
+  /fee/outward/v1/branch:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                responseDetail:
+                  $ref: '#/definitions/Outward.Response'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Branch
+  /fee/v1/promotioncode:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Request
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/model.Request'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/Response'
+            - properties:
+                responseDetail:
+                  $ref: '#/definitions/Outward.Response'
+              type: object
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Fee
+  /login:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token
+          schema:
+            type: string
+      security:
+      - BasicAuth: []
+      tags:
+      - Authentication
+securityDefinitions:
+  ApiKeyAuth:
+    in: Bearer token
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+swagger: "2.0"

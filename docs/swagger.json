@@ -1,0 +1,303 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "(◍•ᴗ•◍)❤",
+        "title": "Consolidated API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/fee/inward/v1/iwrm": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "InwardFee"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "responseDetail": {
+                                            "$ref": "#/definitions/Outward.Response"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/fee/outward/v1/branch": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branch"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "responseDetail": {
+                                            "$ref": "#/definitions/Outward.Response"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/fee/v1/promotioncode": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Fee"
+                ],
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Request"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "responseDetail": {
+                                            "$ref": "#/definitions/Outward.Response"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Outward.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                }
+            }
+        },
+        "Response": {
+            "type": "object",
+            "properties": {
+                "responseCode": {
+                    "type": "string"
+                },
+                "responseDesc": {
+                    "type": "string"
+                },
+                "responseDetail": {
+                    "type": "object"
+                }
+            }
+        },
+        "model.ReqDetail": {
+            "type": "object",
+            "properties": {
+                "accountNo": {
+                    "type": "string"
+                },
+                "amountFrom": {
+                    "type": "number"
+                },
+                "amountTo": {
+                    "type": "number"
+                },
+                "benCountry": {
+                    "type": "string"
+                },
+                "chargeType": {
+                    "type": "string"
+                },
+                "cifNo": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "exchangeRate": {
+                    "type": "number"
+                },
+                "feeChannel": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                },
+                "fromCCY": {
+                    "type": "string"
+                },
+                "orderingType": {
+                    "type": "string"
+                },
+                "purpose": {
+                    "type": "string"
+                },
+                "searchPayInFull": {
+                    "type": "string"
+                },
+                "toCCY": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.Request": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/model.ReqDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "Bearer token"
+        },
+        "BasicAuth": {
+            "type": "basic"
+        }
+    }
+}

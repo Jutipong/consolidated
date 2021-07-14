@@ -9,39 +9,32 @@ import (
 
 var DB *gorm.DB
 
-func SetupDatabase() string {
+func InitialDB() {
 	configDb := getConfigDb()
-	db, err := gorm.Open(sqlserver.Open(configDb), &gorm.Config{})
+	db, err := gorm.Open(sqlserver.Open(configDb+"&parseTime=True"), &gorm.Config{})
 	if err != nil {
-		return fmt.Sprintf("fail to connect to database config: %s error: %v", configDb, err.Error())
+		panic(err)
 	}
 	DB = db
-
-	//Auto Migrate
-	// db.Table("User").AutoMigrate(&User{})
-
-	// defer DB.Close()
-	return ""
 }
 
 func getConfigDb() string {
-
-	if Config.Databaseconfig.Port > 0 {
+	if config.Database.Port > 0 {
 		return fmt.Sprintf(
 			"sqlserver://%s:%s@%s:%d?database=%s",
-			Config.Databaseconfig.User,
-			Config.Databaseconfig.Pass,
-			Config.Databaseconfig.Server,
-			Config.Databaseconfig.Port,
-			Config.Databaseconfig.DatabaseName,
+			config.Database.User,
+			config.Database.Pass,
+			config.Database.Server,
+			config.Database.Port,
+			config.Database.DatabaseName,
 		)
 	} else {
 		return fmt.Sprintf(
 			"sqlserver://%s:%s@%s?database=%s",
-			Config.Databaseconfig.User,
-			Config.Databaseconfig.Pass,
-			Config.Databaseconfig.Server,
-			Config.Databaseconfig.DatabaseName,
+			config.Database.User,
+			config.Database.Pass,
+			config.Database.Server,
+			config.Database.DatabaseName,
 		)
 	}
 }

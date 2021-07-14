@@ -1,0 +1,55 @@
+### test fail
+POST   http://localhost:8080/fee/inward/v1/iwrm HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MTE1NjYxfQ.hKaHIthpq5ejhqDVa2jy_AcmdxZQrkW1gghj4Nv1ByY
+Content-Type: application/json
+
+{
+    "refId": "xxx1234",
+    "transDate": "20210324",
+    "transTime": "09:45:37",
+    "reqDetail": {
+        "accountNo": "",
+        "cifNo": "",
+        "feeChannel": "SWIFT",
+        "transactionType": "FCD",
+        "chargeType": "BEN",
+        "orderingType": "corp",
+        "searchPayInFull": "N",
+        "benCountry": "",
+        "purpose": "",
+        "fromCCY": "USD",
+        "toCCY": "USD",
+        "amountFrom": 100,
+        "amountTo": 300,
+        "exchangeRate": 33,
+        "effectiveDate": "20210324"
+    }
+}
+
+### test data all
+POST  http://localhost:8080/fee/v1/promotioncode HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyUmVxdWVzdCI6IntcIlVzZXJJZFwiOlwiSU5XQVJEXCIsXCJVc2VyTmFtZVwiOlwiSU5XQVJEXCJ9IiwiZXhwIjoxNjI2MTE0ODY0fQ.Jvo64b7CCqFOo_nc_sFCEJV7Zr63BlZ-mCxIxidTbow
+Content-Type: application/json
+
+{
+    "refId": "xxx1234",
+    "transDate": "20210324",
+    "transTime": "09:45:37",
+    "reqDetail": {
+        "accountNo": "",
+        "cifNo": "",
+        "feeChannel": "SWIFT",
+        "transactionType": "FCD",
+        "chargeType": "BEN",
+        "orderingType": "corp",
+        "searchPayInFull": "N",
+        "benCountry": "",
+        "purpose": "",
+        "fromCCY": "USD",
+        "toCCY": "USD",
+        "amountFrom": 100,
+        "amountTo": 300,
+        "exchangeRate": 33,
+        "effectiveDate": "20210324"
+    }
+}

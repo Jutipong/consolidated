@@ -1,9 +1,0 @@
-### Login 
-POST http://localhost:8080/api/login HTTP/1.1
-Authorization: Basic admin:
-# Content-Type: application/json
-
-# {
-#     "Username": "admin",
-#     "Password" : "1234"
-# }
