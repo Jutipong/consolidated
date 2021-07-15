@@ -63,7 +63,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Outward.Response"
+                                            "$ref": "#/definitions/Inward.Response"
                                         }
                                     }
                                 }
@@ -112,7 +112,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Outward.Response"
+                                            "$ref": "#/definitions/Inward.Response"
                                         }
                                     }
                                 }
@@ -161,7 +161,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Outward.Response"
+                                            "$ref": "#/definitions/Inward.Response"
                                         }
                                     }
                                 }
@@ -199,7 +199,7 @@ var doc = `{
         }
     },
     "definitions": {
-        "Outward.Response": {
+        "Inward.Response": {
             "type": "object",
             "properties": {
                 "feeAmount": {
@@ -252,6 +252,9 @@ var doc = `{
                     "type": "string"
                 },
                 "cifNo": {
+                    "type": "string"
+                },
+                "depositWithdraw": {
                     "type": "string"
                 },
                 "effectiveDate": {

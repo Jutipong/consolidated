@@ -1,5 +1,5 @@
 definitions:
-  Outward.Response:
+  Inward.Response:
     properties:
       feeAmount:
         type: number
@@ -34,6 +34,8 @@ definitions:
       chargeType:
         type: string
       cifNo:
+        type: string
+      depositWithdraw:
         type: string
       effectiveDate:
         type: string
@@ -96,7 +98,7 @@ paths:
             - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/Outward.Response'
+                  $ref: '#/definitions/Inward.Response'
               type: object
       security:
       - ApiKeyAuth: []
@@ -123,7 +125,7 @@ paths:
             - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/Outward.Response'
+                  $ref: '#/definitions/Inward.Response'
               type: object
       security:
       - ApiKeyAuth: []
@@ -150,7 +152,7 @@ paths:
             - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/Outward.Response'
+                  $ref: '#/definitions/Inward.Response'
               type: object
       security:
       - ApiKeyAuth: []

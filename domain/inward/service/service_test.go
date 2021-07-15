@@ -10,14 +10,14 @@ import (
 	"testing"
 )
 
-func Test_PromotionCode(t *testing.T) {
+func Test_Iwrm(t *testing.T) {
 	config.InitTimeZone()
 	base.InitMasterRule()
 	repositoryMock := repository.NewRepositoryMock()
 	service := NewService(repositoryMock)
 
 	req := model.Request{}
-	_, code, _ := service.InwardFee(&req)
+	_, code, _ := service.Iwrm(&req)
 
 	if code != base.Successfully {
 		_rult := base.GetRule(code)
