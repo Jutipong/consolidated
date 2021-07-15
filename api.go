@@ -1,10 +1,10 @@
 package main
 
 import (
-	free "consolidated/domain/fee"
+	"consolidated/domain/auth"
+	"consolidated/domain/fee"
 	"consolidated/domain/inward"
 	"consolidated/domain/outward"
-	"consolidated/feature/auth"
 
 	"github.com/gin-gonic/gin"
 
@@ -27,7 +27,7 @@ func api(r *gin.Engine) {
 	_outwardFee.Setup(r)
 
 	//## Fee
-	_fee := free.FeeAPI{}
+	_fee := fee.FeeAPI{}
 	_fee.Setup(r)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

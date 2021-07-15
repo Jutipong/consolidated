@@ -1,7 +1,10 @@
 package outward
 
 import (
-	"consolidated/feature/outwardfee/handler"
+	"consolidated/config"
+	"consolidated/domain/outward/handler"
+	"consolidated/domain/outward/repository"
+	"consolidated/domain/outward/service"
 	"consolidated/util"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +15,9 @@ type OutwardAPI struct{}
 func (u *OutwardAPI) Setup(r *gin.Engine) {
 	g := r.Group("/fee/outward/v1/")
 	{
-		_user := handler.OutwardHandler{}
-		g.POST("branch", util.JwtVerify, _user.Branch)
+		repository := repository.NewRepository(config.DB)
+		service := service.NewService(repository)
+		handler := handler.NewHandler(service)
+		g.POST("branch", util.JwtVerify, handler.Branch)
 	}
 }

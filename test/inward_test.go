@@ -1,23 +1,24 @@
-package service
+package test
 
 import (
 	"consolidated/base"
 	"consolidated/config"
-	"consolidated/domain/fee/model"
-	"consolidated/domain/fee/repository"
+	"consolidated/domain/inward/model"
+	"consolidated/domain/inward/repository"
+	"consolidated/domain/inward/service"
 	"consolidated/util"
 	"fmt"
 	"testing"
 )
 
-func Test_PromotionCode(t *testing.T) {
+func Test_Iwrm(t *testing.T) {
 	config.InitTimeZone()
 	base.InitMasterRule()
 	repositoryMock := repository.NewRepositoryMock()
-	service := NewService(repositoryMock)
+	service := service.NewService(repositoryMock)
 
 	req := model.Request{}
-	_, code, _ := service.PromotionCode(&req)
+	_, code, _ := service.Iwrm(&req)
 
 	if code != base.Successfully {
 		_rult := base.GetRule(code)

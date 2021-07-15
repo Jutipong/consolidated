@@ -1,4 +1,4 @@
-package inwardfree
+package fee
 
 import (
 	"consolidated/config"

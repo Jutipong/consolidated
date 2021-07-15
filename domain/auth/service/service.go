@@ -2,7 +2,7 @@ package service
 
 import (
 	"consolidated/base"
-	"consolidated/feature/auth/repository"
+	"consolidated/domain/auth/repository"
 	"consolidated/util"
 	"encoding/base64"
 	"strings"

@@ -3,7 +3,7 @@ package handler
 import (
 	"consolidated/base"
 	"consolidated/config"
-	"consolidated/feature/auth/service"
+	"consolidated/domain/auth/service"
 	"consolidated/util"
 	"net/http"
 	"time"

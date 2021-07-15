@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"consolidated/feature/auth/handler"
+	"consolidated/domain/auth/handler"
 
 	"github.com/gin-gonic/gin"
 )
