@@ -3,8 +3,8 @@ package main
 import (
 	free "consolidated/domain/fee"
 	"consolidated/domain/inward"
+	"consolidated/domain/outward"
 	"consolidated/feature/auth"
-	outwardfree "consolidated/feature/outwardfee"
 
 	"github.com/gin-gonic/gin"
 
@@ -19,11 +19,11 @@ func api(r *gin.Engine) {
 	_authApi.Setup(r)
 
 	//## InwardFee
-	_inwardFee := inward.InwardFeeAPI{}
+	_inwardFee := inward.InwardAPI{}
 	_inwardFee.Setup(r)
 
 	//## OutwardFee
-	_outwardFee := outwardfree.OutwardFeeAPI{}
+	_outwardFee := outward.OutwardAPI{}
 	_outwardFee.Setup(r)
 
 	//## Fee

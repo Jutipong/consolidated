@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"consolidated/domain/inward/model"
+	"consolidated/domain/outward/model"
 	"errors"
 
 	"gorm.io/gorm"
@@ -16,10 +16,10 @@ type repository struct {
 }
 
 func NewRepository(db *gorm.DB) IRepository {
-	return repository{db: db}
+	return &repository{db: db}
 }
 
-func (r repository) Inquiry(req *model.Request) ([]model.Response, error) {
+func (r *repository) Inquiry(req *model.Request) ([]model.Response, error) {
 	var res []model.Response
 	return res, errors.New("Inquiry")
 }

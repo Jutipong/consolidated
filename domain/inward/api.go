@@ -10,9 +10,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type InwardFeeAPI struct{}
+type InwardAPI struct{}
 
-func (u *InwardFeeAPI) Setup(r *gin.Engine) {
+func (u *InwardAPI) Setup(r *gin.Engine) {
 	g := r.Group("fee/inward/v1/")
 	{
 		repository := repository.NewRepository(config.DB)

@@ -47,7 +47,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Request"
+                            "$ref": "#/definitions/consolidated_feature_inwardfee_model.Request"
                         }
                     }
                 ],
@@ -63,7 +63,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Inward.Response"
+                                            "$ref": "#/definitions/consolidated_feature_inwardfee_model.Response"
                                         }
                                     }
                                 }
@@ -96,7 +96,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Request"
+                            "$ref": "#/definitions/consolidated_domain_outward_model.Request"
                         }
                     }
                 ],
@@ -112,7 +112,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Inward.Response"
+                                            "$ref": "#/definitions/consolidated_domain_outward_model.Response"
                                         }
                                     }
                                 }
@@ -145,7 +145,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.Request"
+                            "$ref": "#/definitions/consolidated_domain_fee_model.Request"
                         }
                     }
                 ],
@@ -161,7 +161,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Inward.Response"
+                                            "$ref": "#/definitions/Fee.Response"
                                         }
                                     }
                                 }
@@ -199,22 +199,19 @@ var doc = `{
         }
     },
     "definitions": {
-        "Inward.Response": {
+        "Fee.Response": {
             "type": "object",
             "properties": {
-                "feeAmount": {
+                "amount": {
                     "type": "number"
                 },
-                "feeCCY": {
+                "ccy": {
                     "type": "string"
                 },
-                "feeCategory": {
+                "proRefID": {
                     "type": "string"
                 },
-                "feeRefID": {
-                    "type": "string"
-                },
-                "feeType": {
+                "promotionType": {
                     "type": "string"
                 }
             }
@@ -233,7 +230,24 @@ var doc = `{
                 }
             }
         },
-        "model.ReqDetail": {
+        "consolidated_domain_fee_model.Request": {
+            "type": "object",
+            "properties": {
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/model.RequestDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_domain_inward_model.ReqDetail": {
             "type": "object",
             "properties": {
                 "accountNo": {
@@ -289,7 +303,7 @@ var doc = `{
                 }
             }
         },
-        "model.Request": {
+        "consolidated_domain_inward_model.Request": {
             "type": "object",
             "properties": {
                 "channelID": {
@@ -299,12 +313,358 @@ var doc = `{
                     "type": "string"
                 },
                 "reqDetail": {
-                    "$ref": "#/definitions/model.ReqDetail"
+                    "$ref": "#/definitions/consolidated_domain_inward_model.ReqDetail"
                 },
                 "transDate": {
                     "type": "string"
                 },
                 "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_domain_inward_model.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_domain_outward_model.ReqDetail": {
+            "type": "object",
+            "properties": {
+                "accountNo": {
+                    "type": "string"
+                },
+                "amountFrom": {
+                    "type": "number"
+                },
+                "amountTo": {
+                    "type": "number"
+                },
+                "benCountry": {
+                    "type": "string"
+                },
+                "chargeType": {
+                    "type": "string"
+                },
+                "cifNo": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "exchangeRate": {
+                    "type": "number"
+                },
+                "feeChannel": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                },
+                "fromCCY": {
+                    "type": "string"
+                },
+                "orderingType": {
+                    "type": "string"
+                },
+                "purpose": {
+                    "type": "string"
+                },
+                "searchPayInFull": {
+                    "type": "string"
+                },
+                "toCCY": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_domain_outward_model.Request": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/consolidated_domain_outward_model.ReqDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_domain_outward_model.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_feature_inwardfee_model.ReqDetail": {
+            "type": "object",
+            "properties": {
+                "accountNo": {
+                    "type": "string"
+                },
+                "amountFrom": {
+                    "type": "number"
+                },
+                "amountTo": {
+                    "type": "number"
+                },
+                "benCountry": {
+                    "type": "string"
+                },
+                "chargeType": {
+                    "type": "string"
+                },
+                "cifNo": {
+                    "type": "string"
+                },
+                "depositWithdraw": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "exchangeRate": {
+                    "type": "number"
+                },
+                "feeChannel": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                },
+                "fromCCY": {
+                    "type": "string"
+                },
+                "orderingType": {
+                    "type": "string"
+                },
+                "purpose": {
+                    "type": "string"
+                },
+                "searchPayInFull": {
+                    "type": "string"
+                },
+                "toCCY": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_feature_inwardfee_model.Request": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/consolidated_feature_inwardfee_model.ReqDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_feature_inwardfee_model.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_feature_outwardfee_model.ReqDetail": {
+            "type": "object",
+            "properties": {
+                "accountNo": {
+                    "type": "string"
+                },
+                "amountFrom": {
+                    "type": "number"
+                },
+                "amountTo": {
+                    "type": "number"
+                },
+                "benCountry": {
+                    "type": "string"
+                },
+                "chargeType": {
+                    "type": "string"
+                },
+                "cifNo": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "exchangeRate": {
+                    "type": "number"
+                },
+                "feeChannel": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                },
+                "fromCCY": {
+                    "type": "string"
+                },
+                "orderingType": {
+                    "type": "string"
+                },
+                "purpose": {
+                    "type": "string"
+                },
+                "searchPayInFull": {
+                    "type": "string"
+                },
+                "toCCY": {
+                    "type": "string"
+                },
+                "transactionType": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_feature_outwardfee_model.Request": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "refId": {
+                    "type": "string"
+                },
+                "reqDetail": {
+                    "$ref": "#/definitions/consolidated_feature_outwardfee_model.ReqDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "consolidated_feature_outwardfee_model.Response": {
+            "type": "object",
+            "properties": {
+                "feeAmount": {
+                    "type": "number"
+                },
+                "feeCCY": {
+                    "type": "string"
+                },
+                "feeCategory": {
+                    "type": "string"
+                },
+                "feeRefID": {
+                    "type": "string"
+                },
+                "feeType": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.RequestDetail": {
+            "type": "object",
+            "properties": {
+                "FeeComAmount": {
+                    "type": "number"
+                },
+                "channel": {
+                    "type": "string"
+                },
+                "chargeType": {
+                    "type": "string"
+                },
+                "cifNo": {
+                    "type": "string"
+                },
+                "effectiveDate": {
+                    "type": "string"
+                },
+                "exchangeRate": {
+                    "type": "number"
+                },
+                "feeOutwardAmount": {
+                    "type": "number"
+                },
+                "fromCCY": {
+                    "type": "string"
+                },
+                "orderingType": {
+                    "type": "string"
+                },
+                "product": {
+                    "type": "string"
+                },
+                "promotionCode": {
+                    "type": "string"
+                },
+                "sof": {
+                    "type": "string"
+                },
+                "toCCY": {
                     "type": "string"
                 }
             }
