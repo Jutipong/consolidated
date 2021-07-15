@@ -5,8 +5,10 @@ import (
 	"consolidated/config"
 	"consolidated/util"
 
-	"github.com/gin-gonic/gin"
 	_ "consolidated/docs"
+
+	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 )
 
 //GIN_MODE=debug
@@ -19,7 +21,6 @@ func init() {
 	base.InitMasterRule()
 }
 
-
 // @title Consolidated API
 // @version 1.0
 // @description (◍•ᴗ•◍)❤
@@ -31,6 +32,7 @@ func init() {
 // @name Authorization
 func main() {
 	r := gin.Default()
+	r.Use(cors.Default())
 	r.Use(util.LoggerFile())
 	r.Use(gin.Recovery())
 	api(r)
