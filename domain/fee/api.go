@@ -13,7 +13,7 @@ import (
 type FeeAPI struct{}
 
 func (u *FeeAPI) Setup(r *gin.Engine) {
-	repository := repository.NewRepository(config.DB)
+	repository := repository.NewRepository(config.Db())
 	service := service.NewService(repository)
 	handler := handler.NewHandler(service)
 	g := r.Group("fee/v1/")

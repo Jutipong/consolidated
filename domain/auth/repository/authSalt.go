@@ -13,7 +13,7 @@ type AuthSalt struct {
 }
 
 func (salt *AuthSalt) FindById() (err error) {
-	if err := config.DB.Table("auth_salt").Where("ID=?", salt.ID).First(salt).Error; err != nil {
+	if err := config.Db().Table("auth_salt").Where("ID=?", salt.ID).First(salt).Error; err != nil {
 		return err
 	}
 	return err

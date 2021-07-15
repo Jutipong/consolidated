@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+var _db *gorm.DB
 
 func InitialDB() {
 	configDb := getConfigDb()
@@ -15,7 +15,7 @@ func InitialDB() {
 	if err != nil {
 		panic(err)
 	}
-	DB = db
+	_db = db
 }
 
 func getConfigDb() string {
@@ -37,4 +37,8 @@ func getConfigDb() string {
 			config.Database.DatabaseName,
 		)
 	}
+}
+
+func Db() *gorm.DB {
+	return _db
 }

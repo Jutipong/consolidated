@@ -14,7 +14,7 @@ type AuthUser struct {
 }
 
 func (auth *AuthUser) FindByUserName() (err error) {
-	if err := config.DB.Table("auth_user").Where("Username = ?", auth.Username).First(&auth).Error; err != nil {
+	if err := config.Db().Table("auth_user").Where("Username = ?", auth.Username).First(&auth).Error; err != nil {
 		return err
 	}
 	return nil
