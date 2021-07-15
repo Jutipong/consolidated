@@ -8,8 +8,16 @@ type repositoryMock struct {
 
 func NewRepositoryMock() IRepository {
 	dataMock := []model.Response{
-		{ProRefID: "ProRefID: 1", PromotionType: "PromotionType : 1", Amount: 1111, CCY: "CCY : 1"},
-		{ProRefID: "ProRefID: 2", PromotionType: "PromotionType : 2", Amount: 2222, CCY: "CCY : 2"},
+		{
+			ProRefID:      "ProRefID: 1",
+			PromotionType: "PromotionType : 1",
+			Amount:        1111,
+			CCY:           "CCY : 1"},
+		{
+			ProRefID:      "ProRefID: 2",
+			PromotionType: "PromotionType : 2",
+			Amount:        2222,
+			CCY:           "CCY : 2"},
 	}
 	return repositoryMock{dataMock: dataMock}
 }

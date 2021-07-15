@@ -2,12 +2,12 @@ package service
 
 import (
 	"consolidated/base"
-	"consolidated/domain/fee/model"
-	"consolidated/domain/fee/repository"
+	"consolidated/domain/inward/model"
+	"consolidated/domain/inward/repository"
 )
 
 type IService interface {
-	PromotionCode(req *model.Request) ([]model.Response, float32, []string)
+	InwardFee(req *model.Request) ([]model.Response, float32, []string)
 }
 
 type service struct {
@@ -18,7 +18,7 @@ func NewService(repo repository.IRepository) IService {
 	return service{repo: repo}
 }
 
-func (s service) PromotionCode(req *model.Request) (result []model.Response, code float32, errs []string) {
+func (s service) InwardFee(req *model.Request) (result []model.Response, code float32, errs []string) {
 	code, errs = req.Validate()
 	if code != base.Successfully {
 		return result, code, errs
