@@ -63,7 +63,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Outward.Response"
+                                            "$ref": "#/definitions/Fee.Response"
                                         }
                                     }
                                 }
@@ -112,7 +112,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Outward.Response"
+                                            "$ref": "#/definitions/Fee.Response"
                                         }
                                     }
                                 }
@@ -161,7 +161,7 @@ var doc = `{
                                     "type": "object",
                                     "properties": {
                                         "responseDetail": {
-                                            "$ref": "#/definitions/Outward.Response"
+                                            "$ref": "#/definitions/Fee.Response"
                                         }
                                     }
                                 }
@@ -199,22 +199,19 @@ var doc = `{
         }
     },
     "definitions": {
-        "Outward.Response": {
+        "Fee.Response": {
             "type": "object",
             "properties": {
-                "feeAmount": {
+                "amount": {
                     "type": "number"
                 },
-                "feeCCY": {
+                "ccy": {
                     "type": "string"
                 },
-                "feeCategory": {
+                "proRefID": {
                     "type": "string"
                 },
-                "feeRefID": {
-                    "type": "string"
-                },
-                "feeType": {
+                "promotionType": {
                     "type": "string"
                 }
             }
@@ -233,19 +230,30 @@ var doc = `{
                 }
             }
         },
-        "model.ReqDetail": {
+        "model.Request": {
             "type": "object",
             "properties": {
-                "accountNo": {
+                "refId": {
                     "type": "string"
                 },
-                "amountFrom": {
+                "reqDetail": {
+                    "$ref": "#/definitions/model.RequestDetail"
+                },
+                "transDate": {
+                    "type": "string"
+                },
+                "transTime": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.RequestDetail": {
+            "type": "object",
+            "properties": {
+                "FeeComAmount": {
                     "type": "number"
                 },
-                "amountTo": {
-                    "type": "number"
-                },
-                "benCountry": {
+                "channel": {
                     "type": "string"
                 },
                 "chargeType": {
@@ -260,11 +268,8 @@ var doc = `{
                 "exchangeRate": {
                     "type": "number"
                 },
-                "feeChannel": {
-                    "type": "string"
-                },
-                "feeType": {
-                    "type": "string"
+                "feeOutwardAmount": {
+                    "type": "number"
                 },
                 "fromCCY": {
                     "type": "string"
@@ -272,36 +277,16 @@ var doc = `{
                 "orderingType": {
                     "type": "string"
                 },
-                "purpose": {
+                "product": {
                     "type": "string"
                 },
-                "searchPayInFull": {
+                "promotionCode": {
+                    "type": "string"
+                },
+                "sof": {
                     "type": "string"
                 },
                 "toCCY": {
-                    "type": "string"
-                },
-                "transactionType": {
-                    "type": "string"
-                }
-            }
-        },
-        "model.Request": {
-            "type": "object",
-            "properties": {
-                "channelID": {
-                    "type": "string"
-                },
-                "refId": {
-                    "type": "string"
-                },
-                "reqDetail": {
-                    "$ref": "#/definitions/model.ReqDetail"
-                },
-                "transDate": {
-                    "type": "string"
-                },
-                "transTime": {
                     "type": "string"
                 }
             }

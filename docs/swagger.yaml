@@ -1,15 +1,13 @@
 definitions:
-  Outward.Response:
+  Fee.Response:
     properties:
-      feeAmount:
+      amount:
         type: number
-      feeCCY:
+      ccy:
         type: string
-      feeCategory:
+      proRefID:
         type: string
-      feeRefID:
-        type: string
-      feeType:
+      promotionType:
         type: string
     type: object
   Response:
@@ -21,15 +19,22 @@ definitions:
       responseDetail:
         type: object
     type: object
-  model.ReqDetail:
+  model.Request:
     properties:
-      accountNo:
+      refId:
         type: string
-      amountFrom:
+      reqDetail:
+        $ref: '#/definitions/model.RequestDetail'
+      transDate:
+        type: string
+      transTime:
+        type: string
+    type: object
+  model.RequestDetail:
+    properties:
+      FeeComAmount:
         type: number
-      amountTo:
-        type: number
-      benCountry:
+      channel:
         type: string
       chargeType:
         type: string
@@ -39,34 +44,19 @@ definitions:
         type: string
       exchangeRate:
         type: number
-      feeChannel:
-        type: string
-      feeType:
-        type: string
+      feeOutwardAmount:
+        type: number
       fromCCY:
         type: string
       orderingType:
         type: string
-      purpose:
+      product:
         type: string
-      searchPayInFull:
+      promotionCode:
+        type: string
+      sof:
         type: string
       toCCY:
-        type: string
-      transactionType:
-        type: string
-    type: object
-  model.Request:
-    properties:
-      channelID:
-        type: string
-      refId:
-        type: string
-      reqDetail:
-        $ref: '#/definitions/model.ReqDetail'
-      transDate:
-        type: string
-      transTime:
         type: string
     type: object
 info:
@@ -96,7 +86,7 @@ paths:
             - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/Outward.Response'
+                  $ref: '#/definitions/Fee.Response'
               type: object
       security:
       - ApiKeyAuth: []
@@ -123,7 +113,7 @@ paths:
             - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/Outward.Response'
+                  $ref: '#/definitions/Fee.Response'
               type: object
       security:
       - ApiKeyAuth: []
@@ -150,7 +140,7 @@ paths:
             - $ref: '#/definitions/Response'
             - properties:
                 responseDetail:
-                  $ref: '#/definitions/Outward.Response'
+                  $ref: '#/definitions/Fee.Response'
               type: object
       security:
       - ApiKeyAuth: []
