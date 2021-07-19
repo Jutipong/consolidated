@@ -16,7 +16,6 @@ func Test_Iwrm(t *testing.T) {
 	base.InitMasterRule()
 	repositoryMock := repository.NewRepositoryMock()
 	service := service.NewService(repositoryMock)
-
 	req := model.Request{}
 	_, code, _ := service.Iwrm(&req)
 	assert.NotNil(t, code)
