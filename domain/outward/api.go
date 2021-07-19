@@ -15,7 +15,7 @@ type OutwardAPI struct{}
 func (u *OutwardAPI) Setup(r *gin.Engine) {
 	g := r.Group("/fee/outward/v1/")
 	{
-		repository := repository.NewRepository(config.DB)
+		repository := repository.NewRepository(config.Db())
 		service := service.NewService(repository)
 		handler := handler.NewHandler(service)
 		g.POST("branch", util.JwtVerify, handler.Branch)

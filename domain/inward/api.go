@@ -15,7 +15,7 @@ type InwardAPI struct{}
 func (u *InwardAPI) Setup(r *gin.Engine) {
 	g := r.Group("fee/inward/v1/")
 	{
-		repository := repository.NewRepository(config.DB)
+		repository := repository.NewRepository(config.Db())
 		service := service.NewService(repository)
 		handler := handler.NewHandler(service)
 
