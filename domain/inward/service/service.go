@@ -15,10 +15,10 @@ type service struct {
 }
 
 func NewService(repo repository.IRepository) IService {
-	return service{repo: repo}
+	return &service{repo: repo}
 }
 
-func (s service) Iwrm(req *model.Request) (result []model.Response, code float32, errs []string) {
+func (s *service) Iwrm(req *model.Request) (result []model.Response, code float32, errs []string) {
 	code, errs = req.Validate()
 	if code != base.Successfully {
 		return result, code, errs

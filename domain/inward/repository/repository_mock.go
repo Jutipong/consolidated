@@ -23,9 +23,9 @@ func NewRepositoryMock() IRepository {
 			FeeRefID:    "FeeRefID 2222",
 		},
 	}
-	return repositoryMock{dataMock: dataMock}
+	return &repositoryMock{dataMock: dataMock}
 }
 
-func (mc repositoryMock) Inquiry(req *model.Request) ([]model.Response, error) {
+func (mc *repositoryMock) Inquiry(req *model.Request) ([]model.Response, error) {
 	return mc.dataMock, nil
 }
