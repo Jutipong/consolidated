@@ -16,10 +16,10 @@ type repository struct {
 }
 
 func NewRepository(db *gorm.DB) IRepository {
-	return repository{db: db}
+	return &repository{db: db}
 }
 
-func (f repository) Inquiry(req *model.Request) ([]model.Response, error) {
+func (f *repository) Inquiry(req *model.Request) ([]model.Response, error) {
 	var result []model.Response
 	return result, errors.New("Inquiry")
 }

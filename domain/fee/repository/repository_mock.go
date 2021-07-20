@@ -19,9 +19,9 @@ func NewRepositoryMock() IRepository {
 			Amount:        2222,
 			CCY:           "CCY : 2"},
 	}
-	return repositoryMock{dataMock: dataMock}
+	return &repositoryMock{dataMock: dataMock}
 }
 
-func (mc repositoryMock) Inquiry(req *model.Request) ([]model.Response, error) {
+func (mc *repositoryMock) Inquiry(req *model.Request) ([]model.Response, error) {
 	return mc.dataMock, nil
 }
