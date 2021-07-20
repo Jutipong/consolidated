@@ -25,7 +25,7 @@ func (s service) PromotionCode(req *model.Request) (result []model.Response, cod
 	}
 
 	result, err := s.repo.Inquiry(req)
-	if errs != nil {
+	if err != nil {
 		errs = append(errs, err.Error())
 		return result, base.DataNotFound, errs
 	}
