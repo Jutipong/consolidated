@@ -5,8 +5,7 @@ import (
 	"consolidated/domain/fee"
 	"consolidated/domain/inward"
 	"consolidated/domain/outward"
-
-	"github.com/gin-gonic/gin"
+"github.com/gin-gonic/gin"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
